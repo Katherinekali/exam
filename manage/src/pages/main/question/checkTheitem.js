@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "dva";
 
 import styles from "./checkTitem.scss";
-import { Row, Col, Tag, Select, Button, TreeSelect, Form } from 'antd';
+import { Row, Col, Tag, Select, Button, Form } from 'antd';
 
 const { Option } = Select;
 const { CheckableTag } = Tag;
@@ -38,12 +38,12 @@ function CheckTheitem(props) {
   //详情传参
   let detail = (detail) => {
     //console.log(detail)
-    // props.history.push({
-    //   pathname: `/main/questions/${detail.questions_id}`,
-    //   state: {
-    //     data: detail
-    //   }
-    // })
+    props.history.push({
+      pathname: `/main/questions/${detail.questions_id}`,
+      state: {
+        data: detail
+      }
+    })
   }
   // // 从Form高阶组件中拿到校验组件
   const { getFieldDecorator } = props.form;
