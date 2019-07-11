@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "dva";
-import { Router, Route, Switch, Redirect, Link } from "dva/router";
+
 import styles from "./checkTitem.scss";
 import { Row, Col, Tag, Select, Button, TreeSelect, Form } from 'antd';
-import { type } from "os";
+
 const { Option } = Select;
 const { CheckableTag } = Tag;
 function CheckTheitem(props) {
   console.log(props)
-  let [value, upvalue] = useState(undefined);
-  // let [treeData, upvalue] = useState([]);
-  let onChange = value => {
-    console.log(value);
-    upvalue(value);
-  };
+  // let [value, upvalue] = useState(undefined);
+  // // let [treeData, upvalue] = useState([]);
+  // let onChange = value => {
+  //   console.log(value);
+  //   upvalue(value);
+  // };
   let editQuestion=(e)=>{
     e.preventDefault()
     props.history.push("/main/addQuestion")
