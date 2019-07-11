@@ -1,4 +1,4 @@
-import {getQuestionsType, addQuestionsType,getExamType,getSubject,getQuestions} from "../services/index"
+import {getQuestionsType, addQuestionsType} from "../services/index"
 export default {
     namespace:'test',
     state: {
@@ -38,14 +38,5 @@ export default {
         addInfo(state,action){
           return {...state,message:action.payload}
         },
-        // get_exam(state,action){
-        //     return {...state,exam:action.payload}
-        // },
-        // get_subject(state,action){
-        //     return {...state,subject:action.payload}
-        // },
-        // get_questions(state,action){
-        //     return {...state,questions:action.payload}
-        // }
     },
   };
