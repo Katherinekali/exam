@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 
-export default class eaxmList extends Component {
+export default class ExamList extends Component {
     render() {
         return (
             <div>
-                eaxmList
+                addExam
             </div>
         )
     }

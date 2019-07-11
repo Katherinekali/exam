@@ -14,6 +14,10 @@ function CheckTheitem(props) {
     console.log(value);
     upvalue(value);
   };
+  let editQuestion=(e)=>{
+    e.preventDefault()
+    props.history.push("/main/addQuestion")
+  }
   useEffect(() => {
     props.getData();
     props.getAllLessons();//类型
@@ -34,12 +38,12 @@ function CheckTheitem(props) {
   //详情传参
   let detail = (detail) => {
     //console.log(detail)
-    props.history.push({
-      pathname: `/main/questions/${detail.questions_id}`,
-      state: {
-        data: detail
-      }
-    })
+    // props.history.push({
+    //   pathname: `/main/questions/${detail.questions_id}`,
+    //   state: {
+    //     data: detail
+    //   }
+    // })
   }
   // // 从Form高阶组件中拿到校验组件
   const { getFieldDecorator } = props.form;
@@ -139,8 +143,8 @@ function CheckTheitem(props) {
                   </div>
                 </div>
                 <p className={styles.ant_list_item_action}>
-                  <div onClick={() => props.history.push("/main/additem")}>
-                    <a href="#">编辑</a>
+                  <div onClick={(e) =>{editQuestion(e)}}>
+                    <a href="javascript:;">编辑</a>
                   </div>
                 </p>
               </div>
