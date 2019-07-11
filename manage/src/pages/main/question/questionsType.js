@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from "react"
-import { Modal, Button,Table,Input,Pagination,message} from 'antd';
+import { Modal, Button,Table,Input,message} from 'antd';
 import {connect} from "dva"
 import "./questionsType.css"
 const { Column} = Table;
