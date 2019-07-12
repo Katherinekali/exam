@@ -1,19 +1,10 @@
 import React, { useEffect } from "react";
 import { connect } from "dva";
-
 import styles from "./checkTitem.scss";
 import { Row, Col, Tag, Select, Button, Form } from 'antd';
-
 const { Option } = Select;
 const { CheckableTag } = Tag;
 function CheckTheitem(props) {
-  console.log(props)
-  // let [value, upvalue] = useState(undefined);
-  // // let [treeData, upvalue] = useState([]);
-  // let onChange = value => {
-  //   console.log(value);
-  //   upvalue(value);
-  // };
   let editQuestion=(e)=>{
     e.preventDefault()
     props.history.push("/main/addQuestion")
@@ -24,7 +15,6 @@ function CheckTheitem(props) {
     props.getAllexamType();//考试类型
     props.getQuestionsType();//题目类型
     props.refer();//条件查询
-
   }, []);
   let handleSubmit = (e) => {
     e.preventDefault()
@@ -37,7 +27,6 @@ function CheckTheitem(props) {
   };
   //详情传参
   let detail = (detail) => {
-    //console.log(detail)
     props.history.push({
       pathname: `/main/questions/${detail.questions_id}`,
       state: {

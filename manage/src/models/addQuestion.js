@@ -1,4 +1,4 @@
-import {examType,subject,questionsType,addquestions} from "../services/index"
+import {examType,subject,questionsType,addquestions,editquestions} from "../services/index"
 export default {
   //命名空间：
   namespace: 'question',
@@ -48,7 +48,16 @@ export default {
             })  
           }
     },
-    *addQuestion({ payload}, { call, put }) {  // eslint-disable-line添加试题
+    *addQuestion({ payload,edit,search}, { call, put }) {  // eslint-disable-line添加试题
+      console.log(edit)
+      if(edit==="修改"){
+          payload.questions_id=search
+          // delete payload.user_id
+          // console.log(payload)
+        let data=yield call(editquestions,payload) 
+        console.log(data)
+
+      }else{
         let data=yield call(addquestions,payload) 
         console.log(data)
         if(data.code){
@@ -63,6 +72,9 @@ export default {
           }) 
         }
   }
+
+      }
+        
   },
   //同步方法：只能在这里修改state
   reducers: {

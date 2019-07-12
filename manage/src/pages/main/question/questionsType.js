@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from "react"
-import { Modal, Button,Table,Input,message} from 'antd';
+import { Modal, Button,Table,Input,message,Form} from 'antd';
 import {connect} from "dva"
 import "./questionsType.css"
 const { Column} = Table;
@@ -85,4 +85,4 @@ let mapDispatchToProps=dispatch=>{
     }
 
 }
-export default connect(mapStateToProps,mapDispatchToProps)(QuestionsType)
+export default connect(mapStateToProps,mapDispatchToProps)(Form.create()(QuestionsType))
