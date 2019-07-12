@@ -133,9 +133,9 @@ function CheckTheitem(props) {
                 <p className={styles.ant_list_item_action}>
                   <div>
                     <a href={`/#/main/addQuestion?id=${item.questions_id}`}>编辑</a>
-                  </div>
-                </p>
-              </div>
+                  </div> 
+                </p>  
+              </div> 
             )
           })}
         </div>
@@ -143,9 +143,9 @@ function CheckTheitem(props) {
     </div>
   );
 }
-const mapState = state => {
-  return {
-    ...state.checkTheItem
+const mapState = state => { 
+  return { 
+    ...state.checkTheItem 
   };
 };
 const mapDispatch = dispatch => {
