@@ -1,23 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "dva";
-
 import styles from "./checkTitem.scss";
 import { Row, Col, Tag, Select, Button, Form } from 'antd';
-
 const { Option } = Select;
 const { CheckableTag } = Tag;
 function CheckTheitem(props) {
-  console.log(props)
+  // console.log(props)
   // let [value, upvalue] = useState(undefined);
   // // let [treeData, upvalue] = useState([]);
   // let onChange = value => {
   //   console.log(value);
   //   upvalue(value);
   // };
-  let editQuestion=(e)=>{
-    e.preventDefault()
-    props.history.push("/main/addQuestion")
-  }
+  let [selectedTags, UpselextedTags] = useState([])
+  //选中状态
+  let handleChange = (tag, checked) => {
+    const nextSelectedTags = checked ? [...selectedTags,tag] : selectedTags.filter(t => t !== tag);
+    //console.log('You are interested in: ', nextSelectedTags);
+    UpselextedTags(nextSelectedTags)
+    console.log(selectedTags)
+
+  };
   useEffect(() => {
     props.getData();
     props.getAllLessons();//类型
@@ -26,6 +29,7 @@ function CheckTheitem(props) {
     props.refer();//条件查询
 
   }, []);
+  //获取select选中的值
   let handleSubmit = (e) => {
     e.preventDefault()
     props.form.validateFields((err, values) => {
@@ -35,6 +39,10 @@ function CheckTheitem(props) {
       }
     });
   };
+  //All
+  let checkedAll = () => {
+
+  }
   //详情传参
   let detail = (detail) => {
     //console.log(detail)
@@ -57,15 +65,15 @@ function CheckTheitem(props) {
               课程类型:
             </h6>
             <div className={styles.ant_label}>
-              <span>All</span>
-              {props.allthelessons.map(tag => {
+              <span onClick={checkedAll}>All</span>
+              {props.allthelessons && props.allthelessons.map(tag => {
                 // console.log(tag.subject_text)
                 return (
                   <CheckableTag
                     className={styles.ant_select}
                     key={tag.subject_id}
-                    //  checked={selectedTags.indexOf(tag.subject_id) > -1}
-                    onChange={checked => this.handleChange(tag.subject_text, checked)}
+                    checked={selectedTags.indexOf(tag.subject_id) > -1}
+                    onChange={checked => handleChange(tag.subject_text, checked)}
                   >
                     {tag.subject_text}
                   </CheckableTag>
@@ -126,9 +134,9 @@ function CheckTheitem(props) {
                       style={{ marginBottom: "10px", display: "flex" }}
                       className={styles.ant_tag_meta}
                     >
-                      <div className={styles.ant_tag_blue}>{item.questions_type_text}</div>
-                      <div className={styles.ant_tag_geekblue}>{item.subject_text}</div>
-                      <div className={styles.ant_tag_orange}>{item.exam_name}</div>
+                      <Tag color="blue">{item.questions_type_text}</Tag>
+                      <Tag color="geekblue">{item.subject_text}</Tag>
+                      <Tag color="orange">{item.exam_name}</Tag>
                     </div>
                     <span
                       style={{
@@ -142,11 +150,11 @@ function CheckTheitem(props) {
                 </span>
                   </div>
                 </div>
-                <p className={styles.ant_list_item_action}>
-                  <div onClick={(e) =>{editQuestion(e)}}>
-                    <a href="javascript:;">编辑</a>
+                <div className={styles.ant_list_item_action}>
+                  <div>
+                    <a href="jscript:;">编辑</a>
                   </div>
-                </p>
+                </div>
               </div>
             )
           })}

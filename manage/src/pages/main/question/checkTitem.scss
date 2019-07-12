@@ -1,6 +1,6 @@
 .checkTheitemBox {
   width: 100%;
-  padding: 0 24px 24px;
+  // padding: 0 24px 24px;
   background: #f0f2f5;
   margin: 0 auto;
   overflow-y: auto;
@@ -18,7 +18,7 @@
 
 
   .ant_row {
-    height: 78px;
+    // height: 78px;
     display: flex;
   }
 
@@ -102,34 +102,6 @@
     height: 22px;
 
   }
-
-  .ant_tag_blue {
-    width: 65px;
-    margin: 0 8px 0 0;
-    padding: 0 7px;
-    background: #E6F7FF;
-    color: #1890FF;
-    font-size: 12px;
-  }
-
-  .ant_tag_geekblue {
-    width: 78px;
-    margin: 0 8px 0 0;
-    padding: 0 7px;
-    background: #F0F5FF;
-    color: #2F54EB;
-    font-size: 12px;
-  }
-
-  .ant_tag_orange {
-    width: 46px;
-    margin: 0 8px 0 0;
-    padding: 0 7px;
-    background: #FFF7E6;
-    color: #FA8C16;
-    font-size: 12px;
-  }
-
   .ant_list_item_content {
     width: 90%;
   }
