@@ -18,7 +18,7 @@ export function getApi() {
 
 //添加用户信息：新用户-
 export function addUser(params) {
-  return request.post('/user',params);
+    return request.post('/user', params);
 }
 //更新用户信息：
 export function updateUser(params) {

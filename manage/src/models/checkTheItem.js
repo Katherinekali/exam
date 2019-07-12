@@ -8,7 +8,8 @@ export default {
     allthelessons: [],//所有课程
     allexamtype: [],//考试类型
     questionsType: [], //题目类型
-    conditionquerys: [] //条件查询
+    conditionquerys: [], //条件查询
+    detailData:{}
   },
   //订阅
   
@@ -55,7 +56,7 @@ export default {
     //条件查询
     *conditionquery({ payload, type }, { call, put }) {
       let res = yield call(Conditionquery, payload);
-      //console.log(res)
+      console.log(res)
       yield put({
         type: "upDataLogin",
         payload: res.data
@@ -80,10 +81,10 @@ export default {
     allquestionsTypes(state, action) {
       return { ...state, questionsType: action.payload }
     },
-    //条件查询
-    // demand(state, action) {
-    //   console.log(action)
-    //   return { ...state, conditionquerys: action.payload }
-    // }
+    //详情试题信息
+    detail(state, action) {
+      return { ...state, detailData: action.payload }
+    }
+   
   }
 };
