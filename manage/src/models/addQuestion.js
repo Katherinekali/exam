@@ -10,12 +10,6 @@ export default {
       addState:-1,
       addTime:"",
   },
-  //订阅：
-  subscriptions: {
-    setup({ dispatch, history }) {  //   
-      
-    },
-  },
   //异步方法：
   effects: {
     *examType({}, { call, put }) {  //  考试类型
