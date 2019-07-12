@@ -9,7 +9,6 @@ function AddQuestion(props) {
     let [search, setSearch] = useState(false)
     let [edit, setEdit] = useState("提交")
     let [detail, setDetail] = useState({})
-    let [infor, setInfor] = useState({})
     useEffect(() => {
         props.getExamType()
         props.getSubject()
@@ -60,7 +59,7 @@ function AddQuestion(props) {
     let handleOk = () => {
         handleSubmit()
         setvisible(false)
-        console.log(infor)
+
         // props.addQuestion(infor,edit,search)
     };
     const openNotification = (infor) => {

@@ -128,7 +128,6 @@ function IndexPage() {
               <Menu.Item key="11"><Link to="/main/classlist">待批班级</Link></Menu.Item>
             </SubMenu>
           </Menu>
-          );
           </div>
         <div className={styles.content}>
           <div className={styles.layout_main}>
@@ -150,8 +149,5 @@ function IndexPage() {
     </div>
   );
 }
-
-IndexPage.propTypes = {
-};
 
 export default connect()(IndexPage);

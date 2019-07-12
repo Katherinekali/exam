@@ -1,11 +1,10 @@
-import React, { Component } from 'react'
-
-export default class addUser extends Component {
-    render() {
+import React from 'react'
+import {connect} from "dva";
+ function addUser(){
         return (
             <div>
                 addUser
             </div>
         )
-    }
 }
+export default connect()(addUser)
