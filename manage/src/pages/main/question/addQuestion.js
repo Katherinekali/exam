@@ -6,31 +6,23 @@ import {connect} from "dva"
 const { Option } = Select;
 function AddQuestion (props) {
     let [visible,setvisible]=useState(false)
+    let [search,setSearch]=useState(false)
+    let [edit,setEdit]=useState("提交")
+    let [detail,setDetail]=useState({})
     useEffect(()=>{
         props.getExamType()
         props.getSubject()
         props.getQuestionType()
+        if(props.location){
+            let {search}=props.location;
+            search=search.split("=")[1]
+            setSearch(search)
+            setDetail(props.detailData)
+        }
     },[])
-    // function showConfirm() {
-    //     confirm({
-    //       title: '确定添加试题吗？?',
-    //       content: '真的确定吗？',
-    //       okText: '确定',
-    //       cancelText:"取消",
-    //       onOk(){
-    //         handleSubmit()
-    //         if(props.addState===1){
-    //             message.info('添加成功');
-    //         }else {
-    //             // setTimeout(()=>{
-    //             //     alert(props.addState)
-    //             // },1000)
-    //          }
-    //         }
-    //     });
-    //   }
-    let showModal = () => {
+    let showModal = (val) => {
         setvisible(true)
+        setEdit(val)
       };
     let  handleOk = ()=> {
         handleSubmit() 
@@ -52,7 +44,7 @@ function AddQuestion (props) {
                 questions_answer:values.answer,
                 title:values.title
             }
-            props.addQuestion(obj)
+            props.addQuestion(obj,edit,search)
             }
         });
     }
@@ -69,14 +61,14 @@ function AddQuestion (props) {
     return (
         <div>
             <Form >
-                <h2>添加试题</h2>
+                <h2> {search?"修改试题":"添加试题"}</h2>
                 <div className={styles.question_content}>
                         <Form.Item>
                             <h3>题干信息</h3>
                             <div>
                                 <div><label title="题干"> 题干</label></div>
                                 <div>
-                                    {getFieldDecorator('title')(
+                                    {getFieldDecorator('title',{initialValue:search?detail.title:""})(
                                         <Input
                                         className={styles.ipt}
                                         placeholder="请输入题目标题,不超过20个字"
@@ -88,7 +80,7 @@ function AddQuestion (props) {
                         <Form.Item>
                             <div> 
                                 <div><label title="题干"> 题目主题</label></div>
-                                {getFieldDecorator('questions_stem')(
+                                {getFieldDecorator('questions_stem',{initialValue:search?detail.questions_stem:""})(
                                    <Editor style={{height:200}} ></Editor>
                                 )}
                                 
@@ -99,7 +91,7 @@ function AddQuestion (props) {
                                <Form.Item>
                                 <div><label title="请选择考试类型"> 请选择考试类型：</label></div>
                                     <div>
-                                    {getFieldDecorator('examType',{initialValue:props.examType[0]&&props.examType[0].exam_name})(
+                                    {getFieldDecorator('examType',{initialValue:search?detail.exam_name:(props.examType[0]&&props.examType[0].exam_name)})(
                                         <Select
                                             style={{ width: 200 }}
                                         >
@@ -117,7 +109,7 @@ function AddQuestion (props) {
                                 <Form.Item>
                                     <div><label title="请选择课程类型"> 请选择课程类型：</label></div>
                                     <div>
-                                    {getFieldDecorator('subject',{initialValue:props.subject[0]&&props.subject[0].subject_text})(
+                                    {getFieldDecorator('subject',{initialValue:search?detail.subject_text:(props.subject[0]&&props.subject[0].subject_text)})(
                                         <Select
                                             style={{ width: 200 }}
                                         >
@@ -135,7 +127,7 @@ function AddQuestion (props) {
                                 <Form.Item>
                                     <div><label title="请选择题目类型"> 请选择题目类型：</label></div>
                                     <div>
-                                    {getFieldDecorator('questionType',{initialValue:props.questionType[0]&&props.questionType[0].questions_type_text})(
+                                    {getFieldDecorator('questionType',{initialValue:search?detail.questions_type_text:(props.questionType[0]&&props.questionType[0].questions_type_text)})(
                                         <Select
                                             style={{ width: 200 }}
                                         >
@@ -152,14 +144,14 @@ function AddQuestion (props) {
                         </div>
                         <h3>答案信息</h3>
                         <div> 
-                            {getFieldDecorator('answer')(
+                            {getFieldDecorator('answer',{initialValue:search?detail.questions_answer:""})(
                                 <Editor style={{height:200}} ></Editor>
                             )}
                         </div>
                     <div>
                     <Form.Item>
-                        <Button type="primary"  className={styles.btn} onClick={showModal}> 
-                            提交
+                        <Button type="primary"  className={styles.btn} onClick={()=>{showModal(search?"修改":"提交")}}> 
+                            {search?"修改":"提交"}
                         </Button>
                     </Form.Item>               
                     </div>
@@ -185,7 +177,8 @@ const mapStateToProps=(state)=>{
         examType:state.question.examType,
         subject:state.question.subject,
         questionType:state.question.questionType,
-        addState:state.question.addState
+        addState:state.question.addState,
+        ...state.checkTheItem
     }
 }
 const mapDispatchToProps=(dispatch)=>{
@@ -208,10 +201,12 @@ const mapDispatchToProps=(dispatch)=>{
                 payload:""
             })
         },
-        addQuestion(payload){
+        addQuestion(payload,edit,search){
             dispatch({
                 type:"question/addQuestion",
-                payload:payload
+                payload:payload,
+                edit:edit,
+                id:search
             })
         }
     }

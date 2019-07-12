@@ -19,3 +19,10 @@ export function addquestions(params){
     return err
   });
 }
+export function editquestions(params){
+  // console.log("axios---",params)
+  // console.log(params)
+  return request.put('/exam/questions/update',params).catch((err)=>{
+    return err
+  });
+}

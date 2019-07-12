@@ -1,10 +1,9 @@
 import React,{useState,useEffect} from "react"
-import { Modal, Button,Table,Input,Pagination,message} from 'antd';
+import { Modal, Button,Table,Input,message,Form} from 'antd';
 import {connect} from "dva"
 import "./questionsType.css"
 const { Column} = Table;
 function QuestionsType(props){
-    console.log(props)
     const [flag, setFlag] = useState(false);
     const [val,setVal]=useState("请输入试卷类型")
     const addFn=()=>{
@@ -14,27 +13,23 @@ function QuestionsType(props){
         setFlag(false)
     }
     const addModal=()=>{
+        
         setFlag(false)
         props.addType({text:val,sort:(props.questionsType.length+1).toString()})
     }
     const paginationProps = {
-        // showSizeChanger: true,
-        // showQuickJumper: false,
-        // showTotal: () => `共${totals}条`,
-        pageSize: 5
-        // current: page.pageNum,
-        // total: page.total,
-        // onShowSizeChange: (current,pageSize) => this.changePageSize(pageSize,current),
-        // onChange: (current) => this.changePage(current),
-      }
+        pageSize: 8
+    }
+    
     useEffect(()=>{
         props.getType()
         if(props.message==="数据插入"){
            message.success("添加成功")
         }
     },[props.message])
+   
     return (
-        <div className="questions_wrapper">
+        <div>
             <h2>试题分类</h2>
             <div className="question_content">
             <Button type="primary" icon="plus" onClick={()=>{addFn()}}>
@@ -58,7 +53,17 @@ function QuestionsType(props){
             okText="确认"
             cancelText="取消"
             >
-            <Input placeholder="Basic usage" value={val} onChange={(e)=>{setVal(e.target.value)}} />
+                <Form >
+                    <Form.Item>
+                       
+                            <Input
+                            placeholder="Basic usage" 
+                            value={val}
+                            onChange={(e)=>{setVal(e.target.value)}}
+                            />,
+                       
+                    </Form.Item>
+                </Form>
             </Modal> 
         </div>
     )
@@ -85,4 +90,4 @@ let mapDispatchToProps=dispatch=>{
     }
 
 }
-export default connect(mapStateToProps,mapDispatchToProps)(QuestionsType)
+export default connect(mapStateToProps,mapDispatchToProps)(Form.create()(QuestionsType))
