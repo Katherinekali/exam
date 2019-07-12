@@ -9,6 +9,7 @@ function AddQuestion (props) {
     let [search,setSearch]=useState(false)
     let [edit,setEdit]=useState("提交")
     let [detail,setDetail]=useState({})
+    let [infor,setInfor]=useState({})
     useEffect(()=>{
         props.getExamType()
         props.getSubject()
@@ -23,11 +24,8 @@ function AddQuestion (props) {
     let showModal = (val) => {
         setvisible(true)
         setEdit(val)
-      };
-    let  handleOk = ()=> {
-        handleSubmit() 
-        setvisible(false)
-      };
+    };
+    
     let  handleCancel = ()=> {
         setvisible(false)
       };
@@ -42,6 +40,7 @@ function AddQuestion (props) {
         props.form.validateFields((err, values) => {
             if (!err) {
             let user_id=JSON.parse(localStorage.getItem("userInfor")).data.user_id
+            console.log(values)
             let obj={
                 questions_type_id:values.questionType,
                 questions_stem:values.questions_stem,
@@ -51,10 +50,17 @@ function AddQuestion (props) {
                 questions_answer:values.answer,
                 title:values.title
             }
+            // setInfor(obj)
             props.addQuestion(obj,edit,search)
             }
         });
     }
+    let  handleOk = ()=> {
+        handleSubmit() 
+        setvisible(false)
+        console.log(infor)
+        // props.addQuestion(infor,edit,search)
+      };
     const openNotification = (infor) => {
         notification.open({
             message: '请求错误402',
@@ -74,7 +80,7 @@ function AddQuestion (props) {
     let {getFieldDecorator}=props.form
     return (
         <div>
-            <Form >
+            <Form  onSubmit={handleSubmit}>
                 <h2> {search?"修改试题":"添加试题"}</h2>
                 <div className={styles.question_content}>
                         <Form.Item>
