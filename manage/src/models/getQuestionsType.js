@@ -37,10 +37,6 @@ export default {
         },
         addInfo(state,action){
           return {...state,message:action.payload}
-        },
-<<<<<<< HEAD
-       
-=======
->>>>>>> 16d78e1426ac4023ffd9edb187209b01a1bfc77d
+        }, 
     },
   };
