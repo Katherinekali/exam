@@ -20,7 +20,7 @@ function AddQuestion (props) {
             setDetail(props.detailData)
         }
     },[])
-    let showModal = () => {
+    let showModal = (val) => {
         setvisible(true)
         setEdit(val)
       };
