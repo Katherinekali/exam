@@ -12,9 +12,7 @@ export default {
     detailData:{}
   },
   //订阅
-  subscriptions: {
-    setup({ dispatch, history }) { }
-  },
+  
   /**
    *异步操作
    */
