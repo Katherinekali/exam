@@ -36,7 +36,7 @@ function CheckTheitem(props) {
   }
   //详情传参
   let detail = (detail) => {
-    //console.log(detail)
+props.detailInfo(detail)    
     props.history.push({
       pathname: `/main/questions/${detail.questions_id}`,
       state: {
@@ -90,7 +90,7 @@ function CheckTheitem(props) {
                   {getFieldDecorator("exam_id", {
                     initialValue: undefined
                   })(<Select style={{ width: 180 }}>
-                    {props.allexamtype&&props.allexamtype.map((item, index) => {
+                    {props.allexamtype && props.allexamtype.map((item, index) => {
                       return <Option value={item.exam_id} key={item.exam_id}>{item.exam_name}</Option>
                     })}
                   </Select>
@@ -102,7 +102,7 @@ function CheckTheitem(props) {
                   {getFieldDecorator("questions_type_id", {
                     initialValue: undefined
                   })(<Select style={{ width: 180, margin: "0px 10px" }}>
-                    {props.questionsType&&props.questionsType.map((v, k) => {
+                    {props.questionsType && props.questionsType.map((v, k) => {
                       // console.log(v);
                       return <Option value={v.questions_type_id} key={v.questions_type_id}>{v.questions_type_text}</Option>
                     })}
@@ -204,6 +204,12 @@ const mapDispatch = dispatch => {
       //console.log(payload)
       dispatch({
         type: "checkTheItem/conditionquery",
+        payload
+      })
+    },
+    detailInfo:payload=>{
+      dispatch({
+        type:"checkTheItem/detail",
         payload
       })
     }

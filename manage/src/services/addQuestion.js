@@ -4,7 +4,7 @@ export function examType() {
   return request.get('/exam/examType');
 }
 //获取所有的课程
-export function subject() {
+export function subject() { 
     return request.get('/exam/subject');
 }
 //获取所有的试题
@@ -16,6 +16,13 @@ export function questionsType() {
 export function addquestions(params){
   // console.log("axios---",params)
   return request.post('/exam/questions',params).catch((err)=>{
+    return err
+  });
+}
+export function editquestions(params){
+  // console.log("axios---",params)
+  // console.log(params)
+  return request.put('/exam/questions/update',params).catch((err)=>{
     return err
   });
 }

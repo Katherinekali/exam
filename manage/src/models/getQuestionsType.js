@@ -6,13 +6,13 @@ export default {
         message:"",
     },
     subscriptions: {
-        setup({ dispatch, history }) {  // eslint-disable-line
+        setup({  }) {  // eslint-disable-line
        
        
         },
     },
     effects: {
-        *getType({ payload,type }, { call, put }) {  // eslint-disable-line
+        *getType({ }, {put}) {  // eslint-disable-line
             let data=yield getQuestionsType()
             if(data.code){
                 yield put({
@@ -21,7 +21,7 @@ export default {
                 })
             }
       },
-        *addType({ payload,type }, { call, put }){
+        *addType({ payload }, {  put }){
             let data=yield addQuestionsType(payload)
             if(data.code){
                 yield put({
@@ -37,6 +37,6 @@ export default {
         },
         addInfo(state,action){
           return {...state,message:action.payload}
-        },
+        }, 
     },
   };
