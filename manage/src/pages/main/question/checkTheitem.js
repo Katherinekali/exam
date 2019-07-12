@@ -90,7 +90,7 @@ function CheckTheitem(props) {
                   {getFieldDecorator("exam_id", {
                     initialValue: undefined
                   })(<Select style={{ width: 180 }}>
-                    {props.allexamtype.map((item, index) => {
+                    {props.allexamtype&&props.allexamtype.map((item, index) => {
                       return <Option value={item.exam_id} key={item.exam_id}>{item.exam_name}</Option>
                     })}
                   </Select>
@@ -102,7 +102,7 @@ function CheckTheitem(props) {
                   {getFieldDecorator("questions_type_id", {
                     initialValue: undefined
                   })(<Select style={{ width: 180, margin: "0px 10px" }}>
-                    {props.questionsType.map((v, k) => {
+                    {props.questionsType&&props.questionsType.map((v, k) => {
                       // console.log(v);
                       return <Option value={v.questions_type_id} key={v.questions_type_id}>{v.questions_type_text}</Option>
                     })}
@@ -124,7 +124,7 @@ function CheckTheitem(props) {
       <div className={styles.anyLayoutContent}>
         <div className={styles.ant_list}>
           {props.list.map((item, index) => {
-            //console.log(item)
+            // console.log(item)
             return (
               <div className={styles.ant_list_item} key={index} onClick={() => detail(item)}>
                 <div className={styles.ant_list_item_content}>
@@ -152,7 +152,7 @@ function CheckTheitem(props) {
                 </div>
                 <div className={styles.ant_list_item_action}>
                   <div>
-                    <a href="">编辑</a>
+                    <a href={`/#/main/addQuestion?id=${item.questions_id}`}>编辑</a>
                   </div>
                 </div>
               </div>
