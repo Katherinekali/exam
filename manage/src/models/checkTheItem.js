@@ -8,8 +8,7 @@ export default {
     allthelessons: [],//所有课程
     allexamtype: [],//考试类型
     questionsType: [], //题目类型
-    conditionquerys: [],//条件查询
-    detailData:{}
+    conditionquerys: [] //条件查询
   },
   //订阅
   
@@ -81,9 +80,10 @@ export default {
     allquestionsTypes(state, action) {
       return { ...state, questionsType: action.payload }
     },
-    //详情试题信息
-    detail(state,action){
-      return {...state,detailData:action.payload}
-    }
+    //条件查询
+    // demand(state, action) {
+    //   console.log(action)
+    //   return { ...state, conditionquerys: action.payload }
+    // }
   }
 };

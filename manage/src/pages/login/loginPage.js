@@ -1,4 +1,4 @@
-import React ,{useEffect,useState}from 'react'
+import React ,{useEffect}from 'react'
 import "./loginPage.scss"
 import {Form, Icon, Input, Button, Checkbox,message } from 'antd';
 import {connect} from "dva"

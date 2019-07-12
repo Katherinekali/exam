@@ -1,15 +1,20 @@
-
-
-  
-  :global .question_content {
-    flex: 1;
-    background: #fff;
-    padding: 24px;
-    margin:0 0 20px;
-    border-radius: 10px;
+:global .questions_wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
   }
   
-
+  :global .questions_wrapper .question_content {
+    width: 617px;
+    background: #fff;
+    padding: 20px 10px;
+    border-radius: 5px;
+  }
+  
+  :global .questions_wrapper h2 {
+    padding: 10px 0;
+    margin: 10px 0;
+  }
   
   :global .questions_table {
     margin-top: 30px;
@@ -29,4 +34,3 @@
     border-top: none;
     justify-content: center;
   }
-  

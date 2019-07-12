@@ -1,18 +1,20 @@
 import React, { useEffect } from "react";
 import { connect } from "dva";
 import styles from "./checkTitem.scss";
-import { Row, Col, Tag, Select, Button, TreeSelect, Form } from 'antd';
+import { Row, Col, Tag, Select, Button, Form } from 'antd';
 const { Option } = Select;
 const { CheckableTag } = Tag;
 function CheckTheitem(props) {
-  console.log(props)
+  let editQuestion=(e)=>{
+    e.preventDefault()
+    props.history.push("/main/addQuestion")
+  }
   useEffect(() => {
     props.getData();
     props.getAllLessons();//类型
     props.getAllexamType();//考试类型
     props.getQuestionsType();//题目类型
     props.refer();//条件查询
-
   }, []);
   let handleSubmit = (e) => {
     e.preventDefault()
@@ -25,7 +27,6 @@ function CheckTheitem(props) {
   };
   //详情传参
   let detail = (detail) => {
-    props.detailInfo(detail)
     props.history.push({
       pathname: `/main/questions/${detail.questions_id}`,
       state: {
@@ -64,8 +65,8 @@ function CheckTheitem(props) {
           <Form action="" onSubmit={handleSubmit}>
             <div className={styles.ant_row}>
               <Row style={{ width: "100%", display: "flex" }}>
-                <Form.Item style={{ display: "flex"}}>
-                  <Col span={15}><label style={{ display: 'inline' }}>考试类型:</label>
+                <Form.Item style={{ display: "flex" }}>
+                  <Col span={9}><label style={{ display: 'inline' }}>考试类型:</label>
                     {getFieldDecorator("exam_id", {
                       initialValue: ""
                     })(<Select style={{ width: 180 }}>
@@ -77,7 +78,7 @@ function CheckTheitem(props) {
                   </Col>
                 </Form.Item>
                 <Form.Item style={{ display: "flex" }}>
-                  <Col span={12}><label style={{ display: 'inline' }}>题目类型:</label>
+                  <Col span={9}><label style={{ display: 'inline' }}>题目类型:</label>
                     {getFieldDecorator("questions_type_id", {
                       initialValue: ""
                     })(<Select style={{ width: 180 }}>
@@ -131,8 +132,8 @@ function CheckTheitem(props) {
                   </div>
                 </div>
                 <p className={styles.ant_list_item_action}>
-                  <div>
-                    <a href={`/#/main/addQuestion?id=${item.questions_id}`}>编辑</a>
+                  <div onClick={(e) =>{editQuestion(e)}}>
+                    <a href="javascript:;">编辑</a>
                   </div>
                 </p>
               </div>
@@ -152,6 +153,7 @@ const mapDispatch = dispatch => {
   return {
     //所有题
     getData: payload => {
+      console.log(1)
       dispatch({
         type: "checkTheItem/All",
         payload
@@ -183,13 +185,6 @@ const mapDispatch = dispatch => {
       //console.log(payload)
       dispatch({
         type: "checkTheItem/conditionquery",
-        payload
-      })
-    },
-    //detail存储跳详情页试题信息
-    detailInfo:payload=>{
-      dispatch({
-        type:"checkTheItem/detail",
         payload
       })
     }

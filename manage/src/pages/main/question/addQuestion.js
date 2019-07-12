@@ -1,7 +1,7 @@
 import React, {useState,useEffect } from 'react'
 import styles from "./question.scss"
 import Editor from 'for-editor'
-import {Select,Button,Modal,Form,Input,message} from 'antd';
+import {Select,Button,Modal,Form,Input,notification,Icon} from 'antd';
 import {connect} from "dva" 
 const { Option } = Select;
 function AddQuestion (props) {
@@ -31,6 +31,13 @@ function AddQuestion (props) {
     let  handleCancel = ()=> {
         setvisible(false)
       };
+    function success() {
+        Modal.success({
+          title: '添加成功',
+          content: '恭喜你添加成功',
+          okText:"我知道了"
+        });
+      }
     let handleSubmit=()=>{
         props.form.validateFields((err, values) => {
             if (!err) {
@@ -48,15 +55,22 @@ function AddQuestion (props) {
             }
         });
     }
+    const openNotification = (infor) => {
+        notification.open({
+            message: '请求错误402',
+            description:infor,
+            icon:<Icon type="close-circle" style={{ color: '#f90' }}/>,
+          });
+      };
     useEffect(()=>{
         if(props.addState===1){
-            message.info('添加成功');
+            success()
         }else if(props.addState===-1){
             return 
         }else{
-            alert(props.addState)
+            openNotification(props.addState.message)
         }
-    },[props.addState])
+    },[props.addTime])
     let {getFieldDecorator}=props.form
     return (
         <div>
@@ -178,7 +192,7 @@ const mapStateToProps=(state)=>{
         subject:state.question.subject,
         questionType:state.question.questionType,
         addState:state.question.addState,
-        ...state.checkTheItem
+        addTime:state.question.addTime,
     }
 }
 const mapDispatchToProps=(dispatch)=>{
