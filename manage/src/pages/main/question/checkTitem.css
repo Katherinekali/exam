@@ -2,7 +2,6 @@
   width: 100%;
   background: #f0f2f5;
   margin: 0 auto;
-  overflow-y: auto;
 }
 
 .checkTheitemBox .title {
@@ -18,7 +17,7 @@
 }
 
 .checkTheitemBox .ant_row {
-  display: flex;
+  padding: 0 20px;
 }
 
 .checkTheitemBox .ant_col {
@@ -31,22 +30,8 @@
   float: left;
 }
 
-.checkTheitemBox .ant_label {
-  flex: 1;
-}
-
 .checkTheitemBox .ant_row h6 {
   width: 70px;
-}
-
-.checkTheitemBox .ant_btn {
-  padding: 0 40px !important;
-  border-radius: 4px !important;
-  border: 0 !important;
-  font-size: 14px !important;
-  color: #fff !important;
-  background: linear-gradient(-90deg, #4e75ff, #0139fd) !important;
-  height: 32px;
 }
 
 .checkTheitemBox .ant_list {
@@ -72,30 +57,6 @@
   background: #F0F5FF;
 }
 
-.checkTheitemBox .ant_tag {
-  font-size: 14px;
-  font-variant: tabular-nums;
-  line-height: 1.5;
-  color: rgba(0, 0, 0, 0.65);
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: inline-block;
-  line-height: 20px;
-  height: 22px;
-  padding: 0 7px;
-  border-radius: 2px;
-  border: 1px solid #d9d9d9;
-  background: #fafafa;
-  font-size: 12px;
-  transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
-  opacity: 1;
-  margin-right: 8px;
-  cursor: pointer;
-  white-space: nowrap;
-}
-
 .checkTheitemBox .ant_tag_meta {
   height: 22px;
 }
@@ -106,4 +67,8 @@
 
 .checkTheitemBox .ant_list_item_action {
   padding: 0 5px;
+}
+
+:global .ant_active {
+  background: #339af6;
 }

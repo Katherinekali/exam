@@ -1,57 +1,32 @@
 .checkTheitemBox {
   width: 100%;
-  // padding: 0 24px 24px;
   background: #f0f2f5;
   margin: 0 auto;
-  overflow-y: auto;
   .title {
     padding: 20px 0;
     margin-top: 10px;
   }
-
   .anyLayoutContent {
     padding: 24px;
     margin: 0 0 20px;
     border-radius: 10px;
     background: #ffff;
   }
-
-
   .ant_row {
-    // height: 78px;
-    display: flex;
+    padding: 0 20px;
   }
 
   .ant_col {
     width: 33%;
-    //display: flex;
     margin-right: 25px;
   }
-
   .ant_col h5 {
     width: 65px;
     float: left;
   }
-
-
-  .ant_label {
-    flex: 1;
-  }
-
   .ant_row h6 {
     width: 70px;
   }
-
-  .ant_btn {
-    padding: 0 40px !important;
-    border-radius: 4px !important;
-    border: 0 !important;
-    font-size: 14px !important;
-    color: #fff !important;
-    background: linear-gradient(-90deg, #4e75ff, #0139fd) !important;
-    height: 32px;
-  }
-
   .ant_list {
     font-size: 14px;
     font-variant: tabular-nums;
@@ -63,50 +38,28 @@
     list-style: none;
     position: relative;
   }
-
   .ant_list_item {
     align-items: center;
     display: flex;
     padding: 12px 0;
     border-bottom: 1px solid #e8e8e8;
-
   }
 .ant_list_item:hover{
   background: #F0F5FF
 }
-  .ant_tag {
-    font-size: 14px;
-    font-variant: tabular-nums;
-    line-height: 1.5;
-    color: rgba(0, 0, 0, 0.65);
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: inline-block;
-    line-height: 20px;
-    height: 22px;
-    padding: 0 7px;
-    border-radius: 2px;
-    border: 1px solid #d9d9d9;
-    background: #fafafa;
-    font-size: 12px;
-    transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
-    opacity: 1;
-    margin-right: 8px;
-    cursor: pointer;
-    white-space: nowrap;
-  }
-
   .ant_tag_meta {
     height: 22px;
-
   }
   .ant_list_item_content {
     width: 90%;
   }
-
   .ant_list_item_action {
     padding: 0 5px;
+  }
+  
+}
+:global{
+  .ant_active{
+    background: rgb(51,154,246);
   }
 }

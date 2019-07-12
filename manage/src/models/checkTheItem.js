@@ -57,7 +57,7 @@ export default {
     //条件查询
     *conditionquery({ payload, type }, { call, put }) {
       let res = yield call(Conditionquery, payload);
-      //console.log(res)
+      console.log(res)
       yield put({
         type: "upDataLogin",
         payload: res.data
@@ -82,9 +82,8 @@ export default {
     allquestionsTypes(state, action) {
       return { ...state, questionsType: action.payload }
     },
-    //条件查询
+    // //条件查询
     // demand(state, action) {
-    //   console.log(action)
     //   return { ...state, conditionquerys: action.payload }
     // }
   }
