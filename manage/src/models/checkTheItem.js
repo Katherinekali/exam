@@ -11,9 +11,7 @@ export default {
     conditionquerys: [] //条件查询
   },
   //订阅
-  subscriptions: {
-    setup({ dispatch, history }) { }
-  },
+  
   /**
    *异步操作
    */
