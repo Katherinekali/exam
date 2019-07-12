@@ -8,16 +8,17 @@ export default {
       subject:[],
       questionType:[],
       addState:-1,
+      addTime:"",
   },
   //订阅：
   subscriptions: {
-    setup({ dispatch, history }) {  // eslint-disable-line  
+    setup({ dispatch, history }) {  //   
       
     },
   },
   //异步方法：
   effects: {
-    *examType({}, { call, put }) {  // eslint-disable-line 考试类型
+    *examType({}, { call, put }) {  //  考试类型
           let data=yield call(examType)  
           if(data.code===1){
             sessionStorage.setItem("examType",JSON.stringify(data.data))
@@ -28,7 +29,7 @@ export default {
           }
           
     },
-    *subject({ payload}, { call, put }) {  // eslint-disable-line课程类型
+    *subject({ payload}, { call, put }) {  // 课程类型
           let data=yield call(subject,payload)   
           if(data.code===1){
             sessionStorage.setItem("subjectType",JSON.stringify(data.data))
@@ -38,7 +39,7 @@ export default {
             })  
           }
     },
-    *questionType({ payload}, { call, put }) {  // eslint-disable-line题目类型
+    *questionType({ payload}, { call, put }) {  // 题目类型
           let data=yield call(questionsType,payload)   
           if(data.code===1){
             sessionStorage.setItem("questionType",JSON.stringify(data.data))
@@ -48,7 +49,7 @@ export default {
             })  
           }
     },
-    *addQuestion({ payload}, { call, put }) {  // eslint-disable-line添加试题
+    *addQuestion({ payload}, { call, put }) {  // 添加试题
         let data=yield call(addquestions,payload) 
         console.log(data)
         if(data.code){
@@ -76,7 +77,7 @@ export default {
         return {...state,questionType:action.payload}
     },
     addRequest(state,action){
-      return {...state,addState:action.payload}
+      return {...state,addState:action.payload,addTime:new Date()*1}
     }
   },
 };

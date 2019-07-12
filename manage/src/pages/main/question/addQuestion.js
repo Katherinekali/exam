@@ -1,7 +1,7 @@
 import React, {useState,useEffect } from 'react'
 import styles from "./question.scss"
 import Editor from 'for-editor'
-import {Select,Button,Modal,Form,Input,message} from 'antd';
+import {Select,Button,Modal,Form,Input,notification,Icon} from 'antd';
 import {connect} from "dva" 
 const { Option } = Select;
 function AddQuestion (props) {
@@ -11,24 +11,6 @@ function AddQuestion (props) {
         props.getSubject()
         props.getQuestionType()
     },[])
-    // function showConfirm() {
-    //     confirm({
-    //       title: '确定添加试题吗？?',
-    //       content: '真的确定吗？',
-    //       okText: '确定',
-    //       cancelText:"取消",
-    //       onOk(){
-    //         handleSubmit()
-    //         if(props.addState===1){
-    //             message.info('添加成功');
-    //         }else {
-    //             // setTimeout(()=>{
-    //             //     alert(props.addState)
-    //             // },1000)
-    //          }
-    //         }
-    //     });
-    //   }
     let showModal = () => {
         setvisible(true)
       };
@@ -39,6 +21,13 @@ function AddQuestion (props) {
     let  handleCancel = ()=> {
         setvisible(false)
       };
+    function success() {
+        Modal.success({
+          title: '添加成功',
+          content: '恭喜你添加成功',
+          okText:"我知道了"
+        });
+      }
     let handleSubmit=()=>{
         props.form.validateFields((err, values) => {
             if (!err) {
@@ -56,15 +45,22 @@ function AddQuestion (props) {
             }
         });
     }
+    const openNotification = (infor) => {
+        notification.open({
+            message: '请求错误402',
+            description:infor,
+            icon:<Icon type="close-circle" style={{ color: '#f90' }}/>,
+          });
+      };
     useEffect(()=>{
         if(props.addState===1){
-            message.info('添加成功');
+            success()
         }else if(props.addState===-1){
             return 
         }else{
-            alert(props.addState)
+            openNotification(props.addState.message)
         }
-    },[props.addState])
+    },[props.addTime])
     let {getFieldDecorator}=props.form
     return (
         <div>
@@ -185,7 +181,8 @@ const mapStateToProps=(state)=>{
         examType:state.question.examType,
         subject:state.question.subject,
         questionType:state.question.questionType,
-        addState:state.question.addState
+        addState:state.question.addState,
+        addTime:state.question.addTime,
     }
 }
 const mapDispatchToProps=(dispatch)=>{

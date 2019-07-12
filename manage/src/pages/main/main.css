@@ -77,3 +77,6 @@ h2{
     padding: 20px 0;
     margin-top:10px;
 }
+input{
+    border:1px solid #aaa!important;
+}
