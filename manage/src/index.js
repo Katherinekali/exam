@@ -10,8 +10,9 @@ const app = dva();
 // 3. Model
 app.model(require('./models/login').default);
 app.model(require('./models/addQuestion').default);
-app.model(require('./models/checkTheItem.js').default);
+app.model(require('./models/checkTheItem').default);
 app.model(require('./models/getQuestionsType').default);
+// app.model(require('./models/questions').default)
 // 4. Router
 app.router(require('./router').default);
 

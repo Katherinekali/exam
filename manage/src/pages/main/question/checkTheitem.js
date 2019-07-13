@@ -16,7 +16,7 @@ function CheckTheitem(props) {
     props.getQuestionsType();//题目类型
     props.refer();//条件查询
   }, []);
-  //获取select选中的值
+  // 查询    获取select选中的值
   let handleSubmit = (e) => {
     e.preventDefault()
     props.form.validateFields((err, values) => {
@@ -29,16 +29,16 @@ function CheckTheitem(props) {
   };
   //All
   let checkedAll = () => {
-    console.log(123)
+    // console.log(123)
     props.getData();
     Upcheckeds(!checkeds)
 
   }
   //详情传参
   let detail = (detail) => {
-props.detailInfo(detail)    
+    props.detailInfo(detail)
     props.history.push({
-      pathname: `/main/questions/${detail.questions_id}`,
+      pathname: `/main/questions/${detail.questions_id}?id=${detail.questions_id}`,
       state: {
         data: detail
       }
@@ -164,6 +164,7 @@ props.detailInfo(detail)
   );
 }
 const mapState = state => {
+  console.log(state, 123)
   return {
     ...state.checkTheItem
   };
@@ -207,9 +208,9 @@ const mapDispatch = dispatch => {
         payload
       })
     },
-    detailInfo:payload=>{
+    detailInfo: payload => {
       dispatch({
-        type:"checkTheItem/detail",
+        type: "checkTheItem/detail",
         payload
       })
     }
