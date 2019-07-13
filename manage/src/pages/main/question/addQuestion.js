@@ -16,10 +16,8 @@ function AddQuestion(props) {
         if (props.location) {
             let { search } = props.location;
             search = search.split("=")[1]
-            console.log(search)
             setSearch(search)
             setDetail(props.detailData)
-            console.log(props.detailData)
         }
     }, [])
     let showModal = (val) => {
@@ -41,7 +39,6 @@ function AddQuestion(props) {
         props.form.validateFields((err, values) => {
             if (!err) {
                 let user_id = JSON.parse(localStorage.getItem("userInfor")).data.user_id
-                console.log(values)
                 let obj = {
                     questions_type_id: values.questionType,
                     questions_stem: values.questions_stem,
@@ -51,7 +48,6 @@ function AddQuestion(props) {
                     questions_answer: values.answer,
                     title: values.title
                 }
-                // setInfor(obj)
                 props.addQuestion(obj, edit, search)
             }
         });
@@ -59,7 +55,6 @@ function AddQuestion(props) {
     let handleOk = () => {
         handleSubmit()
         setvisible(false)
-
         // props.addQuestion(infor,edit,search)
     };
     const openNotification = (infor) => {
@@ -79,6 +74,7 @@ function AddQuestion(props) {
         }
     }, [props.addTime])
     let { getFieldDecorator } = props.form
+
     return (
         <div>
             <Form onSubmit={handleSubmit}>
@@ -194,7 +190,7 @@ function AddQuestion(props) {
     )
 }
 const mapStateToProps = (state) => {
-    console.log(state)
+    console.log(state.question.addTime)
     return {
         examType: state.question.examType,
         subject: state.question.subject,
