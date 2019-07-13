@@ -112,9 +112,9 @@ function IndexPage() {
                 </span>
               }
             >
-              <Menu.Item key="8"><Link to="/#//main/grade">班级管理</Link></Menu.Item>
-              <Menu.Item key="9"><Link to="/#//main/room">教室管理</Link></Menu.Item>
-              <Menu.Item key="10"><Link to="/#//main/student">学生管理</Link></Menu.Item>
+              <Menu.Item key="8"><Link to="/main/grade">班级管理</Link></Menu.Item>
+              <Menu.Item key="9"><Link to="/main/room">教室管理</Link></Menu.Item>
+              <Menu.Item key="10"><Link to="/main/student">学生管理</Link></Menu.Item>
             </SubMenu>
             <SubMenu
               key="sub5"
@@ -125,24 +125,24 @@ function IndexPage() {
                 </span>
               }
             >
-              <Menu.Item key="11"><Link to="/#//main/classlist">待批班级</Link></Menu.Item>
+              <Menu.Item key="11"><Link to="/main/classlist">待批班级</Link></Menu.Item>
             </SubMenu>
           </Menu>
           </div>
         <div className={styles.content}>
           <div className={styles.layout_main}>
-            <Route path="/#/main/classlist" component={ClassList} />
-            <Route path="/#//main/grade" component={Grade} />
-            <Route path="/#//main/room" component={Room} />
-            <Route path="/#//main/student" component={Student} />
-            <Route path="/#//main/addexam" component={AddExam} />
-            <Route path="/#//main/examlist" component={ExamList} />
-            <Route path="/#//main/addquestion" component={AddQuestion} />
-            <Route path="/#//main/questiontype" component={QuestionType} />
-            <Route path="/#//main/watchquestion" component={WatchQuestion} />
-            <Route path="/#//main/questions/:id" component={Questions} />
-            <Route path="/#//main/adduser" component={AddUser} />
-            <Route path="/#//main/showuser" component={ShowUser} />
+            <Route path="/main/classlist" component={ClassList} />
+            <Route path="/main/grade" component={Grade} />
+            <Route path="/main/room" component={Room} />
+            <Route path="/main/student" component={Student} />
+            <Route path="/main/addexam" component={AddExam} />
+            <Route path="/main/examlist" component={ExamList} />
+            <Route path="/main/addquestion" component={AddQuestion} />
+            <Route path="/main/questiontype" component={QuestionType} />
+            <Route path="/main/watchquestion" component={WatchQuestion} />
+            <Route path="/main/questions/:id" component={Questions} />
+            <Route path="/main/adduser" component={AddUser} />
+            <Route path="/main/showuser" component={ShowUser} />
           </div>
         </div>
       </div>
