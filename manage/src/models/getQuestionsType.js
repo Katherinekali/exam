@@ -3,7 +3,7 @@ export default {
     namespace:'test',
     state: {
         questionsType:[],
-        message:"",
+        message:-1,
     },
     subscriptions: {
         setup({  }) {  // eslint-disable-line
@@ -12,7 +12,7 @@ export default {
         },
     },
     effects: {
-        *getType({ }, {put}) {  // eslint-disable-line
+        *getType({}, {put}) {  // eslint-disable-line
             let data=yield getQuestionsType()
             if(data.code){
                 yield put({
@@ -22,13 +22,23 @@ export default {
             }
       },
         *addType({ payload }, {  put }){
-            let data=yield addQuestionsType(payload)
+            if(payload){
+                let data=yield addQuestionsType(payload)
             if(data.code){
                 yield put({
                   type:"addInfo",
-                  payload:data.msg
+                  payload:data.code
                 })
             }
+
+            }else{
+                yield put({
+                    type:"addInfo",
+                    payload:-1
+                  })
+
+            }
+            
         },
     },
     reducers: {

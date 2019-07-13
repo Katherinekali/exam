@@ -9,6 +9,7 @@ function CheckTheitem(props) {
   let [checked, Upchecked] = useState(false)
   let [checkeds, Upcheckeds] = useState(false)
   let [id, upId] = useState("")
+  let [ind,updateInd]=useState(-1)
   useEffect(() => {
     props.getData();
     props.getAllLessons();//类型
@@ -45,7 +46,8 @@ props.detailInfo(detail)
     })
   }
   //选中状态  subject_id
-  let handleChange = (tag) => {
+  let handleChange = (tag,ind) => {
+    updateInd(ind)
     Upchecked(!checked)
     const nextSelectedTags = checked ? [tag] : selectedTags.filter(t => t !== tag);
     //console.log('You are interested in: ', nextSelectedTags);
@@ -60,22 +62,23 @@ props.detailInfo(detail)
       <h2 className={styles.title}>查看试题</h2>
       <div className={styles.anyLayoutContent}>
         <div className={styles.ant_row}>
-          <h6 style={{ display: "inline-block" }}>
+          <label style={{ display: "inline-block" }}>
             课程类型:
-            </h6>
-          {/* <span onClick={checkedAll}>All</span> */}
+          </label>
           <CheckableTag
             onChange={checkedAll}
             className={checkeds ? "ant_active" : ""}
 
           >All</CheckableTag>
-          {props.allthelessons && props.allthelessons.map(tag => {
+          {props.allthelessons && props.allthelessons.map((tag,index) => {
             // console.log(tag.subject_text)
             return (
               <CheckableTag
+              className={styles.ant_tag}
                 key={tag.subject_id}
-                checked={selectedTags.indexOf(tag.subject_id) > -1}
-                onChange={() => handleChange(tag.subject_id)}
+
+                checked={index===ind}
+                onChange={() => handleChange(tag.subject_id,index)}
               >
                 {tag.subject_text}
               </CheckableTag>

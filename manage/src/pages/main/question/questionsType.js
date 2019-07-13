@@ -4,37 +4,39 @@ import {connect} from "dva"
 import "./questionsType.css"
 const { Column} = Table;
 function QuestionsType(props){
-    console.log(props)
     const [flag, setFlag] = useState(false);
-    const [val,setVal]=useState("请输入试卷类型")
+    const { getFieldDecorator } =props.form;
     const addFn=()=>{
         setFlag(true)
     }
     const hideModal=()=>{
         setFlag(false)
     }
-    const addModal=()=>{
-        setFlag(false)
-        props.addType({text:val,sort:(props.questionsType.length+1).toString()})
-    }
+    const handleSubmit = () => {
+        props.form.validateFields((err, values) => {
+          if (!err) {
+            console.log('Received values of form: ', values);
+            setFlag(false)
+            props.addType({text:values.info,sort:(props.questionsType.length+1).toString()})
+          }else{
+              message.error("error")
+          }
+        });
+      };
     const paginationProps = {
-        // showSizeChanger: true,
-        // showQuickJumper: false,
-        // showTotal: () => `共${totals}条`,
-        pageSize: 5
-        // current: page.pageNum,
-        // total: page.total,
-        // onShowSizeChange: (current,pageSize) => this.changePageSize(pageSize,current),
-        // onChange: (current) => this.changePage(current),
+        pageSize: 10
       }
     useEffect(()=>{
         props.getType()
-        if(props.message==="数据插入"){
-           message.success("添加成功")
+        if(props.message===1){
+           message.success("添加成功")  
+           props.addType()
+        }else if(props.message===-1){
+          return 
         }
     },[props.message])
     return (
-        <div className="questions_wrapper">
+        <div>
             <h2>试题分类</h2>
             <div className="question_content">
             <Button type="primary" icon="plus" onClick={()=>{addFn()}}>
@@ -53,12 +55,20 @@ function QuestionsType(props){
             <Modal
             title="创建新类型"
             visible={flag}
-            onOk={()=>{addModal()}}//点击确认除了要关闭弹框还要发送请求，把内容添加到后台
+            onOk={()=>{handleSubmit()}}//点击确认除了要关闭弹框还要发送请求，把内容添加到后台
             onCancel={()=>{hideModal()}}
             okText="确认"
             cancelText="取消"
             >
-            <Input placeholder="Basic usage" value={val} onChange={(e)=>{setVal(e.target.value)}} />
+            <Form className="login-form">
+                <Form.Item>
+                {getFieldDecorator('info', {
+                    rules: [{ required: true, message: 'Please input your questionsType!' }],
+                })(
+                    <Input placeholder="questionsType"/>
+                )}
+                </Form.Item>
+            </Form>
             </Modal> 
         </div>
     )

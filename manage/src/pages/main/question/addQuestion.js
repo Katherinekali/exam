@@ -59,8 +59,6 @@ function AddQuestion(props) {
     let handleOk = () => {
         handleSubmit()
         setvisible(false)
-
-        // props.addQuestion(infor,edit,search)
     };
     const openNotification = (infor) => {
         notification.open({
@@ -102,7 +100,7 @@ function AddQuestion(props) {
                         <div>
                             <div><label title="题干"> 题目主题</label></div>
                             {getFieldDecorator('questions_stem', { initialValue: search ? detail.questions_stem : "" })(
-                                <Editor style={{ height: 200 }} ></Editor>
+                                <Editor></Editor>
                             )}
 
                         </div>
@@ -166,7 +164,7 @@ function AddQuestion(props) {
                     <h3>答案信息</h3>
                     <div>
                         {getFieldDecorator('answer', { initialValue: search ? detail.questions_answer : "" })(
-                            <Editor style={{ height: 200 }} ></Editor>
+                            <Editor></Editor>
                         )}
                     </div>
                     <div>
