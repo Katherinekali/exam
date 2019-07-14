@@ -8,7 +8,7 @@ export default {
       subject:[],
       questionType:[],
       addState:-1,
-      addTime:"",
+     
   },
   //异步方法：
   effects: {
@@ -57,13 +57,13 @@ export default {
           yield put({
             type:"addRequest",
             payload:data.code,
-            time:new Date()*1
+           
           }) 
         }else{
           yield put({
             type:"addRequest",
             payload:data,
-            time:new Date()*1
+           
           }) 
         }
   }
@@ -83,7 +83,11 @@ export default {
         return {...state,questionType:action.payload}
     },
     addRequest(state,action){
-      return {...state,addState:action.payload,addTime:action.time}
+      
+      return {...state,addState:action.payload}
+    },
+    reset(state,action){
+      return {...state,addState:-1}
     }
   },
 };
