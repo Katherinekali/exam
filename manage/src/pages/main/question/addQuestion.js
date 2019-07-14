@@ -13,6 +13,7 @@ function AddQuestion(props) {
         props.getExamType()
         props.getSubject()
         props.getQuestionType()
+        
         if (props.location) {
             let { search } = props.location;
             search = search.split("=")[1]
@@ -35,6 +36,7 @@ function AddQuestion(props) {
     let handleCancel = () => {
         setvisible(false)
     };
+    console.log(props.detailData)
     function success() {
         Modal.success({
             title: '添加成功',
@@ -56,6 +58,8 @@ function AddQuestion(props) {
                     title: values.title
                 }
                 props.addQuestion(obj, edit, search)
+              
+        
             }
         });
     }
@@ -80,6 +84,7 @@ function AddQuestion(props) {
         }
     }, [props.addTime])
     let { getFieldDecorator } = props.form
+
     return (
         <div>
 
@@ -196,7 +201,7 @@ function AddQuestion(props) {
     )
 }
 const mapStateToProps = (state) => {
-    console.log(state)
+    console.log(state.question.addTime)
     return {
         examType: state.question.examType,
         subject: state.question.subject,
@@ -240,7 +245,12 @@ const mapDispatchToProps = (dispatch) => {
                 type:"question/detail",
                 payload:payload
             })
-
+        },
+        detailInfo: payload => {
+            dispatch({
+                type: "checkTheItem/detail",
+                payload
+            })
         }
     }
 }

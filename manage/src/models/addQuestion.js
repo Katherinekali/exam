@@ -45,7 +45,7 @@ export default {
           }
     },
     *addQuestion({ payload,edit,search}, { call, put }) {  // eslint-disable-line添加试题
-      console.log(edit)
+      console.log("-----",edit)
       if(edit==="修改"){
           payload.questions_id=search
           // delete payload.user_id
@@ -54,16 +54,17 @@ export default {
         console.log(data)
       }else{
         let data=yield call(addquestions,payload) 
-        console.log(data)
         if(data.code){
           yield put({
             type:"addRequest",
-            payload:data.code
+            payload:data.code,
+            time:new Date()*1
           }) 
         }else{
           yield put({
             type:"addRequest",
-            payload:data
+            payload:data,
+            time:new Date()*1
           }) 
         }
   }
