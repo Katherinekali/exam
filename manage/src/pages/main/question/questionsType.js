@@ -34,10 +34,10 @@ function QuestionsType(props){
         }
     },[props.message])
     return (
-        <div className="questions_wrapper">
+        <div>
             <h2>试题分类</h2>
-            <div className="question_content">
-            <Button type="primary" icon="plus" onClick={()=>{addFn()}}>
+            <div style={{background:"#fff"}}>
+            <Button type="primary" icon="plus" onClick={()=>{addFn()}} style={{margin:20}}>
                 添加类型
             </Button>
             <div className="questions_table">
