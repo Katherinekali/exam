@@ -1,0 +1,9 @@
+.addUser_content {
+  width: 33%;
+  border: 1px solid #ccc;
+  padding: 20px;
+}
+
+.ant-form-item {
+  margin-bottom: 10px;
+}
