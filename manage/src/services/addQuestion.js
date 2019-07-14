@@ -4,7 +4,7 @@ export function examType() {
   return request.get('/exam/examType');
 }
 //获取所有的课程
-export function subject() {
+export function subject() { 
     return request.get('/exam/subject');
 }
 //获取所有的试题

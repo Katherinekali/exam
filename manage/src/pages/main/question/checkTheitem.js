@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "dva";
 import styles from "./checkTitem.scss";
 import { Row, Col, Tag, Select, Button, Form } from 'antd';
 const { Option } = Select;
 const { CheckableTag } = Tag;
 function CheckTheitem(props) {
-  let editQuestion=(e)=>{
-    e.preventDefault()
-    props.history.push("/main/addQuestion")
-  }
+  let [selectedTags, UpselextedTags] = useState([])
+  let [checked, Upchecked] = useState(false)
+  let [checkeds, Upcheckeds] = useState(false)
+  let [id, upId] = useState("")
   useEffect(() => {
     props.getData();
     props.getAllLessons();//类型
@@ -16,17 +16,27 @@ function CheckTheitem(props) {
     props.getQuestionsType();//题目类型
     props.refer();//条件查询
   }, []);
+  // 查询    获取select选中的值
   let handleSubmit = (e) => {
     e.preventDefault()
     props.form.validateFields((err, values) => {
       if (!err) {
+        values.subject_id = id ? id : ""
         props.refer(values)
         console.log("111111111", values);
       }
     });
   };
+  //All
+  let checkedAll = () => {
+    // console.log(123)
+    props.getData();
+    Upcheckeds(!checkeds)
+
+  }
   //详情传参
   let detail = (detail) => {
+    props.detailInfo(detail)
     props.history.push({
       pathname: `/main/questions/${detail.questions_id}`,
       state: {
@@ -34,78 +44,87 @@ function CheckTheitem(props) {
       }
     })
   }
+  //选中状态  subject_id
+  let handleChange = (tag) => {
+    Upchecked(!checked)
+    const nextSelectedTags = checked ? [tag] : selectedTags.filter(t => t !== tag);
+    //console.log('You are interested in: ', nextSelectedTags);
+    UpselextedTags(nextSelectedTags)
+    upId(tag)
+    console.log(selectedTags)
+  };
   // // 从Form高阶组件中拿到校验组件
   const { getFieldDecorator } = props.form;
   return (
     <div className={styles.checkTheitemBox}>
       <h2 className={styles.title}>查看试题</h2>
       <div className={styles.anyLayoutContent}>
-        <div className={styles.form}>
-          <div className={styles.ant_row}>
-            <h6 style={{ marginRight: 8, display: "inline-block" }}>
-              课程类型:
+        <div className={styles.ant_row}>
+          <h6 style={{ display: "inline-block" }}>
+            课程类型:
             </h6>
-            <div className={styles.ant_label}>
-              <span>All</span>
-              {props.allthelessons.map(tag => {
-                // console.log(tag.subject_text)
-                return (
-                  <CheckableTag
-                    className={styles.ant_select}
-                    key={tag.subject_id}
-                    //  checked={selectedTags.indexOf(tag.subject_id) > -1}
-                    onChange={checked => this.handleChange(tag.subject_text, checked)}
-                  >
-                    {tag.subject_text}
-                  </CheckableTag>
-                )
-              })}
-            </div>
-          </div>
-          <Form action="" onSubmit={handleSubmit}>
-            <div className={styles.ant_row}>
-              <Row style={{ width: "100%", display: "flex" }}>
-                <Form.Item style={{ display: "flex" }}>
-                  <Col span={9}><label style={{ display: 'inline' }}>考试类型:</label>
-                    {getFieldDecorator("exam_id", {
-                      initialValue: ""
-                    })(<Select style={{ width: 180 }}>
-                      {props.allexamtype.map((item, index) => {
-                        return <Option value={item.exam_id} key={item.exam_id}>{item.exam_name}</Option>
-                      })}
-                    </Select>
-                    )}
-                  </Col>
-                </Form.Item>
-                <Form.Item style={{ display: "flex" }}>
-                  <Col span={9}><label style={{ display: 'inline' }}>题目类型:</label>
-                    {getFieldDecorator("questions_type_id", {
-                      initialValue: ""
-                    })(<Select style={{ width: 180 }}>
-                      {props.questionsType.map((v, k) => {
-                        // console.log(v);
-                        return <Option value={v.questions_type_id} key={v.questions_type_id}>{v.questions_type_text}</Option>
-                      })}
-                    </Select>)
-                    }
-                  </Col>
-                </Form.Item>
-                <Form.Item>
-                  <Col span={6}>
-                    <Button type="primary" htmlType="submit" icon="search" type="primary">
-                      查询
-                    </Button>
-                  </Col>
-                </Form.Item>
-              </Row>
-            </div>
-          </Form>
+          {/* <span onClick={checkedAll}>All</span> */}
+          <CheckableTag
+            onChange={checkedAll}
+            className={checkeds ? "ant_active" : ""}
+
+          >All</CheckableTag>
+          {props.allthelessons && props.allthelessons.map(tag => {
+            // console.log(tag.subject_text)
+            return (
+              <CheckableTag
+                key={tag.subject_id}
+                checked={selectedTags.indexOf(tag.subject_id) > -1}
+                onChange={() => handleChange(tag.subject_id)}
+              >
+                {tag.subject_text}
+              </CheckableTag>
+            )
+          })}
         </div>
+        <Form action="" onSubmit={handleSubmit}>
+          <div className={styles.ant_row} style={{ marginTop: "40px" }}>
+            <Row style={{ width: "100%", display: "flex" }}>
+              <Form.Item style={{ display: "flex" }}>
+                <Col><label style={{ display: 'inline', marginRight: "10px" }}>考试类型:</label>
+                  {getFieldDecorator("exam_id", {
+                    initialValue: undefined
+                  })(<Select style={{ width: 180 }}>
+                    {props.allexamtype && props.allexamtype.map((item, index) => {
+                      return <Option value={item.exam_id} key={item.exam_id}>{item.exam_name}</Option>
+                    })}
+                  </Select>
+                  )}
+                </Col>
+              </Form.Item>
+              <Form.Item style={{ display: "flex" }}>
+                <Col><label style={{ display: 'inline', margin: "0px 10px" }}>题目类型:</label>
+                  {getFieldDecorator("questions_type_id", {
+                    initialValue: undefined
+                  })(<Select style={{ width: 180, margin: "0px 10px" }}>
+                    {props.questionsType && props.questionsType.map((v, k) => {
+                      // console.log(v);
+                      return <Option value={v.questions_type_id} key={v.questions_type_id}>{v.questions_type_text}</Option>
+                    })}
+                  </Select>)
+                  }
+                </Col>
+              </Form.Item>
+              <Form.Item>
+                <Col span={8}>
+                  <Button type="primary" htmlType="submit" icon="search" style={{ boxSizing: "border-box" }}>
+                    查询
+                    </Button>
+                </Col>
+              </Form.Item>
+            </Row>
+          </div>
+        </Form>
       </div>
       <div className={styles.anyLayoutContent}>
         <div className={styles.ant_list}>
           {props.list.map((item, index) => {
-            //console.log(item)
+            // console.log(item)
             return (
               <div className={styles.ant_list_item} key={index} onClick={() => detail(item)}>
                 <div className={styles.ant_list_item_content}>
@@ -115,9 +134,9 @@ function CheckTheitem(props) {
                       style={{ marginBottom: "10px", display: "flex" }}
                       className={styles.ant_tag_meta}
                     >
-                      <div className={styles.ant_tag_blue}>{item.questions_type_text}</div>
-                      <div className={styles.ant_tag_geekblue}>{item.subject_text}</div>
-                      <div className={styles.ant_tag_orange}>{item.exam_name}</div>
+                      <Tag color="blue">{item.questions_type_text}</Tag>
+                      <Tag color="geekblue">{item.subject_text}</Tag>
+                      <Tag color="orange">{item.exam_name}</Tag>
                     </div>
                     <span
                       style={{
@@ -131,12 +150,12 @@ function CheckTheitem(props) {
                 </span>
                   </div>
                 </div>
-                <p className={styles.ant_list_item_action}>
+                <div className={styles.ant_list_item_action}>
                   <div>
                     <a href={`/#/main/addQuestion?id=${item.questions_id}`}>编辑</a>
-                  </div> 
-                </p>  
-              </div> 
+                  </div>
+                </div>
+              </div>
             )
           })}
         </div>
@@ -144,9 +163,10 @@ function CheckTheitem(props) {
     </div>
   );
 }
-const mapState = state => { 
-  return { 
-    ...state.checkTheItem 
+const mapState = state => {
+  console.log(state, 123)
+  return {
+    ...state.checkTheItem
   };
 };
 const mapDispatch = dispatch => {
@@ -185,6 +205,12 @@ const mapDispatch = dispatch => {
       //console.log(payload)
       dispatch({
         type: "checkTheItem/conditionquery",
+        payload
+      })
+    },
+    detailInfo: payload => {
+      dispatch({
+        type: "checkTheItem/detail",
         payload
       })
     }

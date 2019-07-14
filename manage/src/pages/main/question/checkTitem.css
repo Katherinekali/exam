@@ -1,9 +1,14 @@
 .checkTheitemBox {
   width: 100%;
+<<<<<<< HEAD
+  background: #f0f2f5;
+  margin: 0 auto;
+=======
   padding: 0 24px 24px;
   background: #f0f2f5;
   margin: 0 auto;
   overflow-y: auto;
+>>>>>>> 4a617429378af701f8b42ed77f920ab8628134ab
 }
 
 .checkTheitemBox .title {
@@ -19,8 +24,12 @@
 }
 
 .checkTheitemBox .ant_row {
+<<<<<<< HEAD
+  padding: 0 20px;
+=======
   height: 78px;
   display: flex;
+>>>>>>> 4a617429378af701f8b42ed77f920ab8628134ab
 }
 
 .checkTheitemBox .ant_col {
@@ -33,14 +42,19 @@
   float: left;
 }
 
+<<<<<<< HEAD
+=======
 .checkTheitemBox .ant_label {
   flex: 1;
 }
 
+>>>>>>> 4a617429378af701f8b42ed77f920ab8628134ab
 .checkTheitemBox .ant_row h6 {
   width: 70px;
 }
 
+<<<<<<< HEAD
+=======
 .checkTheitemBox .ant_btn {
   padding: 0 40px !important;
   border-radius: 4px !important;
@@ -51,6 +65,7 @@
   height: 32px;
 }
 
+>>>>>>> 4a617429378af701f8b42ed77f920ab8628134ab
 .checkTheitemBox .ant_list {
   font-size: 14px;
   font-variant: tabular-nums;
@@ -74,6 +89,8 @@
   background: #F0F5FF;
 }
 
+<<<<<<< HEAD
+=======
 .checkTheitemBox .ant_tag {
   font-size: 14px;
   font-variant: tabular-nums;
@@ -98,10 +115,13 @@
   white-space: nowrap;
 }
 
+>>>>>>> 4a617429378af701f8b42ed77f920ab8628134ab
 .checkTheitemBox .ant_tag_meta {
   height: 22px;
 }
 
+<<<<<<< HEAD
+=======
 .checkTheitemBox .ant_tag_blue {
   width: 65px;
   margin: 0 8px 0 0;
@@ -129,6 +149,7 @@
   font-size: 12px;
 }
 
+>>>>>>> 4a617429378af701f8b42ed77f920ab8628134ab
 .checkTheitemBox .ant_list_item_content {
   width: 90%;
 }
@@ -136,3 +157,10 @@
 .checkTheitemBox .ant_list_item_action {
   padding: 0 5px;
 }
+<<<<<<< HEAD
+
+:global .ant_active {
+  background: #339af6;
+}
+=======
+>>>>>>> 4a617429378af701f8b42ed77f920ab8628134ab

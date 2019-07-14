@@ -10,12 +10,6 @@ export default {
       addState:-1,
       addTime:"",
   },
-  //订阅：
-  subscriptions: {
-    setup({ dispatch, history }) {  //   
-      
-    },
-  },
   //异步方法：
   effects: {
     *examType({}, { call, put }) {  //  考试类型
@@ -50,26 +44,26 @@ export default {
           }
     },
     *addQuestion({ payload,edit,search}, { call, put }) {  // eslint-disable-line添加试题
-      console.log(edit)
+      console.log("-----",edit)
       if(edit==="修改"){
           payload.questions_id=search
           // delete payload.user_id
           // console.log(payload)
         let data=yield call(editquestions,payload) 
-        console.log(data)
 
       }else{
         let data=yield call(addquestions,payload) 
-        console.log(data)
         if(data.code){
           yield put({
             type:"addRequest",
-            payload:data.code
+            payload:data.code,
+            time:new Date()*1
           }) 
         }else{
           yield put({
             type:"addRequest",
-            payload:data
+            payload:data,
+            time:new Date()*1
           }) 
         }
   }
@@ -89,7 +83,7 @@ export default {
         return {...state,questionType:action.payload}
     },
     addRequest(state,action){
-      return {...state,addState:action.payload,addTime:new Date()*1}
+      return {...state,addState:action.payload,addTime:action.time}
     }
   },
 };
