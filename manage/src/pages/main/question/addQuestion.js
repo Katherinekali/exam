@@ -75,7 +75,8 @@ function AddQuestion(props) {
         } else {
             openNotification(props.addState.message)
         }
-    }, [props.addTime])
+        props.reset()
+    }, [props.addState])
     let { getFieldDecorator } = props.form
     return (
         <div>
@@ -198,7 +199,7 @@ const mapStateToProps = (state) => {
         subject: state.question.subject,
         questionType: state.question.questionType,
         addState: state.question.addState,
-        addTime: state.question.addTime,
+        // addTime: state.question.addTime,
         ...state.checkTheItem
     }
 }
@@ -228,6 +229,17 @@ const mapDispatchToProps = (dispatch) => {
                 payload: payload,
                 edit: edit,
                 id: search
+            })
+        },
+        detailInfo: payload => {
+            dispatch({
+                type: "checkTheItem/detail",
+                payload
+            })
+        },
+        reset(){
+            dispatch({
+                type:"question/reset"
             })
         }
     }
