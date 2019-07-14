@@ -48,10 +48,10 @@ export default {
       console.log("-----",edit)
       if(edit==="修改"){
           payload.questions_id=search
-          // delete payload.user_id
-          // console.log(payload)
+          delete payload.user_id
+          console.log(payload)
         let data=yield call(editquestions,payload) 
-        console.log(data)
+        console.log(data,"修改")
       }else{
         let data=yield call(addquestions,payload) 
         if(data.code){

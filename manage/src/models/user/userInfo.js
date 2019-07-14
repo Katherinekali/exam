@@ -5,7 +5,6 @@ export default {
         identity:[],//身份id
         portAuthorition:[],//接口权限,
         viewAuthority:[],//视图权限
-        
     },
     subscriptions: {
       setup({ dispatch, history }) {  // eslint-disable-line
