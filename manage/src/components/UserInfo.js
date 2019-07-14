@@ -4,6 +4,7 @@ import { connect } from "dva";
 import styles from "./userinfo.scss"
 const { Option } = Select;
 function UserInfo(props){
+  
     const handleSubmit = () => {
         props.form.validateFields((err, values) => {
           if (!err) {
@@ -23,23 +24,27 @@ function UserInfo(props){
     return (
     <div className={styles.addUser_content}>
         <Tag>{item.title}</Tag>
-        <Form onSubmit={()=>{handleSubmit}} className="login-form">
+        <Form onSubmit={()=>{handleSubmit}} className="login-form" >
           {item.content.map((val,index)=>{
-           return  val.type==="input"?<Form.Item key={index}>
-           {getFieldDecorator('username', {
-               rules: [{ required: true, message: 'Please input your username!' }],
+           return  val.type==="input"?<Form.Item key={index} style={{marginBottom:10}}>
+           {getFieldDecorator(val.title, {
+                initialValue:val.title,
+                rules: [{ required: true, message: 'Please input your username!' }],
            })(
                <Input
+               key={index}
                style={{ width: "80%" }}
-               placeholder="Username"
                />,
            )}
            </Form.Item>:
-           <Form.Item key={index}>
+           <Form.Item key={index} style={{marginBottom:10}}>
              <Select defaultValue={val.title} style={{ width: "80%" }} onChange={handleChange}>
-              <Option value="jack">Jack</Option>
-              <Option value="lucy">Lucy</Option>
-              <Option value="Yiminghe">yiminghe</Option>
+               {
+                 console.log(val.content,"1")
+                //  val&&val.content.map((v,k)=>{
+                //   <Option value="jack">Jack</Option>
+                //  })
+               }
             </Select>
           </Form.Item> 
           })}
@@ -57,4 +62,15 @@ function UserInfo(props){
         
     </div>)
 }
-export default connect()(Form.create()(UserInfo))
+let mapStateToProps=state=>{
+  return {
+     
+  }
+}
+let mapDispatchToProps=dispatch=>{
+  return {
+    
+     
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Form.create()(UserInfo))
