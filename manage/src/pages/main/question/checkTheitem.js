@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "dva";
 import styles from "./checkTitem.scss";
-import { Row, Col, Tag, Select, Button, Form } from 'antd';
+import { Row, Col, Tag, Select, Button, Form, Spin } from 'antd';
 const { Option } = Select;
 const { CheckableTag } = Tag;
 function CheckTheitem(props) {
@@ -166,7 +166,7 @@ function CheckTheitem(props) {
 const mapState = state => {
   console.log(state, 123)
   return {
-    ...state.checkTheItem
+    ...state.checkTheItem,
   };
 };
 const mapDispatch = dispatch => {

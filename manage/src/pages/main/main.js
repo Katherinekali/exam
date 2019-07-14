@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'dva';
+import { Spin } from 'antd';
 import { Route, Link } from 'dva/router';
 import styles from "./main.css"
-import { Dropdown, Menu, Icon, Spin } from 'antd';
+import { Dropdown, Menu, Icon } from 'antd';
 import ClassList from "./checking/classList"
 import Grade from "./classRoom/grade"
 import Room from "./classRoom/room"
@@ -144,10 +145,19 @@ function IndexPage(props) {
             <Route path="/main/adduser" component={AddUser} />
             <Route path="/main/showuser" component={ShowUser} />
           </div>
+          {props.global ? <div className={styles.loading}><Spin /></div> : null}
         </div>
+
       </div>
     </div>
   );
 }
+const mapState = state => {
+  console.log(state, 123)
+  return {
+    ...state.checkTheItem,
+    global: state.loading.global
+  };
+};
 
-export default connect()(IndexPage);
+export default connect(mapState)(IndexPage);
