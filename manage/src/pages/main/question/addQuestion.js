@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styles from "./question.scss"
 import Editor from 'for-editor'
-import { Select, Button, Modal, Form, Input, notification, Icon } from 'antd';
+import { Select, Button, Modal, Form, Input, notification, Icon, Spin } from 'antd';
 import { connect } from "dva"
 const { Option } = Select;
 function AddQuestion(props) {
@@ -52,6 +52,8 @@ function AddQuestion(props) {
                 }
                 // setInfor(obj)
                 props.addQuestion(obj, edit, search)
+
+
             }
         });
     }
@@ -158,7 +160,7 @@ function AddQuestion(props) {
                                             }
                                         </Select>
                                     )}
-                                </div>
+                                </div> 
                             </Form.Item>
                         </div>
                     </div>
@@ -189,6 +191,7 @@ function AddQuestion(props) {
                     </div>
                 </div>
             </Form>
+            {props.global ? <div className={styles.loading}><Spin /></div> : null}
         </div>
     )
 }

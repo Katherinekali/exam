@@ -145,10 +145,19 @@ function IndexPage(props) {
             <Route path="/main/adduser" component={AddUser} />
             <Route path="/main/showuser" component={ShowUser} />
           </div>
+          {props.global ? <div className={styles.loading}><Spin /></div> : null}
         </div>
+
       </div>
     </div>
   );
 }
+const mapState = state => {
+  console.log(state, 123)
+  return {
+    ...state.checkTheItem,
+    global: state.loading.global
+  };
+};
 
-export default connect()(IndexPage);
+export default connect(mapState)(IndexPage);
