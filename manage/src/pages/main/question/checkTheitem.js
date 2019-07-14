@@ -38,7 +38,7 @@ function CheckTheitem(props) {
   let detail = (detail) => {
     props.detailInfo(detail)
     props.history.push({
-      pathname: `/main/questions/${detail.questions_id}?id=${detail.questions_id}`,
+      pathname: `/main/questions/${detail.questions_id}`,
       state: {
         data: detail
       }

@@ -13,13 +13,13 @@ function AddQuestion(props) {
         props.getExamType()
         props.getSubject()
         props.getQuestionType()
+        
         if (props.location) {
             let { search } = props.location;
             search = search.split("=")[1]
-            console.log(search)
             setSearch(search)
             setDetail(props.detailData)
-            console.log(props.detailData)
+            //console.log(props.detailData)
         }
     }, [])
     let showModal = (val) => {
@@ -30,6 +30,7 @@ function AddQuestion(props) {
     let handleCancel = () => {
         setvisible(false)
     };
+    console.log(props.detailData)
     function success() {
         Modal.success({
             title: '添加成功',
@@ -53,6 +54,8 @@ function AddQuestion(props) {
                 }
                 // setInfor(obj)
                 props.addQuestion(obj, edit, search)
+              
+        
             }
         });
     }
@@ -230,6 +233,12 @@ const mapDispatchToProps = (dispatch) => {
                 payload: payload,
                 edit: edit,
                 id: search
+            })
+        },
+        detailInfo: payload => {
+            dispatch({
+                type: "checkTheItem/detail",
+                payload
             })
         }
     }

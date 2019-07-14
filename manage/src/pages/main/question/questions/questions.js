@@ -4,11 +4,12 @@ import styles from "./questions.scss"
 import ReactMarkdown from "react-markdown";
 import { connect } from "dva";
 function Question(props) {
-    let data = props.location.state ? props.location.state : JSON.parse(localStorage.getItem('data'));
-    localStorage.setItem('data', JSON.stringify(data))
+    // let data = props.location.state ? props.location.state : JSON.parse(localStorage.getItem('data'));
+    // localStorage.setItem('data', JSON.stringify(data))
     useEffect(() => {
-      
-    })
+        props.refer({ questions_id: props.match.params.id })
+    }, [])
+    //console.log(props.list)
     return (
         <div className={styles.detailWrapper}>
             <h2 className={styles.title}>试题详情</h2>
@@ -16,26 +17,41 @@ function Question(props) {
                 <div style={{
                     display: "flex"
                 }}>
-                    {data.data && <div className={styles.ant_layout_content}>
-                        <div style={{ marginBottom: "20px" }}><span>出题人：{data.data.user_name}</span><div></div></div>
+                    {props.list[0] && <div className={styles.ant_layout_content}>
+                        <div style={{ marginBottom: "20px" }}><span>出题人：{props.list[0].user_name}</span><div></div></div>
                         <h3>题目信息</h3>
                         <div style={{ marginTop: "20px", marginBottom: "20px" }}>
-                            <Tag color="blue">{data.data.questions_type_text}</Tag>
-                            <Tag color="geekblue">{data.data.subject_text}</Tag>
-                            <Tag color="orange">{data.data.exam_name}</Tag>
-                            <h4>{data.data.title}</h4>
-                            <ReactMarkdown source={data.data.questions_stem} className={styles.react_markdown} />
+                            <Tag color="blue">{props.list[0].questions_type_text}</Tag>
+                            <Tag color="geekblue">{props.list[0].subject_text}</Tag>
+                            <Tag color="orange">{props.list[0].exam_name}</Tag>
+                            <h4>{props.list[0].title}</h4>
+                            <ReactMarkdown source={props.list[0].questions_stem} className={styles.react_markdown} />
                         </div>
                     </div>
                     }
                     <div className={styles.ant_divider_vertical}></div>
                     <div className={styles.ant_layout_contents}>
                         <h3>答案信息</h3>
-                        <ReactMarkdown source={data.data.questions_answer} className={styles.react_markdown} />
+                        {props.list[0] && <ReactMarkdown source={props.list[0].questions_answer} className={styles.react_markdown} />}
                     </div>
                 </div>
             </div>
         </div>)
 }
-
-export default connect()(Question);
+const mapState = state => {
+    return {
+        ...state.checkTheItem
+    };
+};
+const mapDispatch = dispatch => {
+    return {
+        refer: payload => {
+            //console.log(payload)
+            dispatch({
+                type: "checkTheItem/conditionquery",
+                payload
+            })
+        },
+    }
+}
+export default connect(mapState, mapDispatch)(Question);
