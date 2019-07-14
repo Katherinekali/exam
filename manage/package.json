@@ -11,6 +11,7 @@
     "axios": "^0.19.0",
     "babel-plugin-import": "^1.12.0",
     "dva": "^2.4.1",
+    "dva-loading": "^3.0.12",
     "for-editor": "^0.3.0",
     "js-cookie": "^2.2.0",
     "react": "^16.2.0",

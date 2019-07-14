@@ -1,8 +1,9 @@
 import dva from 'dva';
 import './index.css';
-import 'antd/dist/antd.css'
+import 'antd/dist/antd.css';
+import createLoading from 'dva-loading';
 // 1. Initialize
-const app = dva();
+const app = dva(createLoading());
 
 // 2. Plugins
 // app.use({});
