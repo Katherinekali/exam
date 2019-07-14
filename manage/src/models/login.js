@@ -14,7 +14,7 @@ export default {
       return history.listen(({ pathname }) => {
         // 1.判断去的页面是否是登陆页面-----如果不是登录页面
         if (pathname.indexOf('/login') === -1) {
-          // 1.1 判断是否有登陆态----------如果没有登陆的状态，则跳转到登录页面
+          //  判断是否有登陆态----------如果没有登陆的状态，则跳转到登录页面
           if (!getToken()){                     
             dispatch(routerRedux.replace({
               pathname: `/login`,

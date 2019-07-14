@@ -1,4 +1,4 @@
-import {examType,subject,questionsType,addquestions,editquestions} from "../services/index"
+import {examType,subject,questionsType,addquestions,editquestions,getDetail} from "../services/index"
 export default {
   //命名空间：
   namespace: 'question',
@@ -9,6 +9,7 @@ export default {
       questionType:[],
       addState:-1,
       addTime:"",
+      detail:[]
   },
   //异步方法：
   effects: {
@@ -51,7 +52,6 @@ export default {
           // console.log(payload)
         let data=yield call(editquestions,payload) 
         console.log(data)
-
       }else{
         let data=yield call(addquestions,payload) 
         console.log(data)
@@ -68,6 +68,13 @@ export default {
         }
   }
 
+      },
+      *detail({payload},{call,put}){
+        let data=yield call(getDetail,payload) 
+        yield put({
+          type:"detailData",
+          payload:data.data
+        })
       }
         
   },
@@ -84,6 +91,10 @@ export default {
     },
     addRequest(state,action){
       return {...state,addState:action.payload,addTime:new Date()*1}
+    },
+    detailData(state,action){
+      return {...state,detail:action.payload}
+
     }
   },
 };

@@ -11,6 +11,9 @@ export function subject() {
 export function questionsType() {
     return request.get('/exam/getQuestionsType');
 }
+export function getDetail(params) {
+  return request.get(`/exam/questions/condition?questions_id=${params.questions_id}`);
+}
 
 //添加试题:
 export function addquestions(params){
