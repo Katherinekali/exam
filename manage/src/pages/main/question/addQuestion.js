@@ -82,9 +82,9 @@ function AddQuestion(props) {
         } else {
             openNotification(props.addState.message)
         }
-    }, [props.addTime])
+        props.reset()
+    }, [props.addState])
     let { getFieldDecorator } = props.form
-
     return (
         <div>
 
@@ -201,6 +201,7 @@ function AddQuestion(props) {
     )
 }
 const mapStateToProps = (state) => {
+    console.log(state.question)
     console.log(state.question.addTime)
     return {
         examType: state.question.examType,
@@ -209,6 +210,7 @@ const mapStateToProps = (state) => {
         addState: state.question.addState,
         addTime: state.question.addTime,
         detail:state.question.detail,
+        // addTime: state.question.addTime,
         ...state.checkTheItem
     }
 }
@@ -250,6 +252,11 @@ const mapDispatchToProps = (dispatch) => {
             dispatch({
                 type: "checkTheItem/detail",
                 payload
+            })
+        },
+        reset(){
+            dispatch({
+                type:"question/reset"
             })
         }
     }

@@ -58,13 +58,13 @@ export default {
           yield put({
             type:"addRequest",
             payload:data.code,
-            time:new Date()*1
+           
           }) 
         }else{
           yield put({
             type:"addRequest",
             payload:data,
-            time:new Date()*1
+           
           }) 
         }
   }
@@ -95,7 +95,9 @@ export default {
     },
     detailData(state,action){
       return {...state,detail:action.payload}
-
+    },
+    reset(state,action){
+      return {...state,addState:-1}
     }
   },
 };
