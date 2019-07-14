@@ -13,12 +13,13 @@ function AddQuestion(props) {
         props.getExamType()
         props.getSubject()
         props.getQuestionType()
-        
         if (props.location) {
             let { search } = props.location;
             search = search.split("=")[1]
-            props.getDetail({questions_id:search})
+            console.log(search)
             setSearch(search)
+            setDetail(props.detailData)
+            console.log(props.detailData)
         }
     }, [])
     useEffect(()=>{
@@ -32,11 +33,9 @@ function AddQuestion(props) {
         setvisible(true)
         setEdit(val)
     };
-
     let handleCancel = () => {
         setvisible(false)
     };
-    console.log(props.detailData)
     function success() {
         Modal.success({
             title: '添加成功',
@@ -48,6 +47,7 @@ function AddQuestion(props) {
         props.form.validateFields((err, values) => {
             if (!err) {
                 let user_id = JSON.parse(localStorage.getItem("userInfor")).data.user_id
+                console.log(values)
                 let obj = {
                     questions_type_id: values.questionType,
                     questions_stem: values.questions_stem,
@@ -57,9 +57,8 @@ function AddQuestion(props) {
                     questions_answer: values.answer,
                     title: values.title
                 }
+                // setInfor(obj)
                 props.addQuestion(obj, edit, search)
-              
-        
             }
         });
     }
@@ -201,8 +200,7 @@ function AddQuestion(props) {
     )
 }
 const mapStateToProps = (state) => {
-    console.log(state.question)
-    console.log(state.question.addTime)
+    console.log(state)
     return {
         examType: state.question.examType,
         subject: state.question.subject,

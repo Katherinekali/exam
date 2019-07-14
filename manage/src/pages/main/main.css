@@ -80,3 +80,8 @@ h2{
 input{
     border:1px solid #aaa!important;
 }
+.loading{
+    position: fixed;
+    top:0;
+    left:0;
+}

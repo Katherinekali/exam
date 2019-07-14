@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
+import { Spin } from 'antd';
 import { Route, Link } from 'dva/router';
 import styles from "./main.css"
 import { Dropdown, Menu, Icon } from 'antd';
@@ -39,7 +40,7 @@ const menu = (
 
 );
 
-function IndexPage() {
+function IndexPage(props) {
   let handleClick = e => {
     console.log('click ', e);
   };
@@ -128,7 +129,7 @@ function IndexPage() {
               <Menu.Item key="11"><Link to="/main/classlist">待批班级</Link></Menu.Item>
             </SubMenu>
           </Menu>
-          </div>
+        </div>
         <div className={styles.content}>
           <div className={styles.layout_main}>
             <Route path="/main/classlist" component={ClassList} />
