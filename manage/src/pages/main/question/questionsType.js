@@ -4,6 +4,7 @@ import {connect} from "dva"
 import "./questionsType.css"
 const { Column} = Table;
 function QuestionsType(props){
+    // console.log(props)
     const [flag, setFlag] = useState(false);
     const { getFieldDecorator } =props.form;
     const addFn=()=>{
