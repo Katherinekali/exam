@@ -3,3 +3,4 @@ export * from "./addQuestion";
 export * from "./checkTheItem.js";
 export * from "./text";
 export * from "./user/userinfo"
+export * from "./room/index"

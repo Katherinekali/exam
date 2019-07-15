@@ -13,6 +13,7 @@ app.model(require('./models/addQuestion').default);
 app.model(require('./models/checkTheItem.js').default);
 app.model(require('./models/getQuestionsType').default);
 app.model(require("./models/user/userInfo").default)
+app.model(require("./models/room").default)
 // 4. Router
 app.router(require('./router').default);
 

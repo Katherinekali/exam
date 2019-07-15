@@ -1,11 +1,16 @@
-import {getUserID,getApiPort,getView} from "../../services/index"
+import { getIdentity,getApi,getView,getUserIdentity,addUser,updateUser,addIdentity,addApiEdit,setApiEdit,setViewEdit,addViewEdit} from "../../services/addUser"
 export default {
     namespace: 'userInfo',
     state: {
         identity:[],//身份id
         portAuthorition:[],//接口权限,
         viewAuthority:[],//视图权限
-        
+        userIdentity:[],//用户
+        AddidentityMes:-1,
+        ApiInfo:-1,
+        identityApi:-1,
+        viewPort:-1,
+        viewAuthor:-1//视图权限
     },
     subscriptions: {
       setup({ dispatch, history }) {  // eslint-disable-line
@@ -14,15 +19,14 @@ export default {
     effects: {
         //获取用户id
       *getUserId({ payload }, { call, put }) {  // eslint-disable-line
-        let data=yield getUserID()
-        console.log(data)
+        let data=yield  getIdentity()
         yield put({
             type:"getIdentity",
             payload:data.data
         })
       },
       *getApiPort({ payload }, { call, put }){
-          let data=yield getApiPort()
+          let data=yield getApi()
           yield put({
             type:"authorition",
             payload:data.data
@@ -31,13 +35,82 @@ export default {
       },
       *getView({ payload }, { call, put }){
         let data=yield getView()
-        console.log(data)
         yield put({
           type:"viewAuthorition",
           payload:data.data
       })
 
-    }
+      },
+      *getAllUser({ payload }, { call, put }){
+        let data=yield getUserIdentity()
+        console.log(data,"user")
+        yield put({
+          type:"getUser",
+          payload:data.data
+      })
+
+    },
+    *addUserInfo({ payload }, { call, put }){
+      console.log(payload)
+      let data=yield addUser(payload)
+      // console.log(data,"adduser")
+    //   yield put({
+    //     type:"getUser",
+    //     payload:data.data
+    // })
+
+    },  
+    *updateUserInfo({ payload }, { call, put }){
+      let data=yield updateUser(payload)
+      // console.log(data,"updateUser")
+    //   yield put({
+    //     type:"getUser",
+    //     payload:data.data
+    // })
+
+    },
+    *addIdentity({ payload }, { call, put }){
+      let data=yield addIdentity(payload)
+          yield put({
+          type:"identityInfo",
+          payload:data.code
+        })
+    },
+    *addApiAuthority({ payload }, { call, put }){
+      let data=yield addApiEdit(payload)
+      console.log(data,"addApiAuthority")
+          yield put({
+          type:"apiInfo",
+          payload:data.code
+        })
+    },
+    *setApi({ payload }, { call, put }){
+      let data=yield setApiEdit(payload)
+          yield put({
+          type:"setApiInfo",
+          payload:data.code
+        })
+        
+    },
+    *setViewPort({ payload }, { call, put }){
+      let data=yield setViewEdit(payload)
+          yield put({
+          type:"setViewPort",
+          payload:data.code
+        })
+       
+       
+    },
+    *addviewAuthority({ payload }, { call, put }){
+      console.log(payload)
+      let data=yield addViewEdit(payload)
+      console.log(data)
+          yield put({
+          type:"ViewAuthority",
+          payload:data.code
+        })
+    },
+  
     },
     reducers: {
     getIdentity(state, action) {
@@ -49,6 +122,24 @@ export default {
     viewAuthorition(state, action){
         return { ...state, viewAuthority:action.payload};
     },
+    getUser(state, action){
+      return { ...state, userIdentity:action.payload};
+    },
+    identityInfo(state, action){
+      return { ...state, AddidentityMes:action.payload};
+    },
+    apiInfo(state, action){
+      return { ...state, ApiInfo:action.payload};
+    },
+    setApiInfo(state, action){
+      return { ...state, identityApi:action.payload};
+    },
+    setViewPort(state, action){
+      return { ...state, viewPort:action.payload};
+    },
+    ViewAuthority(state, action){
+      return { ...state, viewAuthor:action.payload};
+    }
 
     },
     
