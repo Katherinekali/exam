@@ -16,10 +16,10 @@ function AddQuestion(props) {
         if (props.location) {
             let { search } = props.location;
             search = search.split("=")[1]
-            // console.log(search)
+            console.log(search)
             setSearch(search)
             setDetail(props.detailData)
-            // console.log(props.detailData)
+            console.log(props.detailData)
         }
     }, [])
     let showModal = (val) => {
@@ -40,7 +40,7 @@ function AddQuestion(props) {
         props.form.validateFields((err, values) => {
             if (!err) {
                 let user_id = JSON.parse(localStorage.getItem("userInfor")).data.user_id
-                // console.log(values)
+                console.log(values)
                 let obj = {
                     questions_type_id: values.questionType,
                     questions_stem: values.questions_stem,

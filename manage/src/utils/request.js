@@ -3,7 +3,7 @@ import { getToken } from "../utils/index";
 import { message } from 'antd';
 // create an axios instance
 const service = axios.create({
-  baseURL: 'http://169.254.12.132:7001/',
+  baseURL: 'http://169.254.12.157:7001/',
   // withCredentials: true, // 跨域请求时发送 cookies
   timeout: 5000 // request timeout
 })
@@ -27,8 +27,8 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => response.data,
   error => {
-    // return Promise.reject(error)
-    message.error(error.message);
+    return Promise.reject(error)
+    // message.error(error.message);
   }
 )
 

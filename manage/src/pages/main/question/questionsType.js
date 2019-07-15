@@ -4,7 +4,7 @@ import {connect} from "dva"
 import "./questionsType.css"
 const { Column} = Table;
 function QuestionsType(props){
-    // console.log(props)
+    console.log(props)
     const [flag, setFlag] = useState(false);
     const [val,setVal]=useState("请输入试卷类型")
     const addFn=()=>{

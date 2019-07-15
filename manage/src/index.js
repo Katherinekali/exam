@@ -13,6 +13,7 @@ app.model(require('./models/login').default);
 app.model(require('./models/addQuestion').default);
 app.model(require('./models/checkTheItem').default);
 app.model(require('./models/getQuestionsType').default);
+app.model(require('./models/addExam').default);
 // app.model(require('./models/questions').default)
 // 4. Router
 app.router(require('./router').default);
