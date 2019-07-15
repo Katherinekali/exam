@@ -8,10 +8,12 @@ import {
     Table, 
   } from "antd";
 import styles from "../addExam.scss"
+import formatTime from "./formatTime"
 function ExamList (props) {
     const { Option } = Select;
     const { getFieldDecorator } = props.form;
     let [size,setSize]=useState("all")
+   
     useEffect(()=>{
         props.getExamType()
         props.getSubject()
@@ -38,7 +40,7 @@ function ExamList (props) {
     useEffect(()=>{
         if(props.examList){
             props.examList.forEach(item=>{
-                console.log(item)
+                // console.log(item.start_time)
             })
         }
        
@@ -47,15 +49,23 @@ function ExamList (props) {
     const columns = [
         {
             title: '试卷信息',
-            dataIndex:"title",
-            render: (text) => (
-                <h4>{text}</h4>
-            ),
-            rowSelection:{}
+            dataIndex:"",
+            key:"title",
+            render: (text, record) =>(
+               <div>
+                   <h4>{record.title}</h4>
+                   <p>
+                        <span>考试时间：{formatTime((record.end_time-record.start_time),'h:m:s')} </span>
+                        <span>{record.number}道题 </span>
+                        <span>作弊0分</span>
+                   </p>
+               </div>
+            )
         },
         {
             title: '班级',
             dataIndex: 'grade_name',
+            key:"classname",
             render: (text) => (
                 <div>
                     <p>考试班级</p>
@@ -70,30 +80,25 @@ function ExamList (props) {
         {
             title: '创建人',
             dataIndex: 'user_name',
+            key:"creater",
         },
         {
             title: '开始时间',
             dataIndex: 'start_time',
-            render: (text) => 
-            {
-                <span>{text}</span>
-            },
+            key:"start_time",
+            render: (text) =>(<span>{formatTime(text,'Y-M-D h:m:s')}</span>)
         },
         {
             title: '结束时间',
             dataIndex: 'end_time',
-            render: (text) => 
-            {
-                <span>{text}</span>
-            },
+            key:"end_time",
+            render: (text) => (<span>{formatTime(text,'Y-M-D h:m:s')}</span>)
         },
         {
             title: '操作',
-            dataIndex:'exam_id',
-            render: (text) => 
-            {
-                <a href={`/#/main/exam/detail?id=${text}`}>详情</a>
-            },
+            dataIndex:'',
+            key:"oper",
+            render: (text) => (<a href={`/#/main/exam/detail?id=${text}`}>详情</a>)
         },
       ];
     
