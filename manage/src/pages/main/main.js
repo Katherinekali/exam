@@ -114,8 +114,8 @@ function IndexPage(props) {
                 </span>
               }
             >
-              <Menu.Item key="4"><Link to="/main/addexam">添加考试</Link></Menu.Item>
-              <Menu.Item key="5"><Link to="/main/examlist">考试列表</Link></Menu.Item>
+              <Menu.Item key="6"><Link to="/main/addexam">添加考试</Link></Menu.Item>
+              <Menu.Item key="7"><Link to="/main/examlist">考试列表</Link></Menu.Item>
             </SubMenu>
             <SubMenu
               key="sub4"
