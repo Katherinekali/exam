@@ -164,7 +164,6 @@ function CheckTheitem(props) {
   );
 }
 const mapState = state => {
-  console.log(state, 123)
   return {
     ...state.checkTheItem,
   };
@@ -173,7 +172,6 @@ const mapDispatch = dispatch => {
   return {
     //所有题
     getData: payload => {
-      console.log(1)
       dispatch({
         type: "checkTheItem/All",
         payload

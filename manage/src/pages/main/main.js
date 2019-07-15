@@ -42,7 +42,7 @@ const menu = (
 
 function IndexPage(props) {
   let handleClick = e => {
-    console.log('click ', e);
+    // console.log('click ', e);
   };
   return (
     <div className={styles.layout}>
@@ -153,7 +153,6 @@ function IndexPage(props) {
   );
 }
 const mapState = state => {
-  console.log(state, 123)
   return {
     ...state.checkTheItem,
     global: state.loading.global

@@ -16,10 +16,8 @@ function AddQuestion(props) {
         if (props.location) {
             let { search } = props.location;
             search = search.split("=")[1]
-            console.log(search)
             setSearch(search)
             setDetail(props.detailData)
-            console.log(props.detailData)
         }
     }, [])
     let showModal = (val) => {
@@ -40,7 +38,6 @@ function AddQuestion(props) {
         props.form.validateFields((err, values) => {
             if (!err) {
                 let user_id = JSON.parse(localStorage.getItem("userInfor")).data.user_id
-                console.log(values)
                 let obj = {
                     questions_type_id: values.questionType,
                     questions_stem: values.questions_stem,
@@ -160,7 +157,7 @@ function AddQuestion(props) {
                                             }
                                         </Select>
                                     )}
-                                </div> 
+                                </div>
                             </Form.Item>
                         </div>
                     </div>
@@ -196,7 +193,6 @@ function AddQuestion(props) {
     )
 }
 const mapStateToProps = (state) => {
-    console.log(state)
     return {
         examType: state.question.examType,
         subject: state.question.subject,
@@ -240,9 +236,9 @@ const mapDispatchToProps = (dispatch) => {
                 payload
             })
         },
-        reset(){
+        reset() {
             dispatch({
-                type:"question/reset"
+                type: "question/reset"
             })
         }
     }
