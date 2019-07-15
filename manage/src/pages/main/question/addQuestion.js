@@ -16,6 +16,7 @@ function AddQuestion(props) {
         if (props.location) {
             let { search } = props.location;
             search = search.split("=")[1]
+            // 获取数据详情
             props.getDetail({questions_id:search})
             setSearch(search)
         }
