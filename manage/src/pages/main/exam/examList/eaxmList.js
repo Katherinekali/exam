@@ -2,16 +2,12 @@ import React,{useState,useEffect} from "react";
 import { connect } from "dva";
 import {
     Form,
-    Input,
     Select,
     Button,
-    InputNumber,
-    DatePicker,
-    Icon,
     Radio,
-    Table, Divider, Tag
+    Table, 
   } from "antd";
-import styles from "./addExam.scss"
+import styles from "../addExam.scss"
 function ExamList (props) {
     const { Option } = Select;
     const { getFieldDecorator } = props.form;
@@ -28,8 +24,7 @@ function ExamList (props) {
             subject_id:values.subject_id,
             exam_id:values.exam_id,
             }
-            console.log(data)
-            // props.createExam(data)
+            // console.log(data)
           }
         });
       };
@@ -39,7 +34,7 @@ function ExamList (props) {
     let handleSizeChange=(e)=>{
         setSize(e.target.value)
     }
-    let [title,setTitle]=useState("")
+    // let [title,setTitle]=useState("")
     useEffect(()=>{
         if(props.examList){
             props.examList.forEach(item=>{
@@ -54,7 +49,7 @@ function ExamList (props) {
             title: '试卷信息',
             dataIndex:"title",
             render: (text) => (
-                console.log(text)
+                <h4>{text}</h4>
             ),
             rowSelection:{}
         },
@@ -79,15 +74,26 @@ function ExamList (props) {
         {
             title: '开始时间',
             dataIndex: 'start_time',
+            render: (text) => 
+            {
+                <span>{text}</span>
+            },
         },
         {
             title: '结束时间',
             dataIndex: 'end_time',
+            render: (text) => 
+            {
+                <span>{text}</span>
+            },
         },
         {
             title: '操作',
-            dataIndex: '',
-            render: () => <a href="javascript:;">详情</a>,
+            dataIndex:'exam_id',
+            render: (text) => 
+            {
+                <a href={`/#/main/exam/detail?id=${text}`}>详情</a>
+            },
         },
       ];
     
@@ -168,17 +174,6 @@ const mapStateToProps = (state) => {
                 payload,
             })
         },
-        // createExam(payload){
-        //   dispatch({
-        //     type:"exam/createExam",
-        //     payload,
-        //   })
-        // },
-        // reset(){
-        //     dispatch({
-        //         type:"exam/reset"
-        //     })
-        // }
     }
   }
 export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(ExamList))

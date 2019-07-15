@@ -9,7 +9,7 @@ import Grade from "./classRoom/grade"
 import Room from "./classRoom/room"
 import Student from "./classRoom/student"
 import AddExam from "./exam/addexam/addExam"
-import ExamList from "./exam/eaxmList"
+import ExamList from "./exam/examList/eaxmList"
 import AddQuestion from "./question/addQuestion"
 import QuestionType from "./question/questionsType"
 import WatchQuestion from "./question/checkTheitem"
@@ -17,6 +17,7 @@ import Questions from "./question/questions/questions";
 import AddUser from "./user/addUser"
 import ShowUser from "./user/showUser"
 import ExamEdit from "./exam/addexam/examEdit"
+import ExamDetail from "./exam/examList/examDetail"
 const { SubMenu } = Menu;
 const menu = (
   <Menu>
@@ -92,19 +93,7 @@ function IndexPage(props) {
             >
               <Menu.Item key="4"><Link to="/main/adduser">添加用户</Link></Menu.Item>
               <Menu.Item key="5"><Link to="/main/showuser">用户展示</Link></Menu.Item>
-            </SubMenu>
-            {/* <SubMenu
-              key="sub3"
-              title={
-                <span>
-                  <Icon type="schedule" />
-                  <span>考试管理</span>
-                </span>
-              }
-            >
-              <Menu.Item key="6"><Link to="/main/addexam">添加考试</Link></Menu.Item>
-              <Menu.Item key="7"><Link to="/main/exam">考试列表</Link></Menu.Item>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  list">试卷列表</Link></Menu.Item>
-            </SubMenu> */}
+            </SubMenu>  
             <SubMenu
               key="sub3"
               title={
@@ -158,6 +147,7 @@ function IndexPage(props) {
             <Route path="/main/adduser" component={AddUser} />
             <Route path="/main/showuser" component={ShowUser} />
             <Route path="/main/exam/edit" component={ExamEdit} />
+            <Route path="/main/exam/detail" component={ExamDetail} />
           </div>
           {props.global ? <div className={styles.loading}><Spin /></div> : null}
         </div>

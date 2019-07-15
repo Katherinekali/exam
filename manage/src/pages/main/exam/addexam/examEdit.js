@@ -5,7 +5,6 @@ import { Drawer, Button,Modal } from 'antd';
 function examEdit (props) {
     let examInfor=JSON.parse(sessionStorage.getItem("createExam"))
     let [exam,setExam]=useState(examInfor)
-    console.log(examInfor)
     let [visible,setvisible]=useState(false)
     let [childrenDrawer,setchildrenDrawer]=useState(false)
     let showDrawer = () => {

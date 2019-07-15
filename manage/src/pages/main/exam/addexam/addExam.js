@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from "react";
 import { connect } from "dva";
+import locale from 'antd/lib/date-picker/locale/zh_CN';
 import {
   Form,
   Input,
@@ -115,7 +116,7 @@ function AddExam(props) {
                           },
                         ],
                       })(
-                        <DatePicker placeholder="开始时间" showTime format="YYYY-MM-DD HH:mm:ss"/>)}
+                        <DatePicker placeholder="开始时间" showTime format="YYYY-MM-DD HH:mm:ss" locale={locale} />)}
                       </Form.Item>
                       <span style={{display:"inline-block",width:30,"textAlign":"center"}}>-</span>
                     <Form.Item style={{ display: 'inline-block' }}>
@@ -127,7 +128,7 @@ function AddExam(props) {
                           },
                         ],
                       })(
-                      <DatePicker placeholder="结束时间" showTime format="YYYY-MM-DD HH:mm:ss"/>)}
+                      <DatePicker placeholder="结束时间" showTime format="YYYY-MM-DD HH:mm:ss" locale={locale} />)}
                     </Form.Item>
                 </Form.Item>
                 <Form.Item

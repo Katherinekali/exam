@@ -1,4 +1,4 @@
-import {examType,subject,addExam,deleteQuestion,getExamList} from "../services/index"
+import {examType,subject,addExam,deleteQuestion,getExamList,getDetail} from "../services/index"
 export default {
   //命名空间：
   namespace: 'exam',
@@ -57,7 +57,17 @@ export default {
         payload:data
       })  
     } 
-},                 
+  },
+  *getDetail({payload}, { call, put }) {  //  考试类型
+    let data=yield call(getDetail,payload)
+    console.log(data)
+    // if(data.code===1){
+    //   yield put({
+    //     type:"examListData",
+    //     payload:data
+    //   })  
+    // } 
+  },                        
 },
   //同步方法：只能在这里修改state
   reducers: {
