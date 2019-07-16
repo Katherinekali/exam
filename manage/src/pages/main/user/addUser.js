@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect} from 'react'
 import { connect } from "dva";
 import UserInfo from "../../../components/UserInfo"
 import styles from "./addUser.scss"
