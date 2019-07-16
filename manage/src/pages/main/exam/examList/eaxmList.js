@@ -141,7 +141,6 @@ function ExamList (props) {
     )
 }
 const mapStateToProps = (state) => {
-    console.log(state)
     return {
         examType: state.exam.examTypes,
         subject: state.exam.subjects,
