@@ -2,8 +2,8 @@ function formatNumber(n) {
     n = n.toString()  
     return n[1] ? n : '0' + n  
 }
-export default function formatTime(number,format){ 
-    console.log(number)
+export  function formatTime(number,format){ 
+  console.log(number)
     var formateArr  = ['Y','M','D','h','m','s'];  
     var returnArr   = [];  
     var date = new Date(number * 1);  
@@ -12,11 +12,18 @@ export default function formatTime(number,format){
     returnArr.push(formatNumber(date.getDate()));  
     returnArr.push(formatNumber(date.getHours()));  
     returnArr.push(formatNumber(date.getMinutes()));  
-    returnArr.push(formatNumber(date.getSeconds())); 
-    // console.log(returnArr) 
+    returnArr.push(formatNumber(date.getSeconds()));  
     for (var i in returnArr)  
     {  
       format = format.replace(formateArr[i], returnArr[i]);  
     }  
     return format;  
+}
+
+export function getTime (number){
+  let second=Math.floor(number/1000);
+  let min=Math.floor(number/1000/60);
+  let hours=Math.floor(number/1000/60);
+  let format=hours+":"+min+":"+second
+  return format
 }

@@ -11,7 +11,7 @@ export default {
   },
   //异步方法：
   effects: {
-    *getExamType({}, { call, put }) {  //  考试类型
+    *getExamType({}, { call, put }) {  
           let data=yield call(examType) 
           if(data.code===1){
             yield put({
@@ -20,7 +20,7 @@ export default {
             })  
           }
     },
-    *getSubject({}, { call, put }) {  //  考试类型
+    *getSubject({}, { call, put }) {  
         let data=yield call(subject) 
         if(data.code===1){
           yield put({
@@ -29,7 +29,7 @@ export default {
           })  
         } 
     },
-    *createExam({payload}, { call, put }) {  //  考试类型
+    *createExam({payload}, { call, put }) {    //创建试卷----成功后返回创建试卷的题
       let data=yield call(addExam,payload)
       sessionStorage.setItem("createExam",JSON.stringify(data.data))
       if(data.code===1){
@@ -39,7 +39,7 @@ export default {
         })  
       } 
   },
-  *deleteQuestion({payload}, { call, put }) {  //  考试类型
+  *deleteQuestion({payload}, { call }) {   //删除试题----没有接口
     let data=yield call(deleteQuestion,payload)
     console.log(data)
     // if(data.code===1){
@@ -49,8 +49,10 @@ export default {
     //   })  
     // } 
   }, 
-  *getExamList({payload}, { call, put }) {  //  考试类型
+  *getExamList({payload}, { call, put }) {  //获取试题列表
     let data=yield call(getExamList,payload)
+    // console.log(data)
+    // sessionStorage.setItem("examList",JSON.stringify(data.exam))
     if(data.code===1){
       yield put({
         type:"examListData",
@@ -58,7 +60,7 @@ export default {
       })  
     } 
   },
-  *getDetail({payload}, { call, put }) {  //  考试类型
+  *getDetail({payload}, { call }) {  //跳详情：----无接口
     let data=yield call(getDetail,payload)
     console.log(data)
     // if(data.code===1){

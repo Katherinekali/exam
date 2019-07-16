@@ -1,19 +1,13 @@
 import React,{useState,useEffect} from "react";
 import { connect } from "dva";
-import {
-    Form,
-    Select,
-    Button,
-    Radio,
-    Table, 
-  } from "antd";
+import {  Form, Select,Button, Radio,Table,} from "antd"; 
 import styles from "../addExam.scss"
-import formatTime from "./formatTime"
+import moment from 'moment'; 
+moment.locale('zh-cn');
 function ExamList (props) {
     const { Option } = Select;
     const { getFieldDecorator } = props.form;
     let [size,setSize]=useState("all")
-   
     useEffect(()=>{
         props.getExamType()
         props.getSubject()
@@ -24,9 +18,8 @@ function ExamList (props) {
           if (!err) {
             let data={
             subject_id:values.subject_id,
-            exam_id:values.exam_id,
             }
-            // console.log(data)
+            props.getExamList(data)
           }
         });
       };
@@ -36,26 +29,18 @@ function ExamList (props) {
     let handleSizeChange=(e)=>{
         setSize(e.target.value)
     }
-    // let [title,setTitle]=useState("")
-    useEffect(()=>{
-        if(props.examList){
-            props.examList.forEach(item=>{
-                // console.log(item.start_time)
-            })
-        }
-       
-    },[props.examList])
- 
     const columns = [
         {
             title: '试卷信息',
             dataIndex:"",
             key:"title",
             render: (text, record) =>(
-               <div>
+               <div key="title">
                    <h4>{record.title}</h4>
                    <p>
-                        <span>考试时间：{formatTime((record.end_time-record.start_time),'h:m:s')} </span>
+                        <span>考试时间：{
+                            moment.duration((record.end_time - record.start_time), 'ms').get('hours')+":"+moment.duration((record.end_time - record.start_time), 'ms').get('minutes')+":"+moment.duration((record.end_time - record.start_time), 'ms').get('seconds')
+                            } </span>
                         <span>{record.number}道题 </span>
                         <span>作弊0分</span>
                    </p>
@@ -71,7 +56,7 @@ function ExamList (props) {
                     <p>考试班级</p>
                    {
                        text.map((item,index)=>{
-                           return <span style={{marginRight:4}} key={index}>{item}</span>     
+                           return <span style={{marginRight:4}} key={"grade"+index}>{item}</span>     
                        })
                    }
                 </div>
@@ -85,18 +70,20 @@ function ExamList (props) {
         {
             title: '开始时间',
             dataIndex: 'start_time',
-            key:"start_time",
-            render: (text) =>(<span>{formatTime(text,'Y-M-D h:m:s')}</span>)
+            key:"start",
+            render: (text) =>(<span>{
+                moment(text*1).format('YYYY-MM-DD HH:mm:ss')
+                }</span>)
         },
         {
             title: '结束时间',
             dataIndex: 'end_time',
-            key:"end_time",
-            render: (text) => (<span>{formatTime(text,'Y-M-D h:m:s')}</span>)
+            key:"end",
+            render: (text) => (<span>{ moment(text*1).format('YYYY-MM-DD HH:mm:ss')}</span>)
         },
         {
             title: '操作',
-            dataIndex:'',
+            dataIndex:'exam_id',
             key:"oper",
             render: (text) => (<a href={`/#/main/exam/detail?id=${text}`}>详情</a>)
         },
@@ -147,21 +134,21 @@ function ExamList (props) {
                     </div>
                 </div>
                 <div>
-                    <Table columns={columns} dataSource={props.examList&&props.examList} pagination={false}/>       
+                    <Table columns={columns} dataSource={props.examList&&props.examList} pagination={false} rowKey="examList"/>       
                 </div>         
             </div>
         </div>
     )
 }
 const mapStateToProps = (state) => {
-    console.log(state.exam.examList)
+    console.log(state)
     return {
         examType: state.exam.examTypes,
         subject: state.exam.subjects,
         examList:state.exam.examList.exam,
     }
   }
-  const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         getExamType() {
             dispatch({
@@ -180,5 +167,5 @@ const mapStateToProps = (state) => {
             })
         },
     }
-  }
+}
 export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(ExamList))

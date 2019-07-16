@@ -2,9 +2,11 @@ import React,{useEffect,useState} from 'react'
 import {connect} from "dva"
 import styles from "../addExam.scss"
 function examDetail (props) {
+    let [detail,setDetail]=useState({})
     useEffect(()=>{
-       let id=props.location.search.split("=")[1]
-        props.getDetail(id)
+        let id=props.location.search.split("=")[1]
+        // let examList=JSON.parse(sessionStorage.getItem("examList"))
+         
     },[])
     return (
         <div>
