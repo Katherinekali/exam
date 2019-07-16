@@ -27,7 +27,6 @@ function AddViewport(props){
     const handleReset=()=>{
       props.form.resetFields()
     }
-    const { getFieldDecorator } = props.form;
     return (
     <div className={styles.addUser_content}>
         <Tag style={{padding:"0 15px",border:"1px solid blue",background:"#fff",lineHeight:"32px",color:"blue",fontSize:"14px"}}>添加视图接口权限</Tag>

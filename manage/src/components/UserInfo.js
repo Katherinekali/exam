@@ -2,7 +2,6 @@ import React from "react"
 import { Form, Input,Tag,Select,Button } from 'antd';
 import { connect } from "dva";
 import styles from "./userinfo.scss"
-const { Option } = Select;
 function UserInfo(props){
     const handleSubmit = () => {
         props.form.validateFields((err, values) => {

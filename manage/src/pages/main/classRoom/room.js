@@ -5,7 +5,7 @@ import "../question/question.css"
 const { Column} = Table;
 function Room(props){
     const [flag, setFlag] = useState(false);
-    const [data,setData]=useState("")
+    // const [data,setData]=useState("")
     const { getFieldDecorator } =props.form;
    
     const addFn=()=>{
@@ -17,7 +17,7 @@ function Room(props){
     const handleSubmit = () => {
         props.form.validateFields((err, values) => {
           if (!err) {
-            console.log('Received values of form: ', values);
+            // console.log('Received values of form: ', values);
             // setFlag(false)
             // props.addType({text:values.info,sort:(props.questionsType.length+1).toString()})
           }else{

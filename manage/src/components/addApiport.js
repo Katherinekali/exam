@@ -1,8 +1,7 @@
 import React,{useEffect} from "react"
-import { Form, Input,Tag,Select,Button,message } from 'antd';
+import { Form, Input,Tag,Button} from 'antd';
 import { connect } from "dva";
 import styles from "./userinfo.scss"
-const { Option } = Select;
 function AddapiPort(props){
   useEffect(() => {
     if(props.ApiInfo===1){
@@ -20,9 +19,6 @@ function AddapiPort(props){
           }
         });
     };
-    const handleChange=()=>{
-
-    }
     const handleReset=()=>{
       props.form.resetFields()
     }
