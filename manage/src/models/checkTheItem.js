@@ -9,10 +9,10 @@ export default {
     allexamtype: [],//考试类型
     questionsType: [], //题目类型
     conditionquerys: [], //条件查询
-    detailData:{}
+    detailData: {}
   },
   //订阅
-  
+
   /**
    *异步操作
    */
@@ -85,6 +85,6 @@ export default {
     detail(state, action) {
       return { ...state, detailData: action.payload }
     }
-   
+
   }
 };

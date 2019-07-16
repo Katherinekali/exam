@@ -4,6 +4,7 @@ import {connect} from "dva"
 import "./questionsType.css"
 const { Column} = Table;
 function QuestionsType(props){
+    // console.log(props)
     const [flag, setFlag] = useState(false);
     const { getFieldDecorator } =props.form;
     const addFn=()=>{
@@ -38,8 +39,8 @@ function QuestionsType(props){
     return (
         <div>
             <h2>试题分类</h2>
-            <div className="question_content">
-            <Button type="primary" icon="plus" onClick={()=>{addFn()}}>
+            <div style={{background:"#fff"}}>
+            <Button type="primary" icon="plus" onClick={()=>{addFn()}} style={{margin:20}}>
                 添加类型
             </Button>
             <div className="questions_table">

@@ -8,7 +8,7 @@ import Grade from "./classRoom/grade"
 import Room from "./classRoom/room"
 import Student from "./classRoom/student"
 import AddExam from "./exam/addExam"
-import ExamList from "./exam/eaxmList"
+import ExamList from "./exam/examList"
 import AddQuestion from "./question/addQuestion"
 import QuestionType from "./question/questionsType"
 import WatchQuestion from "./question/checkTheitem"
@@ -39,9 +39,9 @@ const menu = (
 
 );
 
-function IndexPage() {
+function IndexPage(props) {
   let handleClick = e => {
-    console.log('click ', e);
+    // console.log('click ', e);
   };
   return (
     <div className={styles.layout}>
@@ -95,13 +95,14 @@ function IndexPage() {
               key="sub3"
               title={
                 <span>
-                  <Icon type="schedule" />
+                  <Icon type="project" />
                   <span>考试管理</span>
                 </span>
               }
             >
+              
               <Menu.Item key="6"><Link to="/main/addexam">添加考试</Link></Menu.Item>
-              <Menu.Item key="7"><Link to="/main/exam                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  list">试卷列表</Link></Menu.Item>
+              <Menu.Item key="7"><Link to="/main/examlist">考试列表</Link></Menu.Item>
             </SubMenu>
             <SubMenu
               key="sub4"
@@ -128,7 +129,7 @@ function IndexPage() {
               <Menu.Item key="11"><Link to="/main/classlist">待批班级</Link></Menu.Item>
             </SubMenu>
           </Menu>
-          </div>
+        </div>
         <div className={styles.content}>
           <div className={styles.layout_main}>
             <Route path="/main/classlist" component={ClassList} />

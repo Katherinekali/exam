@@ -37,6 +37,15 @@
   flex: 1 1 0%;
 }
 
+.detailWrapper .ant_layout_contents {
+  background: white;
+  padding: 24px;
+  margin: 0px 0px 20px;
+  border-radius: 10px;
+  width: 500px;
+  flex: initial;
+}
+
 .detailWrapper .ant_divider_vertical {
   margin: 0 8px;
   display: inline-block;
@@ -48,9 +57,18 @@
 }
 
 .detailWrapper .react_markdown {
-  padding: 0 20px;
-  display: flex;
   flex-direction: column;
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+
+.detailWrapper .react_markdown p:first-child {
+  margin-top: 0;
+}
+
+.detailWrapper .react_markdown p {
+  margin: 1.5em 0;
+  white-space: pre-wrap;
 }
 
 .detailWrapper .react_markdown pre {
@@ -62,4 +80,11 @@
   color: #657b83;
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8AgMAAABHkjHhAAAACVBMV…v3iO9zG/UOphyPeinPl1J8Gtaa7xPTa/Dk+RIs4deMvwGvcGsmsCvJ0AAAAABJRU5ErkJggg==) #f6f6f6;
   background-size: 30px 30px;
+}
+
+.detailWrapper .react_markdown code {
+  display: flex;
+  flex-direction: column;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 14px;
 }

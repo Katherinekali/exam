@@ -45,25 +45,26 @@ export default {
           }
     },
     *addQuestion({ payload,edit,search}, { call, put }) {  // eslint-disable-line添加试题
-      console.log(edit)
+      console.log("-----",edit)
       if(edit==="修改"){
           payload.questions_id=search
-          // delete payload.user_id
-          // console.log(payload)
+          delete payload.user_id
+          console.log(payload)
         let data=yield call(editquestions,payload) 
-        console.log(data)
+        console.log(data,"修改")
       }else{
         let data=yield call(addquestions,payload) 
-        console.log(data)
         if(data.code){
           yield put({
             type:"addRequest",
-            payload:data.code
+            payload:data.code,
+           
           }) 
         }else{
           yield put({
             type:"addRequest",
-            payload:data
+            payload:data,
+           
           }) 
         }
   }
@@ -94,7 +95,9 @@ export default {
     },
     detailData(state,action){
       return {...state,detail:action.payload}
-
+    },
+    reset(state,action){
+      return {...state,addState:-1}
     }
   },
 };

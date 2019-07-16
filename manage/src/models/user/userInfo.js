@@ -78,7 +78,6 @@ export default {
     },
     *addApiAuthority({ payload }, { call, put }){
       let data=yield addApiEdit(payload)
-      console.log(data,"addApiAuthority")
           yield put({
           type:"apiInfo",
           payload:data.code
@@ -102,9 +101,7 @@ export default {
        
     },
     *addviewAuthority({ payload }, { call, put }){
-      console.log(payload)
       let data=yield addViewEdit(payload)
-      console.log(data)
           yield put({
           type:"ViewAuthority",
           payload:data.code

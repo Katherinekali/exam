@@ -19,6 +19,8 @@ function AddQuestion(props) {
             // 获取数据详情
             props.getDetail({questions_id:search})
             setSearch(search)
+            setDetail(props.detailData)
+            // console.log(props.detailData)
         }
     }, [])
     useEffect(()=>{
@@ -32,7 +34,6 @@ function AddQuestion(props) {
         setvisible(true)
         setEdit(val)
     };
-
     let handleCancel = () => {
         setvisible(false)
     };
@@ -47,6 +48,7 @@ function AddQuestion(props) {
         props.form.validateFields((err, values) => {
             if (!err) {
                 let user_id = JSON.parse(localStorage.getItem("userInfor")).data.user_id
+                // console.log(values)
                 let obj = {
                     questions_type_id: values.questionType,
                     questions_stem: values.questions_stem,
@@ -56,6 +58,7 @@ function AddQuestion(props) {
                     questions_answer: values.answer,
                     title: values.title
                 }
+                // setInfor(obj)
                 props.addQuestion(obj, edit, search)
             }
         });
@@ -79,7 +82,8 @@ function AddQuestion(props) {
         } else {
             openNotification(props.addState.message)
         }
-    }, [props.addTime])
+        props.reset()
+    }, [props.addState])
     let { getFieldDecorator } = props.form
     return (
         <div>
@@ -205,6 +209,7 @@ const mapStateToProps = (state) => {
         addState: state.question.addState,
         addTime: state.question.addTime,
         detail:state.question.detail,
+        // addTime: state.question.addTime,
         ...state.checkTheItem
     }
 }
@@ -241,7 +246,17 @@ const mapDispatchToProps = (dispatch) => {
                 type:"question/detail",
                 payload:payload
             })
-
+        },
+        detailInfo: payload => {
+            dispatch({
+                type: "checkTheItem/detail",
+                payload
+            })
+        },
+        reset(){
+            dispatch({
+                type:"question/reset"
+            })
         }
     }
 }

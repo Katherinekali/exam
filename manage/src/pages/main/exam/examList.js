@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 
-export default class ExamList extends Component {
+export default class addExam extends Component {
     render() {
         return (
             <div>
-                addExam
+               <h2>试卷列表</h2>
+               
             </div>
         )
     }

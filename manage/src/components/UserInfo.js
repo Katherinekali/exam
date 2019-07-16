@@ -4,7 +4,6 @@ import { connect } from "dva";
 import styles from "./userinfo.scss"
 const { Option } = Select;
 function UserInfo(props){
-  
     const handleSubmit = () => {
         props.form.validateFields((err, values) => {
           if (!err) {
@@ -54,7 +53,7 @@ function UserInfo(props){
             <Button type="primary" htmlType="submit">
             增加
             </Button>
-             <Button style={{ marginLeft: 8 }} onClick={handleReset}>
+            <Button style={{ marginLeft: 8 }} onClick={handleReset}>
              清除
             </Button>
             </div>
