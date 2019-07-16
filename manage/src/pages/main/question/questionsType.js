@@ -4,7 +4,6 @@ import { connect } from "dva"
 import "./questionsType.css"
 const { Column} = Table;
 function QuestionsType(props){
-    console.log(props)
     const [flag, setFlag] = useState(false);
     const { getFieldDecorator } =props.form;
     const addFn=()=>{
@@ -16,7 +15,6 @@ function QuestionsType(props){
     const handleSubmit = () => {
         props.form.validateFields((err, values) => {
           if (!err) {
-            console.log('Received values of form: ', values);
             setFlag(false)
             props.addType({text:values.info,sort:(props.questionsType.length+1).toString()})
           }else{

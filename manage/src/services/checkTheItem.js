@@ -13,7 +13,6 @@ export function QuestionsType() {
 }
 //所有试题
 export function CheckAll() {
-  console.log("params00....");
   return request.get("/exam/questions/new");
 }
 //按条件查找试题

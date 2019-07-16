@@ -3,7 +3,6 @@ function formatNumber(n) {
     return n[1] ? n : '0' + n  
 }
 export  function formatTime(number,format){ 
-  console.log(number)
     var formateArr  = ['Y','M','D','h','m','s'];  
     var returnArr   = [];  
     var date = new Date(number * 1);  

@@ -16,15 +16,10 @@ function AddQuestion(props) {
         if (props.location) {
             let { search } = props.location;
             search = search.split("=")[1]
-<<<<<<< HEAD
-            console.log(search)
-=======
             // 获取数据详情
             props.getDetail({ questions_id: search })
->>>>>>> 4db43da4d99c42bd9b538d937052a887808882e1
             setSearch(search)
             setDetail(props.detailData)
-            console.log(props.detailData)
         }
     }, [])
     useEffect(() => {
@@ -52,7 +47,6 @@ function AddQuestion(props) {
         props.form.validateFields((err, values) => {
             if (!err) {
                 let user_id = JSON.parse(localStorage.getItem("userInfor")).data.user_id
-                console.log(values)
                 let obj = {
                     questions_type_id: values.questionType,
                     questions_stem: values.questions_stem,
