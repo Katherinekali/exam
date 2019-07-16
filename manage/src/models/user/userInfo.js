@@ -1,55 +1,53 @@
-import {getUserID,getApiPort,getView} from "../../services/index"
+import { getUserID, getApiPort, getView } from "../../services/index"
 export default {
-    namespace: 'userInfo',
-    state: {
-        identity:[],//身份id
-        portAuthorition:[],//接口权限,
-        viewAuthority:[],//视图权限
+  namespace: 'userInfo',
+  state: {
+    identity: [],//身份id
+    portAuthorition: [],//接口权限,
+    viewAuthority: [],//视图权限
+  },
+  subscriptions: {
+    setup({ dispatch, history }) {  // eslint-disable-line
     },
-    subscriptions: {
-      setup({ dispatch, history }) {  // eslint-disable-line
-      },
+  },
+  effects: {
+    //获取用户id
+    *getUserId({ payload }, { call, put }) {  // eslint-disable-line
+      let data = yield getUserID()
+      yield put({
+        type: "getIdentity",
+        payload: data.data
+      })
     },
-    effects: {
-        //获取用户id
-      *getUserId({ payload }, { call, put }) {  // eslint-disable-line
-        let data=yield getUserID()
-        console.log(data)
-        yield put({
-            type:"getIdentity",
-            payload:data.data
-        })
-      },
-      *getApiPort({ payload }, { call, put }){
-          let data=yield getApiPort()
-          yield put({
-            type:"authorition",
-            payload:data.data
-        })
+    *getApiPort({ payload }, { call, put }) {
+      let data = yield getApiPort()
+      yield put({
+        type: "authorition",
+        payload: data.data
+      })
 
-      },
-      *getView({ payload }, { call, put }){
-        let data=yield getView()
-        console.log(data)
-        yield put({
-          type:"viewAuthorition",
-          payload:data.data
+    },
+    *getView({ payload }, { call, put }) {
+      let data = yield getView()
+      yield put({
+        type: "viewAuthorition",
+        payload: data.data
       })
 
     }
-    },
-    reducers: {
+  },
+  reducers: {
     getIdentity(state, action) {
-        return { ...state, identity:action.payload };
+      return { ...state, identity: action.payload };
     },
-    authorition(state, action){
-        return { ...state, portAuthorition:action.payload };
+    authorition(state, action) {
+      return { ...state, portAuthorition: action.payload };
     },
-    viewAuthorition(state, action){
-        return { ...state, viewAuthority:action.payload};
+    viewAuthorition(state, action) {
+      return { ...state, viewAuthority: action.payload };
     },
 
-    },
-    
-  
-  };
+  },
+
+
+};
