@@ -7,3 +7,4 @@ export * from "./classRoom/grade";
 export * from "./user/userinfo";
 export * from "./room/index";
 export * from "./exam"
+export * from "./classRoom/student"
