@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from "dva";
 import "antd/dist/antd.css";
-import { Form, Button, Table,Input,Select,} from "antd";
+import { Form, Button, Table,Input,Select} from "antd";
 const { Option } = Select;
 function StudentMange(props) {
     useEffect(()=>{
@@ -10,21 +10,54 @@ function StudentMange(props) {
         props.getHasStudent()
         props.getHasNoStudent()
     },[])
-    const data=["aa","sss"]
+   let [inputVal,setInputVal]=useState("")
+   let [classRoom,setclassRoom]=useState("")
+   let [className,setclassName]=useState("")
+    let deleteStudent=(id)=>{
+        props.deleteStudent(id)
+    }
+    //分页器：
+    let  pagination={
+        defaultPageSize:6,
+        showQuickJumper:true,
+        showSizeChanger:true,
+    }
+    useEffect(()=>{
+        if(props.deleteState===1){
+            props.record()
+            props.getHasStudent()
+            props.getHasNoStudent()
+        }
+    },[props.deleteState])
+    let reset=()=>{
+        // setInputVal("")
+        // setclassName("")
+        // setclassRoom("")
+    }
+    let  handleSubmit =() => {
+        props.form.validateFields((err, values) => {
+          if (!err) {
+            console.log('Received values of form: ', values);
+          }
+        });
+      };
+    let search=()=>{
+        handleSubmit()
+    }
     const { getFieldDecorator } = props.form;
-    const { Column, ColumnGroup } = Table;
+    const { Column} = Table;
 	return (
 		<div>
 			<h2>学生管理</h2>
 			<div>
             <Form layout="inline">
                     <Form.Item>
-                        {getFieldDecorator('name',)(
+                        {getFieldDecorator('name')(
                            <Input placeholder="输入学生姓名"/>
                         )}
                     </Form.Item>
                     <Form.Item>
-                        {getFieldDecorator('classRoom',)(
+                        {getFieldDecorator('classRoom')(
                                 <Select style={{ width: 150 }} placeholder="请选择教室号">
                                     { props.classRoom.map(item=>{
                                         return  <Option value={item.room_id} key={item.room_id}>{item.room_text}</Option>
@@ -42,17 +75,21 @@ function StudentMange(props) {
                         )}
                     </Form.Item>
                     <Form.Item>
-                    <Button type="primary" style={{width:120}}>
+                    <Button type="primary" style={{width:120}} onClick={search}>
                        搜索
                     </Button>
-                    <Button type="primary" style={{width:120,marginLeft:20}}>
+                    <Button type="primary" style={{width:120,marginLeft:20}} onClick={reset}>
                         重置
                     </Button>
                     </Form.Item>
                 </Form>
             </div>
-            <div style={{background:"#fff"}}>
-                <Table dataSource={props.studentsHasRoom} rowKey="student_id">
+            <div style={{background:"#fff",marginTop:20}}>
+                <Table 
+                        dataSource={props.studentsHasRoom} 
+                        rowKey="student_id"  
+                        pagination={pagination}
+                >
                     <Column title="姓名" dataIndex="student_name" key="student_name" />
                     <Column title="学号" dataIndex="student_id" key="student_id" />
                     <Column title="班级" dataIndex="grade_name" key="grade_name" />
@@ -62,8 +99,8 @@ function StudentMange(props) {
                         title="操作" 
                         dataIndex="student_id" 
                         key="1"
-                        render={() => (
-                                    <span>删除</span>
+                        render={(text) => (
+                                    <span onClick={()=>{deleteStudent(text)}}>删除</span>
                                 )}
                      />
                 </Table>                   
@@ -76,7 +113,8 @@ const mapStateToProps = state => {
         className:state.student.className,
         classRoom:state.student.classRoom,
         studentsHasRoom:state.student.studentsHasRoom,
-        studentsHasNoRoom:state.student.studentsHasNoRoom
+        studentsHasNoRoom:state.student.studentsHasNoRoom,
+        deleteState:state.student.deleteState,
 	}
 };
 const mapDispatchToProps = dispatch => {
@@ -103,6 +141,20 @@ const mapDispatchToProps = dispatch => {
 		getHasNoStudent: () => {
 			dispatch({
 				type: "student/getNoRoomstudents",
+			})
+        },
+         //所有没有班级的学生
+		deleteStudent: (payload) => {
+			dispatch({
+                type: "student/deleteStudent",
+                payload,
+			})
+        },
+        //删除学生之后状态恢复
+		record: () => {
+			dispatch({
+                type: "student/record",
+                payload:-1,
 			})
 		},
 	}

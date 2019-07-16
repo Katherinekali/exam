@@ -17,5 +17,7 @@ export function className () {
 }
 //删除学生接口
 export function deleteStudent(params) {
-    return request.delete("/manger/student", {params:{id:params}})
+    return request.delete(`/manger/student/${params}`).catch(error=>{
+        return error
+    })
 }

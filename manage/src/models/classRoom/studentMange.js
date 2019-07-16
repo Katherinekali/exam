@@ -51,13 +51,12 @@ export default {
         },
         *deleteStudent({payload}, { call, put }) {
             let data = yield call(deleteStudent,payload);
-            // console.log(data)
-            // if (data.code === 1) {
-            //     yield put({
-            //         type: "Assignedgrades",
-            //         payload: data.data
-            //     })
-            // }
+            if (data.code === 1) {
+                yield put({
+                    type: "deleteState",
+                    payload: data.code
+                })
+            }
         },
     },
     reducers: {
@@ -75,6 +74,9 @@ export default {
         }, 
         studentHasNoRoom(state, action) {
             return { ...state, studentsHasNoRoom: action.payload }
-        },  
+        },
+        record(state,action){
+            return {...state,deleteState: action.payload}
+        }  
     }
 }
