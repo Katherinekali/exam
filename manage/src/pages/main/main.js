@@ -12,7 +12,7 @@ import ExamList from "./exam/examList/eaxmList"
 import AddQuestion from "./question/addQuestion"
 import QuestionType from "./question/questionsType"
 import WatchQuestion from "./question/checkTheitem"
-import Questions from "./question/questions/questions";
+import Questions from "./question/questions/questions"
 import AddUser from "./user/addUser"
 import ShowUser from "./user/showUser"
 import ExamEdit from "./exam/addexam/examEdit"
