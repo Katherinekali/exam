@@ -18,14 +18,14 @@ export default {
     },
     effects: {
         //获取用户id
-      *getUserId({ payload }, { call, put }) {  // eslint-disable-line
+      *getUserId({  }, {put }) {  // eslint-disable-line
         let data=yield  getIdentity()
         yield put({
             type:"getIdentity",
             payload:data.data
         })
       },
-      *getApiPort({ payload }, { call, put }){
+      *getApiPort({}, {put }){
           let data=yield getApi()
           yield put({
             type:"authorition",
@@ -33,7 +33,7 @@ export default {
         })
 
       },
-      *getView({ payload }, { call, put }){
+      *getView({}, {put}){
         let data=yield getView()
         yield put({
           type:"viewAuthorition",
@@ -41,7 +41,7 @@ export default {
       })
 
       },
-      *getAllUser({ payload }, { call, put }){
+      *getAllUser({}, { put }){
         let data=yield getUserIdentity()
         console.log(data,"user")
         yield put({
@@ -50,7 +50,7 @@ export default {
       })
 
     },
-    *addUserInfo({ payload }, { call, put }){
+    *addUserInfo({ payload }, {put }){
       console.log(payload)
       let data=yield addUser(payload)
       // console.log(data,"adduser")
@@ -60,7 +60,7 @@ export default {
     // })
 
     },  
-    *updateUserInfo({ payload }, { call, put }){
+    *updateUserInfo({ payload }, {put }){
       let data=yield updateUser(payload)
       // console.log(data,"updateUser")
     //   yield put({
@@ -69,21 +69,21 @@ export default {
     // })
 
     },
-    *addIdentity({ payload }, { call, put }){
+    *addIdentity({ payload }, { put }){
       let data=yield addIdentity(payload)
           yield put({
           type:"identityInfo",
           payload:data.code
         })
     },
-    *addApiAuthority({ payload }, { call, put }){
+    *addApiAuthority({ payload }, { put }){
       let data=yield addApiEdit(payload)
           yield put({
           type:"apiInfo",
           payload:data.code
         })
     },
-    *setApi({ payload }, { call, put }){
+    *setApi({ payload }, { put }){
       let data=yield setApiEdit(payload)
           yield put({
           type:"setApiInfo",

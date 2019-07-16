@@ -1,6 +1,5 @@
-import React,{useEffect,useState} from 'react'
+import React,{useEffect} from 'react'
 import {connect} from "dva";
-import UserInfo from "../../../components/UserInfo"
 import AddUser from "../../../components/addUser"
 import AddIdentity from "../../../components/addIdentity"
 import Addapiport from "../../../components/addApiport"

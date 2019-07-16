@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from "react"
-import { Form, Input,Tag,Select,Button,message } from 'antd';
+import { Form,Tag,Select,Button} from 'antd';
 import { connect } from "dva";
 import styles from "./userinfo.scss"
 const { Option } = Select;

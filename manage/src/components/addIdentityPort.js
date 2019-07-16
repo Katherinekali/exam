@@ -1,5 +1,5 @@
-import React,{useEffect,useState} from "react"
-import { Form, Input,Tag,Select,Button } from 'antd';
+import React,{useState} from "react"
+import { Form,Tag,Select,Button } from 'antd';
 import { connect } from "dva";
 import styles from "./userinfo.scss"
 const { Option } = Select;
@@ -14,13 +14,9 @@ function AddIdentityPort(props){
           }
         });
     };
-    const handleChange=()=>{
-
-    }
     const handleReset=()=>{
       props.form.resetFields()
     }
-    const { getFieldDecorator } = props.form;
     return (
     <div className={styles.addUser_content}>
         <Tag style={{padding:"0 15px",border:"1px solid blue",background:"#fff",lineHeight:"32px",color:"blue",fontSize:"14px"}}>给身份设置视图权限</Tag>

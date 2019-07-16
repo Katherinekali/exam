@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from "react"
-import { Form, Input,Tag,Select,Button } from 'antd';
+import { Form,Tag,Select,Button } from 'antd';
 import { connect } from "dva";
 import styles from "./userinfo.scss"
 const { Option } = Select;
@@ -16,14 +16,11 @@ function AddViewport(props){
     const handleSubmit = () => {
         props.form.validateFields((err, values) => {
           if (!err) {
-            console.log('Received values of form: ', values);
             let data=props.viewAuthority.filter(item=>item.view_authority_id===viewPort)
-            
             props.addviewAuthority({view_authority_text:data[0].view_authority_text,view_id:data[0].view_authority_id})
           }
         });
     };
-   
     const handleReset=()=>{
       props.form.resetFields()
     }
@@ -46,7 +43,7 @@ function AddViewport(props){
             <Button type="primary" htmlType="submit" onClick={handleSubmit}>
             确定
             </Button>
-             <Button style={{ marginLeft: 8 }} onClick={handleReset}>
+            <Button style={{ marginLeft: 8 }} onClick={handleReset}>
              清除
             </Button>
             </div>

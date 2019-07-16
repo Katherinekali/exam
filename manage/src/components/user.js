@@ -1,5 +1,5 @@
-import React,{Fragment,useEffect,useState} from "react"
-import { Form, Input,Tag,Select,Button } from 'antd';
+import React,{Fragment,useState} from "react"
+import { Form, Input,Select,Button } from 'antd';
 import { connect } from "dva";
 import "./userinfo.css"
 const { Option } = Select;
