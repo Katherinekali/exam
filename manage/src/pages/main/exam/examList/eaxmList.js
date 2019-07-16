@@ -32,7 +32,7 @@ function ExamList (props) {
     const columns = [
         {
             title: '试卷信息',
-            dataIndex:"",
+            dataIndex:"title",
             key:"title",
             render: (text, record) =>(
                <div key="title">
@@ -92,7 +92,7 @@ function ExamList (props) {
    
     return (
         <div>
-            <h2>书卷列表</h2>
+            <h2>试卷列表</h2>
             <div className={styles.question_content}>
                 <Form layout="inline">
                     <Form.Item  label="考试类型">
@@ -141,6 +141,7 @@ function ExamList (props) {
     )
 }
 const mapStateToProps = (state) => {
+    console.log(state.exam.examList.exam)
     return {
         examType: state.exam.examTypes,
         subject: state.exam.subjects,
