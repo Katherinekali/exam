@@ -13,7 +13,14 @@ app.model(require('./models/login').default);
 app.model(require('./models/addQuestion').default);
 app.model(require('./models/checkTheItem').default);
 app.model(require('./models/getQuestionsType').default);
+<<<<<<< HEAD
 app.model(require('./models/addExam').default);
+=======
+app.model(require('./models/showUser').default);
+app.model(require('./models/classRoom/grade').default);
+app.model(require("./models/user/userInfo").default)
+app.model(require("./models/room").default)
+>>>>>>> 4db43da4d99c42bd9b538d937052a887808882e1
 // app.model(require('./models/questions').default)
 // 4. Router
 app.router(require('./router').default);

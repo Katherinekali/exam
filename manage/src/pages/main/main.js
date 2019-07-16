@@ -3,7 +3,7 @@ import { connect } from 'dva';
 import { Spin } from 'antd';
 import { Route, Link } from 'dva/router';
 import styles from "./main.css"
-import { Dropdown, Menu, Icon } from 'antd';
+import { Dropdown, Menu, Icon, Spin } from 'antd';
 import ClassList from "./checking/classList"
 import Grade from "./classRoom/grade"
 import Room from "./classRoom/room"
@@ -103,6 +103,10 @@ function IndexPage(props) {
                 </span>
               }
             >
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4db43da4d99c42bd9b538d937052a887808882e1
               <Menu.Item key="6"><Link to="/main/addexam">添加考试</Link></Menu.Item>
               <Menu.Item key="7"><Link to="/main/examlist">考试列表</Link></Menu.Item>
             </SubMenu>

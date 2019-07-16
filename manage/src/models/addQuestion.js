@@ -1,4 +1,4 @@
-import {examType,subject,questionsType,addquestions,editquestions} from "../services/index"
+import {examType,subject,questionsType,addquestions,editquestions,getDetail} from "../services/index"
 export default {
   //命名空间：
   namespace: 'question',
@@ -8,7 +8,8 @@ export default {
       subject:[],
       questionType:[],
       addState:-1,
-     
+      addTime:"",
+      detail:[]
   },
   //异步方法：
   effects: {
@@ -47,10 +48,10 @@ export default {
       // console.log("-----",edit)
       if(edit==="修改"){
           payload.questions_id=search
-          // delete payload.user_id
-          // console.log(payload)
+          delete payload.user_id
+          console.log(payload)
         let data=yield call(editquestions,payload) 
-
+        console.log(data,"修改")
       }else{
         let data=yield call(addquestions,payload) 
         if(data.code){
@@ -68,6 +69,13 @@ export default {
         }
   }
 
+      },
+      *detail({payload},{call,put}){
+        let data=yield call(getDetail,payload) 
+        yield put({
+          type:"detailData",
+          payload:data.data
+        })
       }
         
   },
@@ -83,8 +91,10 @@ export default {
         return {...state,questionType:action.payload}
     },
     addRequest(state,action){
-      
-      return {...state,addState:action.payload}
+      return {...state,addState:action.payload,addTime:new Date()*1}
+    },
+    detailData(state,action){
+      return {...state,detail:action.payload}
     },
     reset(state,action){
       return {...state,addState:-1}
