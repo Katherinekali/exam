@@ -2,9 +2,7 @@ import React from "react"
 import { Form, Input,Tag,Select,Button } from 'antd';
 import { connect } from "dva";
 import styles from "./userinfo.scss"
-const { Option } = Select;
 function UserInfo(props){
-  
     const handleSubmit = () => {
         props.form.validateFields((err, values) => {
           if (!err) {
@@ -20,7 +18,6 @@ function UserInfo(props){
     }
     const { getFieldDecorator } = props.form;
     let {item}=props
-    console.log(item)
     return (
     <div className={styles.addUser_content}>
         <Tag>{item.title}</Tag>
@@ -40,7 +37,6 @@ function UserInfo(props){
            <Form.Item key={index} style={{marginBottom:10}}>
              <Select defaultValue={val.title} style={{ width: "80%" }} onChange={handleChange}>
                {
-                 console.log(val.content,"1")
                 //  val&&val.content.map((v,k)=>{
                 //   <Option value="jack">Jack</Option>
                 //  })
@@ -54,7 +50,7 @@ function UserInfo(props){
             <Button type="primary" htmlType="submit">
             增加
             </Button>
-             <Button style={{ marginLeft: 8 }} onClick={handleReset}>
+            <Button style={{ marginLeft: 8 }} onClick={handleReset}>
              清除
             </Button>
             </div>

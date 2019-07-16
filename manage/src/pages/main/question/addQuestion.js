@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styles from "./question.scss"
 import Editor from 'for-editor'
-import { Select, Button, Modal, Form, Input, notification, Icon } from 'antd';
+import { Select, Button, Modal, Form, Input, notification, Icon, Spin } from 'antd';
 import { connect } from "dva"
 const { Option } = Select;
 function AddQuestion(props) {
@@ -16,19 +16,19 @@ function AddQuestion(props) {
         if (props.location) {
             let { search } = props.location;
             search = search.split("=")[1]
-            // console.log(search)
+            // 获取数据详情
+            props.getDetail({ questions_id: search })
             setSearch(search)
             setDetail(props.detailData)
-            // console.log(props.detailData)
         }
     }, [])
-    useEffect(()=>{
+    useEffect(() => {
         if (props.location) {
             let { search } = props.location;
             search = search.split("=")[1]
-              setDetail(props.detail[0])
-        }   
-    },[props.detail])
+            setDetail(props.detail[0])
+        }
+    }, [props.detail])
     let showModal = (val) => {
         setvisible(true)
         setEdit(val)
@@ -47,7 +47,6 @@ function AddQuestion(props) {
         props.form.validateFields((err, values) => {
             if (!err) {
                 let user_id = JSON.parse(localStorage.getItem("userInfor")).data.user_id
-                // console.log(values)
                 let obj = {
                     questions_type_id: values.questionType,
                     questions_stem: values.questions_stem,
@@ -59,6 +58,8 @@ function AddQuestion(props) {
                 }
                 // setInfor(obj)
                 props.addQuestion(obj, edit, search)
+
+
             }
         });
     }
@@ -95,7 +96,7 @@ function AddQuestion(props) {
                         <div>
                             <div><label title="题干"> 题干</label></div>
                             <div>
-                                {getFieldDecorator('title', { initialValue: search ? detail&&detail.title : "" })(
+                                {getFieldDecorator('title', { initialValue: search ? detail && detail.title : "" })(
                                     <Input
                                         className={styles.ipt}
                                         placeholder="请输入题目标题,不超过20个字"
@@ -107,7 +108,7 @@ function AddQuestion(props) {
                     <Form.Item>
                         <div>
                             <div><label title="题干"> 题目主题</label></div>
-                            {getFieldDecorator('questions_stem', { initialValue: search ? detail&&detail.questions_stem : "" })(
+                            {getFieldDecorator('questions_stem', { initialValue: search ? detail && detail.questions_stem : "" })(
                                 <Editor></Editor>
                             )}
 
@@ -118,7 +119,7 @@ function AddQuestion(props) {
                             <Form.Item>
                                 <div><label title="请选择考试类型"> 请选择考试类型：</label></div>
                                 <div>
-                                    {getFieldDecorator('examType', { initialValue: search ? detail&&detail.exam_name : (props.examType[0] && props.examType[0].exam_name) })(
+                                    {getFieldDecorator('examType', { initialValue: search ? detail && detail.exam_name : (props.examType[0] && props.examType[0].exam_name) })(
                                         <Select
                                             style={{ width: 200 }}
                                         >
@@ -136,7 +137,7 @@ function AddQuestion(props) {
                             <Form.Item>
                                 <div><label title="请选择课程类型"> 请选择课程类型：</label></div>
                                 <div>
-                                    {getFieldDecorator('subject', { initialValue: search ? detail&&detail.subject_text : (props.subject[0] && props.subject[0].subject_text) })(
+                                    {getFieldDecorator('subject', { initialValue: search ? detail && detail.subject_text : (props.subject[0] && props.subject[0].subject_text) })(
                                         <Select
                                             style={{ width: 200 }}
                                         >
@@ -154,7 +155,7 @@ function AddQuestion(props) {
                             <Form.Item>
                                 <div><label title="请选择题目类型"> 请选择题目类型：</label></div>
                                 <div>
-                                    {getFieldDecorator('questionType', { initialValue: search ? detail&&detail.questions_type_text : (props.questionType[0] && props.questionType[0].questions_type_text) })(
+                                    {getFieldDecorator('questionType', { initialValue: search ? detail && detail.questions_type_text : (props.questionType[0] && props.questionType[0].questions_type_text) })(
                                         <Select
                                             style={{ width: 200 }}
                                         >
@@ -171,7 +172,7 @@ function AddQuestion(props) {
                     </div>
                     <h3>答案信息</h3>
                     <div>
-                        {getFieldDecorator('answer', { initialValue: search ? detail&&detail.questions_answer : "" })(
+                        {getFieldDecorator('answer', { initialValue: search ? detail && detail.questions_answer : "" })(
                             <Editor></Editor>
                         )}
                     </div>
@@ -196,18 +197,18 @@ function AddQuestion(props) {
                     </div>
                 </div>
             </Form>
+            {props.global ? <div className={styles.loading}><Spin /></div> : null}
         </div>
     )
 }
 const mapStateToProps = (state) => {
-    console.log(state)
     return {
         examType: state.question.examType,
         subject: state.question.subject,
         questionType: state.question.questionType,
         addState: state.question.addState,
         addTime: state.question.addTime,
-        detail:state.question.detail,
+        detail: state.question.detail,
         // addTime: state.question.addTime,
         ...state.checkTheItem
     }
@@ -240,10 +241,10 @@ const mapDispatchToProps = (dispatch) => {
                 id: search
             })
         },
-        getDetail(payload){
+        getDetail(payload) {
             dispatch({
-                type:"question/detail",
-                payload:payload
+                type: "question/detail",
+                payload: payload
             })
         },
         detailInfo: payload => {
@@ -252,9 +253,9 @@ const mapDispatchToProps = (dispatch) => {
                 payload
             })
         },
-        reset(){
+        reset() {
             dispatch({
-                type:"question/reset"
+                type: "question/reset"
             })
         }
     }
