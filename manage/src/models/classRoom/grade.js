@@ -67,7 +67,7 @@ export default {
         },
         //更新班级
         *updategrades({ payload, type }, { call, put }) {
-            console.log(payload, 'Updategrade')
+            // console.log(payload, 'Updategrade')
             let data = yield call(Updategrade, payload);
             console.log("mmmmmmmmm......", data)
             if (data.code == 1) {
@@ -100,14 +100,12 @@ export default {
         },
         //删除的班级
         Removegrade(state, action) {
-            console.log(action, ".......")
             return {
                 ...state, deletegrade: action.payload
             }
         },
         //更新班级
         Updategrades(state, action) {
-            console.log(action)
             return {
                 ...state, renewalgrade: action.payload
             }

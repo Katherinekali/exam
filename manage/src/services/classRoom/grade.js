@@ -20,7 +20,6 @@ export function Removegrade(data) {
 }
 //更新班级
 export function Updategrade(params) {
-    // params.grade_name = '';
-    console.log('params...', params)
+    // console.log('params...', params)
     return request.put("/manger/grade/update", params)
 }

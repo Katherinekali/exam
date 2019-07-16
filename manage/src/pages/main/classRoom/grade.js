@@ -205,7 +205,7 @@ const mapDispatchToProps = dispatch => {
 		},
 		//更新班级
 		getupdategrade: (payload) => {
-			console.log(payload, 'paylod')
+			// console.log(payload, 'paylod')
 			dispatch({
 				type: "grade/updategrades",
 				payload
