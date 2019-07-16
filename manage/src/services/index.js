@@ -5,3 +5,4 @@ export * from "./text";
 export * from "./showUser"
 export * from "./classRoom/grade.js"
 
+export * from "./user/userinfo"
