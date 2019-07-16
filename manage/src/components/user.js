@@ -24,13 +24,17 @@ function AddIdentityView(props){
     <Fragment>
         <Form  className="login-form" >
            {type==="更新"?<Form.Item  style={{marginBottom:10}}>
-             <Select placeholder="请选择身份id" style={{ width: "60%" }} onChange={(e)=>{updateUsername(e)}}>
-              {
-                 props.userIdentity&&props.userIdentity.map((v,k)=>{
-                  return  <Option key={k} value={v.user_id}>{v.user_name}</Option>
-                 })
-               }
-            </Select>
+           {getFieldDecorator("Name1", {
+                    rules: [{ required: true, message: '请输入api接口权限名称!' }],
+              })(
+              <Select placeholder="请选择身份id" style={{ width: "60%" }} onChange={(e)=>{updateUsername(e)}}>
+                {
+                   props.userIdentity&&props.userIdentity.map((v,k)=>{
+                    return  <Option key={k} value={v.user_id}>{v.user_name}</Option>
+                   })
+                 }
+              </Select>  
+          )} 
           </Form.Item>:null}
           <Form.Item>
             {getFieldDecorator('username', 
@@ -61,13 +65,17 @@ function AddIdentityView(props){
               )}
           </Form.Item>
           <Form.Item style={{marginBottom:10}}>
-            <Select  placeholder="请选择身份id" style={{ width: "60%" }} onChange={(e)=>{updateIdentity(e)}}>
-              {
-                 props.identity&&props.identity.map((v,k)=>{
-                  return  <Option key={k} value={v.identity_id}>{v.identity_text}</Option>
-                 })
-               }
-            </Select>
+          {getFieldDecorator("Name", {
+                    rules: [{ required: true, message: '请输入api接口权限名称!' }],
+              })(
+              <Select  placeholder="请选择身份id" style={{ width: "60%" }} onChange={(e)=>{updateIdentity(e)}}>
+                {
+                   props.identity&&props.identity.map((v,k)=>{
+                    return  <Option key={k} value={v.identity_id}>{v.identity_text}</Option>
+                   })
+                 }
+              </Select>
+          )} 
           </Form.Item> 
         </Form>
           {

@@ -7,3 +7,4 @@ export * from "./classRoom/grade.js"
 
 export * from "./user/userinfo"
 export * from "./room/index"
+export * from "./checkPaper/index"  //批卷借口

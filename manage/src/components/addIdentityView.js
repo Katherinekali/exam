@@ -25,28 +25,37 @@ function AddIdentityView(props){
     const handleReset=()=>{
       props.form.resetFields()
     }
+    const { getFieldDecorator } = props.form;
     return (
     <div className={styles.addUser_content}>
         <Tag style={{padding:"0 15px",border:"1px solid blue",background:"#fff",lineHeight:"32px",color:"blue",fontSize:"14px"}}>给身份设置api权限</Tag>
         <Form  className="login-form" >
-           <Form.Item  style={{marginBottom:10}}>
-             <Select placeholder="请选择身份id" style={{ width: "60%" }} onChange={(e)=>{setIdentity(e)}}>
-              {
-                 props.identity&&props.identity.map((v,k)=>{
-                  return  <Option key={k} value={v.identity_id}>{v.identity_text}</Option>
-                 })
-               }
-            </Select>
-          </Form.Item> 
-          <Form.Item style={{marginBottom:10}}>
-             <Select placeholder="请选择api接口权限" style={{ width: "60%" }} onChange={(e)=>{setApi(e)}}>
-              {
-                 props.portAuthorition&&props.portAuthorition.map((v,k)=>{
-                  return  <Option key={k} value={v.api_authority_id}>{v.api_authority_text}</Option>
-                 })
-               }
-            </Select>
-          </Form.Item> 
+        <Form.Item  style={{marginBottom:10}}>
+              {getFieldDecorator("Name", {
+                    rules: [{ required: true, message: '请输入api接口权限名称!' }],
+              })(
+              <Select placeholder="请选择身份id" style={{ width: "60%" }} onChange={(e)=>{setIdentity(e)}}>
+                {
+                    props.identity&&props.identity.map((v,k)=>{
+                    return  <Option key={k} value={v.identity_id}>{v.identity_text}</Option>
+                    })
+                  }
+              </Select>   
+              )} 
+          </Form.Item>
+          <Form.Item  style={{marginBottom:10}}>
+            {getFieldDecorator("Name1", {
+                      rules: [{ required: true, message: '请输入api接口权限名称!' }],
+                })(
+                <Select placeholder="请选择视图权限id" style={{ width: "60%" }} onChange={(e)=>{setApi(e)}}>
+                  {
+                      props.portAuthorition&&props.portAuthorition.map((v,k)=>{
+                      return  <Option key={k} value={v.api_authority_id}>{v.api_authority_text}</Option>
+                      })
+                    }
+                </Select> 
+            )} 
+          </Form.Item>  
         </Form>
           {
             <div>

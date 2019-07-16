@@ -42,5 +42,6 @@ export function setApiEdit(params) {
 }
 //给身份设定视图权限
 export function setViewEdit(params) {
+    console.log(params,"0000")
     return request.post('/user/setIdentityView',params);
 }

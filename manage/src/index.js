@@ -17,6 +17,7 @@ app.model(require('./models/showUser').default);
 app.model(require('./models/classRoom/grade').default);
 app.model(require("./models/user/userInfo").default)
 app.model(require("./models/room").default)
+app.model(require("./models/checkPapers/index").default)
 // app.model(require('./models/questions').default)
 // 4. Router
 app.router(require('./router').default);
