@@ -24,7 +24,7 @@ export default {
         //     }
         // },
         //已分配教室的班级
-        *assignedroom({ payload, type }, { call, put }) {
+        *assignedroom({ }, { call, put }) {
             let data = yield call(Assignedgrade);
             // console.log(data)
             if (data.code === 1) {
@@ -35,7 +35,7 @@ export default {
             }
         },
         //未分配教室的班级
-        *undistributedgrade({ payload, type }, { call, put }) {
+        *undistributedgrade({ payload}, { call, put }) {
             let data = yield call(Undistributedgrade, payload);
             if (data.code === 1) {
                 yield put({
