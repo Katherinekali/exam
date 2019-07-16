@@ -18,7 +18,6 @@ function UserInfo(props){
     }
     const { getFieldDecorator } = props.form;
     let {item}=props
-    console.log(item)
     return (
     <div className={styles.addUser_content}>
         <Tag>{item.title}</Tag>
@@ -38,7 +37,6 @@ function UserInfo(props){
            <Form.Item key={index} style={{marginBottom:10}}>
              <Select defaultValue={val.title} style={{ width: "80%" }} onChange={handleChange}>
                {
-                 console.log(val.content,"1")
                 //  val&&val.content.map((v,k)=>{
                 //   <Option value="jack">Jack</Option>
                 //  })

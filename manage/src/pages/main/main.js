@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'dva';
 import { Route, Link } from 'dva/router';
 import styles from "./main.css"
-import { Dropdown, Menu, Icon } from 'antd';
+import { Dropdown, Menu, Icon, Spin } from 'antd';
 import ClassList from "./checking/classList"
 import Grade from "./classRoom/grade"
 import Room from "./classRoom/room"
@@ -100,7 +100,7 @@ function IndexPage(props) {
                 </span>
               }
             >
-              
+
               <Menu.Item key="6"><Link to="/main/addexam">添加考试</Link></Menu.Item>
               <Menu.Item key="7"><Link to="/main/examlist">考试列表</Link></Menu.Item>
             </SubMenu>
@@ -145,10 +145,18 @@ function IndexPage(props) {
             <Route path="/main/adduser" component={AddUser} />
             <Route path="/main/showuser" component={ShowUser} />
           </div>
+          {props.global ? <div className={styles.loading}><Spin /></div> : null}
         </div>
+
       </div>
     </div>
   );
 }
+const mapState = state => {
+  return {
+    ...state.checkTheItem,
+    global: state.loading.global
+  };
+};
 
-export default connect()(IndexPage);
+export default connect(mapState)(IndexPage);

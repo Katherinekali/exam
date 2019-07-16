@@ -13,7 +13,7 @@ export default {
         viewAuthor:-1//视图权限
     },
     subscriptions: {
-      setup({ dispatch, history }) {  // eslint-disable-line
+      setup({  }) {  // eslint-disable-line
       },
     },
     effects: {
@@ -111,13 +111,13 @@ export default {
     },
     reducers: {
     getIdentity(state, action) {
-        return { ...state, identity:action.payload };
+      return { ...state, identity: action.payload };
     },
-    authorition(state, action){
-        return { ...state, portAuthorition:action.payload };
+    authorition(state, action) {
+      return { ...state, portAuthorition: action.payload };
     },
-    viewAuthorition(state, action){
-        return { ...state, viewAuthority:action.payload};
+    viewAuthorition(state, action) {
+      return { ...state, viewAuthority: action.payload };
     },
     getUser(state, action){
       return { ...state, userIdentity:action.payload};
@@ -138,7 +138,7 @@ export default {
       return { ...state, viewAuthor:action.payload};
     }
 
-    },
-    
-  
-  };
+  },
+
+
+};

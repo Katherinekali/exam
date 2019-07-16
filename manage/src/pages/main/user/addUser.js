@@ -8,8 +8,8 @@ import AddIdentityView from "../../../components/addIdentityView"
 import AddIdentityPort from "../../../components/addIdentityPort"
 import styles from "./addUser.scss"
 
- function addUser(props){
-    useEffect(()=>{
+function addUser(props) {
+    useEffect(() => {
         props.getUserID()
         props.getApiPort()
         props.getView()
@@ -30,24 +30,24 @@ import styles from "./addUser.scss"
         </div>
     )
 }
-let mapStateToProps=state=>{
+let mapStateToProps = state => {
     return {
         ...state.userInfo
     }
-  }
-  let mapDispatchToProps=dispatch=>{
+}
+let mapDispatchToProps = dispatch => {
     return {
-        getUserID(){
+        getUserID() {
             dispatch({
                 type:"userInfo/getUserId"
             })
         },
-        getApiPort(){
+        getApiPort() {
             dispatch({
                 type:"userInfo/getApiPort"
             })
         },
-        getView(){
+        getView() {
             dispatch({
                 type:"userInfo/getView"
             })
@@ -58,5 +58,5 @@ let mapStateToProps=state=>{
             })
         }
     }
-  }
-export default connect(mapStateToProps,mapDispatchToProps)(addUser)
+}
+export default connect(mapStateToProps, mapDispatchToProps)(addUser)

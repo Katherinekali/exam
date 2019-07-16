@@ -1,6 +1,6 @@
-import React,{useState,useEffect} from "react"
-import { Modal, Button,Table,Input,message,Form} from 'antd';
-import {connect} from "dva"
+import React, { useState, useEffect } from "react"
+import { Modal, Button, Table, Input, message, Form } from 'antd';
+import { connect } from "dva"
 import "./questionsType.css"
 const { Column} = Table;
 function QuestionsType(props){
@@ -10,7 +10,7 @@ function QuestionsType(props){
     const addFn=()=>{
         setFlag(true)
     }
-    const hideModal=()=>{
+    const hideModal = () => {
         setFlag(false)
     }
     const handleSubmit = () => {
@@ -35,23 +35,23 @@ function QuestionsType(props){
         }else if(props.message===-1){
           return 
         }
-    },[props.message])
+    }, [props.message])
     return (
         <div>
             <h2>试题分类</h2>
-            <div style={{background:"#fff"}}>
-            <Button type="primary" icon="plus" onClick={()=>{addFn()}} style={{margin:20}}>
-                添加类型
+            <div style={{ background: "#fff" }}>
+                <Button type="primary" icon="plus" onClick={() => { addFn() }} style={{ margin: 20 }}>
+                    添加类型
             </Button>
-            <div className="questions_table">
-            {
-               props.questionsType&&<Table rowKey="questions_type_id" dataSource={props.questionsType}  pagination={paginationProps}>
-               <Column title="类型ID" dataIndex="questions_type_id"  />
-               <Column title="类型名称" dataIndex="questions_type_text"  />
-               <Column title="操作" dataIndex=""  />
-             </Table>
-            }
-            </div>
+                <div className="questions_table">
+                    {
+                        props.questionsType && <Table rowKey="questions_type_id" dataSource={props.questionsType} pagination={paginationProps}>
+                            <Column title="类型ID" dataIndex="questions_type_id" />
+                            <Column title="类型名称" dataIndex="questions_type_text" />
+                            <Column title="操作" dataIndex="" />
+                        </Table>
+                    }
+                </div>
             </div>
             <Modal
             title="创建新类型"
@@ -75,25 +75,25 @@ function QuestionsType(props){
     )
 
 }
-let mapStateToProps=state=>{
+let mapStateToProps = state => {
     return {
         ...state.test
     }
 }
-let mapDispatchToProps=dispatch=>{
+let mapDispatchToProps = dispatch => {
     return {
-        getType:()=>{
+        getType: () => {
             dispatch({
-                type:"test/getType",
+                type: "test/getType",
             })
         },
-        addType:(payload)=>{
+        addType: (payload) => {
             dispatch({
-                type:"test/addType",
+                type: "test/addType",
                 payload
             })
         }
     }
 
 }
-export default connect(mapStateToProps,mapDispatchToProps)(Form.create()(QuestionsType))
+export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(QuestionsType))

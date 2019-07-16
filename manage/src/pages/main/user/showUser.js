@@ -1,46 +1,173 @@
-import React from 'react'
-import { Table, Radio } from 'antd';
+import React, { useEffect } from 'react';
+import "antd/dist/antd.css";
+import { Tabs, Table } from 'antd';
 import { connect } from "dva";
-const { Column } = Table;
+const { TabPane } = Tabs;
 function showUser(props) {
-    let onChange = (e) => {
-        console.log(`radio checked:${e.target.value}`);
-    }
-    const paginationProps = {
-        pageSize: 5
-    }
-    return (
-        <div className="showUser_wrapper">
-            <h2>用户展示</h2>
-            <div className="showUser_content">
-                <div>
-                    <Radio.Group onChange={onChange} defaultValue="a">
-                        <Radio.Button value="a">Hangzhou</Radio.Button>
-                        <Radio.Button value="b">Shanghai</Radio.Button>
-                        <Radio.Button value="c">Beijing</Radio.Button>
-                        <Radio.Button value="d">Chengdu</Radio.Button>
-                    </Radio.Group>
-                    <h1>用户数据</h1>
-                    <div className="questions_table">
-                        <Table rowKey="questions_type_id" dataSource={props.questionsType} pagination={paginationProps}>
-                            <Column title="用户名" dataIndex="questions_type_id" />
-                            <Column title="密码" dataIndex="questions_type_text" />
-                            <Column title="身份" dataIndex="" />
-                        </Table>
-                    </div>
-                </div>
-            </div>
+    useEffect(() => {
+        props.getUsers();
+        props.getUserIdentit();
+        props.getUserIdentityApiAuthorityRelation();
+        props.getUserApiAuthority();
+        props.getUserViewAuthority();
+        props.getUserIdentityViewAuthorityRelation()
 
-        </div>
+    }, [])
+    let { user, userIdentit, userIdentityApiAuthorityRelation, userApiAuthority, userViewAuthority, userIdentityViewAuthorityRelation } = props;
+    //用户数据
+    const columns = [
+        {
+            title: '用户名',
+            dataIndex: 'user_name'
+        },
+        {
+            title: '密码',
+            dataIndex: 'user_pwd',
+        },
+        {
+            title: '身份',
+            dataIndex: 'identity_text',
+        }]
+    //展示身份数据
+    const columnsIdentity = [
+        {
+            title: '身份名称',
+            dataIndex: 'identity_text'
+        }];
+    //展示身份和api权限关系
+    const columnsApiAuthority = [
+        {
+            title: 'api权限名称',
+            dataIndex: 'api_authority_text'
+        },
+        {
+            title: 'api权限url',
+            dataIndex: 'api_authority_url',
+        },
+        {
+            title: 'api权限方法',
+            dataIndex: 'api_authority_method',
+        }];
+    // 展示api接口权限数据
+    const columnsRelation = [
+        {
+            title: '身份名称',
+            dataIndex: 'identity_text'
+        },
+        {
+            title: 'api权限名称',
+            dataIndex: 'api_authority_text',
+        },
+        {
+            title: 'api权限url',
+            dataIndex: 'api_authority_url',
+        },
+        {
+            title: 'api权限方法',
+            dataIndex: 'api_authority_method',
+        }];
+    //获取视图接口权限数据
+    const columnsViewauthority = [
+        {
+            title: '试图权限名称',
+            dataIndex: 'view_authority_text'
+        },
+        {
+            title: '试图id',
+            dataIndex: 'view_id',
+        }];
+    //展示身份和视图权限关系
+    const columsIdentityview = [
+        {
+            title: '身份',
+            dataIndex: 'identity_text'
+        },
+        {
+            title: '试图名称',
+            dataIndex: 'view_authority_text',
+        },
+        {
+            title: '试图id',
+            dataIndex: 'view_id',
+        }];
+    return (
+        //identity_text
+        < div className="showUser_wrapper" >
+            <h2>用户展示</h2>
+            <div className="card-container">
+                <Tabs type="card">
+                    <TabPane tab="用户数据" key="1">
+                        <h2>用户数据</h2>
+                        <Table columns={columns} dataSource={user && user} />
+                    </TabPane>
+                    <TabPane tab="身份数据" key="2">
+                        <h2>身份数据</h2>
+                        <Table columns={columnsIdentity} dataSource={userIdentit && userIdentit} />
+                    </TabPane>
+                    <TabPane tab="api接口权限" key="3">
+                        <h2>api接口权限</h2>
+                        <Table columns={columnsApiAuthority} dataSource={userApiAuthority && userApiAuthority} />
+                    </TabPane>
+                    <TabPane tab="身份和api接口关系" key="4">
+                        <h2>身份和api接口关系</h2>
+                        <Table columns={columnsRelation} dataSource={userIdentityApiAuthorityRelation && userIdentityApiAuthorityRelation} />
+                    </TabPane>
+                    <TabPane tab="试图接口权限" key="5">
+                        <h2>试图接口权限</h2>
+                        <Table columns={columnsViewauthority} dataSource={userViewAuthority && userViewAuthority} />
+                    </TabPane>
+                    <TabPane tab="身份和视图权限关系" key="6">
+                        <h2>身份和视图权限关系</h2>
+                        <Table columns={columsIdentityview} dataSource={userIdentityViewAuthorityRelation && userIdentityViewAuthorityRelation} />
+                    </TabPane>
+                </Tabs>
+            </div>
+        </div >
     )
 }
 let mapStateToProps = state => {
     return {
-        ...state.addUser
+        ...state.showUser
     }
 }
 let mapDispatchToProps = dispatch => {
     return {
+        //用户数据
+        getUsers: () => {
+            dispatch({
+                type: "showUser/user",
+            })
+        },
+        //展示身份数据
+        getUserIdentit: () => {
+            dispatch({
+                type: "showUser/userIdentit",
+            })
+        },
+        //展示身份和api权限关系
+        getUserIdentityApiAuthorityRelation: () => {
+            dispatch({
+                type: "showUser/userIdentityApiAuthorityRelation",
+            })
+        },
+        // 展示api接口权限数据
+        getUserApiAuthority: () => {
+            dispatch({
+                type: "showUser/userApiAuthority",
+            })
+        },
+        //获取视图接口权限数据
+        getUserViewAuthority: () => {
+            dispatch({
+                type: "showUser/userViewAuthority",
+            })
+        },
+        //展示身份和视图权限关系
+        getUserIdentityViewAuthorityRelation: () => {
+            dispatch({
+                type: "showUser/userIdentityViewAuthorityRelation",
+            })
+        }
 
     }
 }

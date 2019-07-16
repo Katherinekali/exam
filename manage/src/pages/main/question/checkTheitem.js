@@ -9,7 +9,7 @@ function CheckTheitem(props) {
   let [checked, Upchecked] = useState(false)
   let [checkeds, Upcheckeds] = useState(false)
   let [id, upId] = useState("")
-  let [ind,updateInd]=useState(-1)
+  let [ind, updateInd] = useState(-1)
   useEffect(() => {
     props.getData();
     props.getAllLessons();//类型
@@ -46,7 +46,7 @@ function CheckTheitem(props) {
     })
   }
   //选中状态  subject_id
-  let handleChange = (tag,ind) => {
+  let handleChange = (tag, ind) => {
     updateInd(ind)
     Upchecked(!checked)
     const nextSelectedTags = checked ? [tag] : selectedTags.filter(t => t !== tag);
@@ -70,15 +70,15 @@ function CheckTheitem(props) {
             className={checkeds ? "ant_active" : ""}
 
           >All</CheckableTag>
-          {props.allthelessons && props.allthelessons.map((tag,index) => {
+          {props.allthelessons && props.allthelessons.map((tag, index) => {
             // console.log(tag.subject_text)
             return (
               <CheckableTag
-              className={styles.ant_tag}
+                className={styles.ant_tag}
                 key={tag.subject_id}
 
-                checked={index===ind}
-                onChange={() => handleChange(tag.subject_id,index)}
+                checked={index === ind}
+                onChange={() => handleChange(tag.subject_id, index)}
               >
                 {tag.subject_text}
               </CheckableTag>
@@ -167,16 +167,14 @@ function CheckTheitem(props) {
   );
 }
 const mapState = state => {
-  console.log(state, 123)
   return {
-    ...state.checkTheItem
+    ...state.checkTheItem,
   };
 };
 const mapDispatch = dispatch => {
   return {
     //所有题
     getData: payload => {
-      console.log(1)
       dispatch({
         type: "checkTheItem/All",
         payload
