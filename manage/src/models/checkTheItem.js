@@ -19,7 +19,6 @@ export default {
   effects: {
     //所有试题
     *All({ payload, type }, { call, put }) {
-      console.log(type)
       let data = yield call(CheckAll, payload);
       // console.log("11111", data.data);
       if (data.code == 1) {
