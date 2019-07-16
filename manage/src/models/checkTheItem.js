@@ -21,7 +21,7 @@ export default {
     *All({ payload, type }, { call, put }) {
       let data = yield call(CheckAll, payload);
       // console.log("11111", data.data);
-      if (data.code == 1) {
+      if (data.code === 1) {
         yield put({
           type: "upDataLogin",
           payload: data.data
@@ -32,7 +32,7 @@ export default {
     //所有课程
     *Lessons({ payload, type }, { call, put }) {
       let lessons = yield call(Alllessons, payload);
-      if (lessons.code == 1) {
+      if (lessons.code === 1) {
         yield put({
           type: "AllTheLessons",
           payload: lessons.data
@@ -43,7 +43,7 @@ export default {
     //考试类型
     *examtype({ payload, type }, { call, put }) {
       let allexamtype = yield call(Allexamtype, payload);
-      if (allexamtype.code == 1) {
+      if (allexamtype.code === 1) {
         yield put({
           type: "allexamType",
           payload: allexamtype.data
@@ -55,7 +55,7 @@ export default {
     *questionsType({ payload, type }, { call, put }) {
       let getquestionsType = yield call(QuestionsType, payload);
       // console.log(getquestionsType.data)
-      if (getquestionsType.code == 1) {
+      if (getquestionsType.code === 1) {
         yield put({
           type: "allquestionsTypes",
           payload: getquestionsType.data
@@ -66,7 +66,7 @@ export default {
     *conditionquery({ payload, type }, { call, put }) {
       let res = yield call(Conditionquery, payload);
       //console.log(res)
-      if (res.code == 1) {
+      if (res.code === 1) {
         yield put({
           type: "upDataLogin",
           payload: res.data

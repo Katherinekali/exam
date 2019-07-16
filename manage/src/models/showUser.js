@@ -18,7 +18,7 @@ export default {
         //用户数据
         *user({ payload, type }, { call, put }) {
             let data = yield call(User, payload)
-            if (data.code == 1) {
+            if (data.code === 1) {
                 yield put({
                     type: "User",
                     payload: data.data
@@ -28,7 +28,7 @@ export default {
         //展示身份数据
         *userIdentit({ payload, type }, { call, put }) {
             let data = yield call(UserIdentit, payload)
-            if (data.code == 1) {
+            if (data.code === 1) {
                 yield put({
                     type: "UserIdentit",
                     payload: data.data
@@ -38,7 +38,7 @@ export default {
         //展示身份和api权限关系
         *userIdentityApiAuthorityRelation({ payload, type }, { call, put }) {
             let data = yield call(UserIdentityApiAuthorityRelation, payload)
-            if (data.code == 1) {
+            if (data.code === 1) {
                 yield put({
                     type: "UserIdentityApiAuthorityRelation",
                     payload: data.data
@@ -48,7 +48,7 @@ export default {
         //展示api接口权限数据
         *userApiAuthority({ payload, type }, { call, put }) {
             let data = yield call(UserApiAuthority, payload);
-            if (data.code == 1) {
+            if (data.code === 1) {
                 yield put({
                     type: "UserApiAuthority",
                     payload: data.data
@@ -58,7 +58,7 @@ export default {
         //获取视图接口权限数据
         *userViewAuthority({ payload, type }, { call, put }) {
             let data = yield call(UserViewAuthority, payload);
-            if (data.code == 1) {
+            if (data.code === 1) {
                 yield put({
                     type: "UserViewAuthority",
                     payload: data.data
@@ -68,7 +68,7 @@ export default {
         //展示身份和视图权限关系
         *userIdentityViewAuthorityRelation({ payload, type }, { call, put }) {
             let data = yield call(UserIdentityViewAuthorityRelation, payload);
-            if (data.code == 1) {
+            if (data.code === 1) {
                 yield put({
                     type: "UserIdentityViewAuthorityRelation",
                     payload: data.data

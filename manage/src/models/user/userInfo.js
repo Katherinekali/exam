@@ -6,10 +6,10 @@ export default {
     portAuthorition: [],//接口权限,
     viewAuthority: [],//视图权限
   },
-  subscriptions: {
-    setup({ dispatch, history }) {  // eslint-disable-line
-    },
-  },
+  // subscriptions: {
+  //   setup({ dispatch, history }) {  // eslint-disable-line
+  //   },
+  // },
   effects: {
     //获取用户id
     *getUserId({ payload }, { call, put }) {  // eslint-disable-line
