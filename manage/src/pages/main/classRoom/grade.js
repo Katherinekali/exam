@@ -34,9 +34,9 @@ function grade(props) {
 			dataIndex: "",
 			render: (text, record) => (
 				<span>
-					<a href="javascript:;">修改</a>
+					<a href="">修改</a>
 					<Divider type="vertical" />
-					<a href="javascript:;">删除</a>
+					<a href="">删除</a>
 					<Divider type="vertical" />
 				</span>
 			),
