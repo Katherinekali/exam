@@ -72,8 +72,6 @@ function ClassMate(props){
           ) : null,
         },
       ];
-    const [flag, setFlag] = useState(false);
-    const { getFieldDecorator } =props.form;
     //获取初始教室数据
     useEffect(()=>{
         setDataSource(props.TestPape)

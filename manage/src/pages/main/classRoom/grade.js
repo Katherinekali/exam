@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from "dva";
 import "antd/dist/antd.css";
-import { Form, Button, Table, Divider, Modal, Input, Radio } from "antd";
+import { Form, Button, Table, Divider, Modal, Input } from "antd";
 function grade(props) {
 	let [flag, setFlag] = useState(false)
-	const [val, setVal] = useState("请输入试卷类型")
 	const addFn = () => {
 		setFlag(true)
 	}
@@ -18,7 +17,6 @@ function grade(props) {
 		props.getassignedgrade();
 		props.getaundistributedgrade();
 	}, [])
-	// console.log(props.getundistributedgrade)
 	const columns = [
 		{
 			title: '班级名',
