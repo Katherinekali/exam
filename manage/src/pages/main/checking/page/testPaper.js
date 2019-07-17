@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from "react"
-import { Modal, Button,Table,Input,message,Form,Popconfirm} from 'antd';
+import {Table,Form} from 'antd';
 import {connect} from "dva"
 import "../../question/question.css"
 function ClassMate(props){
@@ -8,15 +8,11 @@ function ClassMate(props){
         props.getAll()
     },[])
     const [dataSource,setDataSource]=useState([])//获取到列表数据
-    const handleDelete = key => {
-        //删除数据
-        // props.getAll({room_id:key})
-    };
     const changePage=(current)=>{
         setPage(current)
 
     };
-    const changePageSize=(current, pageSize)=>{
+    const changePageSize=()=>{
 
     }
     const paginationProps = {
@@ -78,45 +74,11 @@ function ClassMate(props){
       ];
     const [flag, setFlag] = useState(false);
     const { getFieldDecorator } =props.form;
-
-    //设置弹框
-    const addFn=()=>{
-        setFlag(true)
-    }
-    const hideModal=()=>{
-        setFlag(false)
-    }
-
     //获取初始教室数据
     useEffect(()=>{
         setDataSource(props.TestPape)
     },[props.TestPape])
 
-    // //显示弹框信息
-    // useEffect(()=>{
-    //     console.log(props,"3445")
-    //     if(props.room_msg===1){
-    //         message.success("添加成功")  
-    //         props.addRoom()
-    //      }else if(props.room_msg===0){
-    //         message.error("添加失败") 
-    //      }else{
-    //          return
-    //      }
-    // },[props.room_msg])
-    
-    //添加room信息
-    const handleSubmit = () => {
-        props.form.validateFields((err, values) => {
-          if (!err) {
-            // console.log('Received values of form: ', values);
-            setFlag(false)
-            props.addRoom({room_text:values.info})
-          }else{
-            message.error("error")
-          }
-        });
-    };
     return (
         <div>
             <h2>试卷列表</h2>
@@ -128,24 +90,6 @@ function ClassMate(props){
             }
             </div>
             </div>
-            <Modal
-            title="创建新类型"
-            visible={flag}
-            onOk={()=>{handleSubmit()}}//点击确认除了要关闭弹框还要发送请求，把内容添加到后台
-            onCancel={()=>{hideModal()}}
-            okText="确认"
-            cancelText="取消"
-            >
-            <Form className="login-form">
-                <Form.Item>
-                {getFieldDecorator('info', {
-                    rules: [{ required: true, message: '请输入教室信息!' }],
-                })(
-                    <Input placeholder="请输入教室信息"/>
-                )}
-                </Form.Item>
-            </Form>
-            </Modal> 
         </div>
     )
 
@@ -153,7 +97,6 @@ function ClassMate(props){
 let mapStateToProps=state=>{
     return {
         TestPape:state.checkPaper.TestPape
-        
     }
 }
 let mapDispatchToProps=dispatch=>{
