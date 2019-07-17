@@ -66,8 +66,9 @@ function AddExam(props) {
                   })(
                         <Select
                             style={{ width: 200 }}
+                            placeholder={props.examType[0]&&props.examType[0].exam_name}
                         >
-                         { props.examType&&props.examType.map(item=>{
+                         {props.examType.map(item=>{
                              return  <Option value={item.exam_id} key={item.exam_id}>{item.exam_name}</Option>
                            })}
                         </Select>
@@ -84,9 +85,10 @@ function AddExam(props) {
                   })(
                         <Select
                             style={{ width: 200 }}
+                            placeholder={props.subject[0]&&props.subject[0].subject_text}
                         >
                          {
-                           props.subject&&props.subject.map(item=>{
+                           props.subject.map(item=>{
                              return  <Option value={item.subject_id} key={item.subject_id}>{item.subject_text}</Option>
                            })
                          }
@@ -134,7 +136,7 @@ function AddExam(props) {
                 <Form.Item
                   >
                     <Button type="primary" htmlType="submit">
-                      创建时间
+                      创建试卷
                     </Button>
                   </Form.Item>
             </div>

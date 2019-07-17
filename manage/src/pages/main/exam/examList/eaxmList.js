@@ -13,16 +13,17 @@ function ExamList (props) {
         props.getSubject()
         props.getExamList()
       },[])
-      let handleSubmit =() => {
+    let handleSubmit =() => {
         props.form.validateFieldsAndScroll((err, values) => {
-          if (!err) {
+            if (!err) {
             let data={
             subject_id:values.subject_id,
+            exam_exam_id:values.exam_id
             }
             props.getExamList(data)
-          }
+            }
         });
-      };
+    };
     let getSearch=()=>{
         handleSubmit()
     }
@@ -128,8 +129,9 @@ function ExamList (props) {
                     <div>
                         <Radio.Group value={size} onChange={handleSizeChange}>
                             <Radio.Button value="all">全部</Radio.Button>
-                            <Radio.Button value="doing">进行中</Radio.Button>
-                            <Radio.Button value="done">已完成</Radio.Button>
+                            <Radio.Button value="0">未开始</Radio.Button>
+                            <Radio.Button value="1">进行中</Radio.Button>
+                            <Radio.Button value="2">已结束</Radio.Button>
                         </Radio.Group>    
                     </div>
                 </div>

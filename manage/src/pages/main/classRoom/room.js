@@ -48,7 +48,6 @@ function Room(props){
 
     //显示弹框信息
     useEffect(()=>{
-        console.log(props,"3445")
         if(props.room_msg===1){
             message.success("添加成功")  
             props.addRoom()

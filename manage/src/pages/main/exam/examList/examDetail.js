@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from 'react'
+import React,{useEffect} from 'react'
 import {connect} from "dva"
 import styles from "../addExam.scss"
 import ReactMarkdown from "react-markdown";
@@ -19,16 +19,14 @@ function examDetail (props) {
                                 return <div key={index}>
                                     <h4>{index+1}:{item.title}</h4>
                                     <div>     
-                                          <pre>
-                                              <code> <ReactMarkdown source={item.questions_stem}/></code>
-                                          </pre>
+                                        <ReactMarkdown source={item.questions_stem}/>
                                     </div>
                                 </div>
                             })
                         }
                     </div>
                 </div>
-                <div className={styles.content_right}></div>
+                {/* <div className={styles.content_right}></div> */}
             </div>
         </div>
     )
