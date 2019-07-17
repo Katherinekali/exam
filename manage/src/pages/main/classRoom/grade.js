@@ -18,6 +18,7 @@ function grade(props) {
 		setFlag(true)
 		settype(add)
 		setf(true);
+		// setData({})
 	}
 	//删除
 	const handleDelete = (id) => {
@@ -25,17 +26,16 @@ function grade(props) {
 	}
 	//修改
 	const handleUpdate = (res, reset) => {
-		console.log(res.grade_id)
+		console.log(res)
 		setData(res)
-		setf(false)
 		settype(reset)
 		addFn();
+		setf(false)
 	}
-
 	const addModal = () => {
 		props.form.validateFields((err, values) => {
-			console.log(values.grade_name);
-			console.log(data.grade_name)
+			console.log(values.grade_id);
+			console.log(data.grade_id)
 			if (!err) {
 				if (type === "add") {
 					props.getaddgrade(values && values)
@@ -92,16 +92,13 @@ function grade(props) {
 		}, {
 			title: "操作",
 			dataIndex: "",
-			render: (text, record) =>
-				props.getgrade.length >= 1 ? (
-					<Popconfirm>
-						<a href="javascript:;" style={{ color: "#0139FD" }} onClick={() => handleUpdate(record, "reset")
-						}>修改</a>
-						<Divider type="vertical" />
-						<a href="javascript:;" style={{ color: "#0139FD" }} onClick={() => handleDelete(record.grade_id)}>删除</a>
-					</Popconfirm >
-				) : null,
-
+			render: (text, record) => (
+				<span>
+					<a href="javascript:;" style={{ color: "#0139FD" }} onClick={() => handleUpdate(record, "reset")}>修改</a>
+					<Divider type="vertical" />
+					<a href="javascript:;" style={{ color: "#0139FD" }} onClick={() => handleDelete(record.grade_id)}>删除</a>
+				</span>
+			)
 		}]
 	const { getFieldDecorator } = props.form;
 	return (
@@ -128,9 +125,9 @@ function grade(props) {
 					<Form.Item label="班级名：">
 						{getFieldDecorator('grade_name', {
 							initialValue: (data.grade_name) ? (data.grade_name) : '班级名',
-							disabled: f,
+
 							rules: [{ required: true, message: 'Please input the title of collection!' }],
-						})(<Input />)}
+						})(<Input disabled={!f} />)}
 					</Form.Item>
 					<Form.Item label="教室号：">
 						{getFieldDecorator("room_id", {
