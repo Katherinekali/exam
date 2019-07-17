@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, {useEffect } from 'react'
 import { connect } from "dva";
 import "antd/dist/antd.css";
 import { Form, Button, Table,Input,Select} from "antd";
@@ -10,9 +10,9 @@ function StudentMange(props) {
         props.getHasStudent()
         props.getHasNoStudent()
     },[])
-   let [inputVal,setInputVal]=useState("")
-   let [classRoom,setclassRoom]=useState("")
-   let [className,setclassName]=useState("")
+//    let [inputVal,setInputVal]=useState("")
+//    let [classRoom,setclassRoom]=useState("")
+//    let [className,setclassName]=useState("")
     let deleteStudent=(id)=>{
         props.deleteStudent(id)
     }
