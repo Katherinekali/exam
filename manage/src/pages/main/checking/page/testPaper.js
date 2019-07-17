@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from "react"
-import {Table,Form} from 'antd';
+import {Table} from 'antd';
 import {connect} from "dva"
 import "../../question/question.css"
 function ClassMate(props){
@@ -30,37 +30,37 @@ function ClassMate(props){
           title: '班级',
           dataIndex: 'grade_name',
           key: 'grade',
-          render: text => <a href="javascript:;">{text}</a>,
+        
         },
         {
             title: '姓名',
             dataIndex: 'student_name',
             key: 'name',
-            render: text => <a href="javascript:;">{text}</a>,
+       
         },
         {
             title: '阅卷状态',
             dataIndex: 'room_text',
             key: 'checkPaper_state',
-            render: text => <a href="javascript:;">{text}</a>,
+         
         },
         {
             title: '开始时间',
             dataIndex: 'start_time',
             key: 'subject_name',
-            render: text => <a href="javascript:;">{text}</a>,
+          
         },
         {
             title: '结束时间',
             dataIndex: 'end_time',
             key: 'end_time',
-            render: text => <a href="javascript:;">{text}</a>,
+         
         },
         {
             title: '成材率',
             dataIndex: 'room_text',
             key: 'room_text',
-            render: text => <a href="javascript:;">{text}</a>,
+         
         },
         {
           title: '操作',
@@ -107,4 +107,4 @@ let mapDispatchToProps=dispatch=>{
         },
     }
 }
-export default connect(mapStateToProps,mapDispatchToProps)(Form.create()(ClassMate))
+export default connect(mapStateToProps,mapDispatchToProps)(ClassMate)
