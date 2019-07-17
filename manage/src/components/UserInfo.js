@@ -2,6 +2,7 @@ import React from "react"
 import { Form, Input,Tag,Select,Button } from 'antd';
 import { connect } from "dva";
 import styles from "./userinfo.scss"
+
 function UserInfo(props){
     const handleSubmit = () => {
         props.form.validateFields((err, values) => {
@@ -14,7 +15,7 @@ function UserInfo(props){
 
     }
     const handleReset=()=>{
-
+      props.form.resetFields()
     }
     const { getFieldDecorator } = props.form;
     let {item}=props
