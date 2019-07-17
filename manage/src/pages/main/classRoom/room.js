@@ -50,10 +50,13 @@ function Room(props){
     useEffect(()=>{
         console.log(props,"3445")
         if(props.room_msg===1){
-            message.success("添加成功")  
-            props.addRoom()
+            message.success("成功")  
+            //注意：在删除成功或者添加成功后要重新调用数据，重新获取数据
+            props.getRoom()
+            props.upstate()
          }else if(props.room_msg===0){
-            message.error("添加失败") 
+            message.error("error") 
+            props.upstate()
          }else{
              return
          }
@@ -129,6 +132,13 @@ let mapDispatchToProps=dispatch=>{
             dispatch({
                 type:"room/delRoom",
                 payload
+            })
+
+        },
+        upstate:()=>{
+            dispatch({
+                type:"room/updateState",
+                
             })
 
         }

@@ -3,3 +3,6 @@ import request from "../../utils/request";
 export function getTestPaper(params) {
     return request.get("/exam/student",{params});
 }
+export function getStudentPaper(payload) {
+    return request.get(`/exam/student/d7zha2-je4dw-qvnblq-ibn73h`);
+}

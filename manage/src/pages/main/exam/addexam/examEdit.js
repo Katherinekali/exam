@@ -1,12 +1,12 @@
-import React, { useEffect,useState } from 'react'
+import React, {useState } from 'react'
 import {connect} from "dva"
 import style from "../addExam.scss"
 import { Drawer, Button,Modal } from 'antd';
 function examEdit (props) {
     let examInfor=JSON.parse(sessionStorage.getItem("createExam"))
-    let [exam,setExam]=useState(examInfor)
+    let [exam]=useState(examInfor)
     let [visible,setvisible]=useState(false)
-    let [childrenDrawer,setchildrenDrawer]=useState(false)
+   
     let showDrawer = () => {
         setvisible(true)
       };
@@ -83,11 +83,7 @@ function examEdit (props) {
         </div>
     )
 }
-const mapStateToProps = (state) => {
-    return {
-       
-    }
-  }
+
   const mapDispatchToProps = (dispatch) => {
     return {
         delete(payload){
@@ -98,4 +94,4 @@ const mapStateToProps = (state) => {
         }
     }
   }
-export default connect (mapStateToProps, mapDispatchToProps)(examEdit)
+export default connect (null, mapDispatchToProps)(examEdit)

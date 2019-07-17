@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from "react"
-import { Modal, Button,Table,Input,message,Form,Popconfirm} from 'antd';
+import { Modal,Table,Input,message,Form} from 'antd';
 import {connect} from "dva"
 import "../../question/question.css"
 
@@ -9,15 +9,21 @@ function ClassList(props){
         props.getAll()
     },[])
     const [dataSource,setDataSource]=useState([])//获取到列表数据
-    const handleDelete = key => {
-        //删除数据
-        // props.getAll({room_id:key})
+
+    //点击批卷执行的动作
+    const handle = key => {
+        console.log(key)
+        console.log(props)
+        let {history}=props;
+        //注意的问题  跳转页面过去要使得页面刷新传过去的id和班级都存在
+        sessionStorage.setItem('paperInfo',JSON.stringify({id:key.grade_id,grade:key.grade_name}));// 存入到sessionStorage中
+        history.push({pathname:'/main/page/testPaper',state:{id:key.grade_id,grade:key.grade_name}})
     };
     const changePage=(current)=>{
         setPage(current)
 
     };
-    const changePageSize=(current, pageSize)=>{
+    const changePageSize=()=>{
 
     }
     const paginationProps = {
@@ -35,7 +41,6 @@ function ClassList(props){
           title: '班级名',
           dataIndex: 'grade_name',
           key: 'grade',
-         
         },
         {
             title: '课程名称',
@@ -63,7 +68,7 @@ function ClassList(props){
           key: 'action',
           render: (text, record) =>
           props.AllClassroom.length >= 1 ? (
-              <a href={`/#/main/page/testPaper?grade_id=${record.grade_id}`}>批卷</a>
+              <span style={{color:"blue"}} onClick={()=>{handle(record)}}>批卷</span>
           ) : null,
         },
       ];
@@ -71,9 +76,9 @@ function ClassList(props){
     const { getFieldDecorator } =props.form;
 
     //设置弹框
-    const addFn=()=>{
-        setFlag(true)
-    }
+    // const addFn=()=>{
+    //     setFlag(true)
+    // }
     const hideModal=()=>{
         setFlag(false)
     }

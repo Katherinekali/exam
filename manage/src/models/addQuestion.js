@@ -13,7 +13,7 @@ export default {
   },
   //异步方法：
   effects: {
-    *examType({}, { call, put }) {  //  考试类型
+    *examType(a={}, { call, put }) {  //  考试类型
           let data=yield call(examType)  
           if(data.code===1){
             sessionStorage.setItem("examType",JSON.stringify(data.data))

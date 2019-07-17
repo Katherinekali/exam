@@ -11,7 +11,7 @@ export default {
   },
   //异步方法：
   effects: {
-    *getExamType({}, { call, put }) {  
+    *getExamType(a={}, { call, put }) {  
           let data=yield call(examType) 
           if(data.code===1){
             yield put({
@@ -20,7 +20,7 @@ export default {
             })  
           }
     },
-    *getSubject({}, { call, put }) {  
+    *getSubject(a={}, { call, put }) {  
         let data=yield call(subject) 
         if(data.code===1){
           yield put({

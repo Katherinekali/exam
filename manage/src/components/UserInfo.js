@@ -3,6 +3,7 @@ import { Form, Input,Tag,Select,Button } from 'antd';
 import { connect } from "dva";
 import styles from "./userinfo.scss"
 
+
 function UserInfo(props){
     const handleSubmit = () => {
         props.form.validateFields((err, values) => {

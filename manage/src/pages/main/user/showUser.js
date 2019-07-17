@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect} from 'react';
 import "antd/dist/antd.css";
 import { Tabs, Table } from 'antd';
 import { connect } from "dva";

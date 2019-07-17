@@ -9,12 +9,12 @@ export default {
         msg:-1 //返回用户信息
     },
     subscriptions: {
-      setup({  }) {  // eslint-disable-line
+      setup(a={  }) {  // eslint-disable-line
       },
     },
     effects: {
     //获取用户id
-    *getUserId({  }, {put }) {  // eslint-disable-line
+    *getUserId(a={  }, {put }) {  // eslint-disable-line
       let data=yield  getIdentity()
       yield put({
           type:"getIdentity",
@@ -22,7 +22,7 @@ export default {
       })
     },
     //获取所有接口
-    *getApiPort({}, {put }){
+    *getApiPort(a={}, {put }){
         let data=yield getApi()
         yield put({
           type:"authorition",
@@ -31,7 +31,7 @@ export default {
 
     },
     //获取所有视图
-    *getView({}, {put}){
+    *getView(a={}, {put}){
       let data=yield getView()
       yield put({
         type:"viewAuthorition",
@@ -40,7 +40,7 @@ export default {
 
     },
     //获得所有用户信息
-    *getAllUser({}, { put }){
+    *getAllUser(a={}, { put }){
       let data=yield getUserIdentity()
       console.log(data,"user")
       yield put({

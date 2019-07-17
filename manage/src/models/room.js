@@ -39,10 +39,10 @@ export default {
         let data=yield call(DelRoom,payload) 
         console.log(data)
         //把值返回去
-        // yield put({
-        //     type:"Room_Msg",
-        //     payload:data.code
-        //   })
+        yield put({
+            type:"roomMsg",
+            payload:data.code
+          })
       },
 
 
@@ -53,6 +53,9 @@ export default {
       },
     roomMsg(state, action){
       return { ...state, room_msg:action.payload };//返回前面信息
+    },
+    updateState(state, action){
+      return { ...state, room_msg:-1 }
     }
     },
     
