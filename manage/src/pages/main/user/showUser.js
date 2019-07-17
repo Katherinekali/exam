@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import "antd/dist/antd.css";
 import { Tabs, Table } from 'antd';
 import { connect } from "dva";
@@ -14,6 +14,24 @@ function showUser(props) {
 
     }, [])
     let { user, userIdentit, userIdentityApiAuthorityRelation, userApiAuthority, userViewAuthority, userIdentityViewAuthorityRelation } = props;
+    user.forEach(item => {
+        item.key = item.user_id;
+    });
+    userIdentit.forEach(item => {
+        item.key = item.identity_id;
+    });
+    userIdentityApiAuthorityRelation.forEach(item => {
+        item.key = item.api_authority_id;
+    });
+    userApiAuthority.forEach(item => {
+        item.key = item.identity_api_authority_relation_id;
+    });
+    userViewAuthority.forEach(item => {
+        item.key = item.view_authority_id;
+    });
+    userIdentityViewAuthorityRelation.forEach(item => {
+        item.key = item.identity_view_authority_relation_id;
+    });
     //用户数据
     const columns = [
         {
@@ -98,27 +116,27 @@ function showUser(props) {
                 <Tabs type="card">
                     <TabPane tab="用户数据" key="1">
                         <h2>用户数据</h2>
-                        <Table columns={columns} dataSource={user && user} />
+                        <Table columns={columns} dataSource={user} />
                     </TabPane>
                     <TabPane tab="身份数据" key="2">
                         <h2>身份数据</h2>
-                        <Table columns={columnsIdentity} dataSource={userIdentit && userIdentit} />
+                        <Table columns={columnsIdentity} dataSource={userIdentit} />
                     </TabPane>
                     <TabPane tab="api接口权限" key="3">
                         <h2>api接口权限</h2>
-                        <Table columns={columnsApiAuthority} dataSource={userApiAuthority && userApiAuthority} />
+                        <Table columns={columnsApiAuthority} dataSource={userApiAuthority} />
                     </TabPane>
                     <TabPane tab="身份和api接口关系" key="4">
                         <h2>身份和api接口关系</h2>
-                        <Table columns={columnsRelation} dataSource={userIdentityApiAuthorityRelation && userIdentityApiAuthorityRelation} />
+                        <Table columns={columnsRelation} dataSource={userIdentityApiAuthorityRelation} />
                     </TabPane>
                     <TabPane tab="试图接口权限" key="5">
                         <h2>试图接口权限</h2>
-                        <Table columns={columnsViewauthority} dataSource={userViewAuthority && userViewAuthority} />
+                        <Table columns={columnsViewauthority} dataSource={userViewAuthority} />
                     </TabPane>
                     <TabPane tab="身份和视图权限关系" key="6">
                         <h2>身份和视图权限关系</h2>
-                        <Table columns={columsIdentityview} dataSource={userIdentityViewAuthorityRelation && userIdentityViewAuthorityRelation} />
+                        <Table columns={columsIdentityview} dataSource={userIdentityViewAuthorityRelation} />
                     </TabPane>
                 </Tabs>
             </div>

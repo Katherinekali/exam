@@ -2,12 +2,11 @@ import React, { useState, useEffect } from "react"
 import { Modal, Button, Table, Input, message, Form } from 'antd';
 import { connect } from "dva"
 import "./questionsType.css"
-const { Column} = Table;
-function QuestionsType(props){
-    // console.log(props)
+const { Column } = Table;
+function QuestionsType(props) {
     const [flag, setFlag] = useState(false);
-    const { getFieldDecorator } =props.form;
-    const addFn=()=>{
+    const { getFieldDecorator } = props.form;
+    const addFn = () => {
         setFlag(true)
     }
     const hideModal = () => {
@@ -15,25 +14,24 @@ function QuestionsType(props){
     }
     const handleSubmit = () => {
         props.form.validateFields((err, values) => {
-          if (!err) {
-            console.log('Received values of form: ', values);
-            setFlag(false)
-            props.addType({text:values.info,sort:(props.questionsType.length+1).toString()})
-          }else{
-              message.error("error")
-          }
+            if (!err) {
+                setFlag(false)
+                props.addType({ text: values.info, sort: (props.questionsType.length + 1).toString() })
+            } else {
+                message.error("error")
+            }
         });
-      };
+    };
     const paginationProps = {
         pageSize: 10
-      }
-    useEffect(()=>{
+    }
+    useEffect(() => {
         props.getType()
-        if(props.message===1){
-           message.success("添加成功")  
-           props.addType()
-        }else if(props.message===-1){
-          return 
+        if (props.message === 1) {
+            message.success("添加成功")
+            props.addType()
+        } else if (props.message === -1) {
+            return
         }
     }, [props.message])
     return (
@@ -54,23 +52,23 @@ function QuestionsType(props){
                 </div>
             </div>
             <Modal
-            title="创建新类型"
-            visible={flag}
-            onOk={()=>{handleSubmit()}}//点击确认除了要关闭弹框还要发送请求，把内容添加到后台
-            onCancel={()=>{hideModal()}}
-            okText="确认"
-            cancelText="取消"
+                title="创建新类型"
+                visible={flag}
+                onOk={() => { handleSubmit() }}//点击确认除了要关闭弹框还要发送请求，把内容添加到后台
+                onCancel={() => { hideModal() }}
+                okText="确认"
+                cancelText="取消"
             >
-            <Form className="login-form">
-                <Form.Item>
-                {getFieldDecorator('info', {
-                    rules: [{ required: true, message: 'Please input your questionsType!' }],
-                })(
-                    <Input placeholder="questionsType"/>
-                )}
-                </Form.Item>
-            </Form>
-            </Modal> 
+                <Form className="login-form">
+                    <Form.Item>
+                        {getFieldDecorator('info', {
+                            rules: [{ required: true, message: 'Please input your questionsType!' }],
+                        })(
+                            <Input placeholder="questionsType" />
+                        )}
+                    </Form.Item>
+                </Form>
+            </Modal>
         </div>
     )
 

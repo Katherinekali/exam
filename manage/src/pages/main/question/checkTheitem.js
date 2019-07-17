@@ -24,7 +24,6 @@ function CheckTheitem(props) {
       if (!err) {
         values.subject_id = id ? id : ""
         props.refer(values)
-        console.log("111111111", values);
       }
     });
   };
@@ -53,7 +52,6 @@ function CheckTheitem(props) {
     //console.log('You are interested in: ', nextSelectedTags);
     UpselextedTags(nextSelectedTags)
     upId(tag)
-    console.log(selectedTags)
   };
   // // 从Form高阶组件中拿到校验组件
   const { getFieldDecorator } = props.form;

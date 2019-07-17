@@ -20,7 +20,6 @@ function AddQuestion(props) {
             props.getDetail({ questions_id: search })
             setSearch(search)
             setDetail(props.detailData)
-            // console.log(props.detailData)
         }
     }, [])
     useEffect(() => {
@@ -48,7 +47,6 @@ function AddQuestion(props) {
         props.form.validateFields((err, values) => {
             if (!err) {
                 let user_id = JSON.parse(localStorage.getItem("userInfor")).data.user_id
-                // console.log(values)
                 let obj = {
                     questions_type_id: values.questionType,
                     questions_stem: values.questions_stem,

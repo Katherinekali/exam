@@ -48,7 +48,7 @@ function grade(props) {
 			<div>
 				<Button type="primary" icon="plus" onClick={() => { addFn() }} style={{ margin: 20 }}>
 					添加班级
-         		</Button>
+          </Button>
 				<div className="questions_table">
 					<Table columns={columns} dataSource={props.getgrade} size="middle">
 					</Table>

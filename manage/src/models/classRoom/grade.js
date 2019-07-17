@@ -1,32 +1,43 @@
-import { Assignedgrade, Undistributedgrade,} from "../../services/index";
+import { Addgrade, Assignedgrade, Undistributedgrade, Removegrade, Updategrade, Allrooms } from "../../services/index";
 export default {
     namespace: "grade",
     //模块状态
     state: {
-        addgrade: [],//添加班级
+        addgrade: {},//添加班级
         getgrade: [],//已分配教室的班级
         getundistributedgrade: [],//未分配教室的班级
-        getremovegrade: [],//删除班级
-        getupdategrade: []//更新班级
+        deletegrade: {},//删除班级
+        renewalgrade: [],//更新班级 
+        getrooms: []//全部教室
+
     },
     /**
      *异步操作
      */
     effects: {
         //添加班级
-        // * addgrade({ payload, type }, { call, put }) {
-        //     let data = yield call(Addgrade, payload);
-        //     if (data.code == 1) {
-        //         yield put({
-        //             type: "Addgrade",
-        //             payload: data.data
-        //         })
-        //     }
-        // },
+        *addgrade({ payload, type }, { call, put }) {
+            let data = yield call(Addgrade, payload);
+            if (data.code === 1) {
+                yield put({
+                    type: "Addgrade",
+                    payload: data
+                })
+            }
+        },
+        //全部班级
+        *room({ payload, type }, { call, put }) {
+            let data = yield call(Allrooms);
+            if (data.code === 1) {
+                yield put({
+                    type: "Allroom",
+                    payload: data.data
+                })
+            }
+        },
         //已分配教室的班级
         *assignedroom({ }, { call, put }) {
             let data = yield call(Assignedgrade);
-            // console.log(data)
             if (data.code === 1) {
                 yield put({
                     type: "Assignedgrades",
@@ -45,34 +56,40 @@ export default {
             }
         },
         //删除班级
-        // * removegrade({ payload, type }, { call, put }) {
-        //     let data = yield call(Removegrade, payload);
-        //     if (data.code == 1) {
-        //         yield put({
-        //             type: "Removegrade",
-        //             payload: data.data
-        //         })
-        //     }
-        // },
+        *removegrades({ payload, type }, { call, put }) {
+            let data = yield call(Removegrade, payload);
+            if (data.code === 1) {
+                yield put({
+                    type: "Removegrade",
+                    payload: data
+                })
+            }
+        },
         //更新班级
-        // * updategrade({ payload, type }, { call, put }) {
-        //     let data = yield call(Updategrade, payload);
-        //     if (data.code == 1) {
-        //         yield put({
-        //             type: "Updategrade",
-        //             payload: data.data
-        //         })
-        //     }
-        // }
+        *updategrades({ payload, type }, { call, put }) {
+            // console.log(payload, 'Updategrade')
+            let data = yield call(Updategrade, payload);
+            console.log("mmmmmmmmm......", data)
+            if (data.code == 1) {
+                yield put({
+                    type: "Updategrades",
+                    payload: data
+                })
+            }
+        }
     },
     reducers: {
         //添加班级
-        // Addgrade(state, action) {
-        //     return {
-        //         ...state, addgrade: action.payload
-
-        //     }
-        // },
+        Addgrade(state, action) {
+            return {
+                ...state, addgrade: action.payload
+            }
+        },
+        Allroom(state, action) {
+            return {
+                ...state, getrooms: action.payload
+            }
+        },
         //已分配教室的班级
         Assignedgrades(state, action) {
             return { ...state, getgrade: action.payload }
@@ -82,16 +99,16 @@ export default {
             return { ...state, getundistributedgrade: action.payload }
         },
         //删除的班级
-        // Removegrade(state, action) {
-        //     return {
-        //         ...state, getremovegrade: action.payload
-        //     }
-        // },
+        Removegrade(state, action) {
+            return {
+                ...state, deletegrade: action.payload
+            }
+        },
         //更新班级
-        // Updategrade(state, action) {
-        //     return {
-        //         ...state, getupdategrade: action.payload
-        //     }
-        // }
+        Updategrades(state, action) {
+            return {
+                ...state, renewalgrade: action.payload
+            }
+        }
     }
 }
