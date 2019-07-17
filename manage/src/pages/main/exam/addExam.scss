@@ -20,3 +20,37 @@
     justify-content: space-between;
     margin-bottom: 25px;
 }
+.detail_content{
+    flex: 1;
+    padding: 24px;
+    margin:0 0 20px;
+    display: flex;
+}
+.detail_content>div{
+    background: #fff;
+}
+.detail_content .content_left{
+    margin-right:20px;
+    padding: 24px;
+    margin:0 20px 20px 0;
+    border-radius: 10px;
+    flex: 1;
+    overflow: hidden;
+    // word-wrap: break-word;
+    // word-break: normal;
+}
+.content_left>div{
+    padding: 40px;
+}
+.content_right{
+    width: 400px;
+    height:auto;
+    flex-shrink:0;
+    border-radius: 10px;
+}
+.detail_content>div>div>div{
+    text-align: left;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+}
