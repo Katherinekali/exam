@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from "dva";
 import "antd/dist/antd.css";
+import { injectIntl } from 'react-intl';
 import { Form, Button, Table, Divider, Modal, Input, Select, message, Popconfirm } from "antd";
 const { Option } = Select;
 function grade(props) {
@@ -103,7 +104,7 @@ function grade(props) {
 	const { getFieldDecorator } = props.form;
 	return (
 		<div>
-			<h2>班级管理</h2>
+			<h2>{props.intl.formatMessage({id: 'classroom.grade'})}</h2>
 			<div style={{ background: "rgb(255, 255, 255)", borderRadius: 8 }}>
 				<Button type="primary" icon="plus" onClick={() => { addFn("add") }} style={{ margin: 20, width: 158, height: 40 }}>
 					添加班级
@@ -210,4 +211,4 @@ const mapDispatchToProps = dispatch => {
 		}
 	}
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(grade))
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Form.create()(grade)))
