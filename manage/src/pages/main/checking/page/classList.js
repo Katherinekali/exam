@@ -35,31 +35,27 @@ function ClassList(props){
           title: '班级名',
           dataIndex: 'grade_name',
           key: 'grade',
-          render: text => <a href="javascript:;">{text}</a>,
+         
         },
         {
             title: '课程名称',
             dataIndex: 'subject_text',
             key: 'subject',
-            render: text => <a href="javascript:;">{text}</a>,
         },
         {
             title: '阅卷状态',
             dataIndex: 'room_text',
             key: 'checkPaper_state',
-            render: text => <a href="javascript:;">{text}</a>,
         },
         {
             title: '课程名称',
             dataIndex: 'subject_text',
             key: 'subject_name',
-            render: text => <a href="javascript:;">{text}</a>,
         },
         {
             title: '成材率',
             dataIndex: 'room_text',
             key: 'success',
-            render: text => <a href="javascript:;">{text}</a>,
         },
         {
           title: '操作',

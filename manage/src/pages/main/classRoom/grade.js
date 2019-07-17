@@ -34,9 +34,9 @@ function grade(props) {
 			dataIndex: "",
 			render: (text, record) => (
 				<span>
-					<a href="">修改</a>
+					<span>修改</span>
 					<Divider type="vertical" />
-					<a href="">删除</a>
+					<span>删除</span>
 					<Divider type="vertical" />
 				</span>
 			),
@@ -48,7 +48,7 @@ function grade(props) {
 			<div>
 				<Button type="primary" icon="plus" onClick={() => { addFn() }} style={{ margin: 20 }}>
 					添加班级
-          </Button>
+         		</Button>
 				<div className="questions_table">
 					<Table columns={columns} dataSource={props.getgrade} size="middle">
 					</Table>

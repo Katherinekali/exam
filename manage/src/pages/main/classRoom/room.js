@@ -17,7 +17,6 @@ function Room(props){
           title: '教室号',
           dataIndex: 'room_text',
           key: 'roomNumber',
-          render: text => <a href="javascript:;">{text}</a>,
         },
         {
           title: '操作',
@@ -26,7 +25,7 @@ function Room(props){
           render: (text, record) =>
           props.roomData.length >= 1 ? (
             <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.room_id)}>
-              <a href="javascript:;">删除</a>
+              <span>删除</span>
             </Popconfirm>
           ) : null,
         },
