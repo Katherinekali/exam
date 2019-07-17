@@ -24,23 +24,18 @@ function AddViewport(props){
     const handleReset=()=>{
       props.form.resetFields()
     }
-    const { getFieldDecorator } = props.form;
     return (
     <div className={styles.addUser_content}>
         <Tag style={{padding:"0 15px",border:"1px solid blue",background:"#fff",lineHeight:"32px",color:"blue",fontSize:"14px"}}>添加视图接口权限</Tag>
         <Form  className="login-form" >
            <Form.Item  style={{marginBottom:10}}>
-           {getFieldDecorator("api", {
-                    rules: [{ required: true, message: '请输入身份id!' }],
-              })(
-                <Select initialValue="" placeholder="添加视图接口权限" style={{ width: "60%" }} onChange={(e)=>{setViewPort(e)}}>
+             <Select initialValue="" placeholder="添加视图接口权限" style={{ width: "60%" }} onChange={(e)=>{setViewPort(e)}}>
                {
                  props.viewAuthority&&props.viewAuthority.map((v,k)=>{
                   return  <Option key={k} value={v.view_authority_id}>{v.view_authority_text}</Option>
                  })
                }
-               </Select>
-              )} 
+            </Select>
           </Form.Item> 
         </Form>
           {

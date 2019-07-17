@@ -3,6 +3,7 @@ import { connect } from 'dva';
 import { Route, Link } from 'dva/router';
 import styles from "./main.css"
 import { Dropdown, Menu, Icon, Spin } from 'antd';
+import ClassList from "./checking/classList"
 import Grade from "./classRoom/grade"
 import Room from "./classRoom/room"
 import Student from "./classRoom/student"
@@ -14,7 +15,6 @@ import WatchQuestion from "./question/checkTheitem"
 import Questions from "./question/questions/questions"
 import AddUser from "./user/addUser"
 import ShowUser from "./user/showUser"
-import Page from './checking/page';
 import ExamEdit from "./exam/addexam/examEdit"
 import ExamDetail from "./exam/examList/examDetail"
 const { SubMenu } = Menu;
@@ -127,13 +127,13 @@ function IndexPage(props) {
                 </span>
               }
             >
-              <Menu.Item key="11"><Link to="/main/page">待批班级</Link></Menu.Item>
+              <Menu.Item key="11"><Link to="/main/classlist">待批班级</Link></Menu.Item>
             </SubMenu>
           </Menu>
         </div>
         <div className={styles.content}>
           <div className={styles.layout_main}>
-            <Route path="/main/page" component={Page} />
+            <Route path="/main/classlist" component={ClassList} />
             <Route path="/main/grade" component={Grade} />
             <Route path="/main/room" component={Room} />
             <Route path="/main/student" component={Student} />

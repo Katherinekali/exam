@@ -3,7 +3,6 @@ import { Form,Tabs} from 'antd';
 import { connect } from "dva";
 import User from "./user"
 import styles from "./userinfo.css"
-import "./userinfo.css"
 const { TabPane } = Tabs;
 function AddUser(props){
     return (

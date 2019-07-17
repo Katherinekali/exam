@@ -5,6 +5,10 @@
   border-radius: 5px;
 }
 
+.ant-form-item {
+  margin-bottom: 10px;
+}
+
 .ant-tabs-tab {
   padding: 0 15px;
   border: 1px solid blue;
@@ -12,8 +16,4 @@
   line-height: 32px;
   color: blue;
   font-size: 14px;
-}
-
-.ant-tabs-nav {
-  background: blue !important;
 }

@@ -1,42 +1,26 @@
 import React,{useEffect,useState} from 'react'
 import {connect} from "dva"
 import styles from "../addExam.scss"
-import ReactMarkdown from "react-markdown";
 function examDetail (props) {
-    // let [detail,setDetail]=useState({})
+    let [detail,setDetail]=useState({})
     useEffect(()=>{
         let id=props.location.search.split("=")[1]
-         props.getDetail(id)
+        // let examList=JSON.parse(sessionStorage.getItem("examList"))
+         
     },[])
     return (
         <div>
             <h2>试卷详情</h2>
-            <div className={styles.detail_content}>
-                <div className={styles.content_left}>
-                    <div>
-                        {
-                           props.detailData.map((item,index)=>{
-                                return <div key={index}>
-                                    <h4>{index+1}:{item.title}</h4>
-                                    <div>     
-                                          <pre>
-                                              <code> <ReactMarkdown source={item.questions_stem}/></code>
-                                          </pre>
-                                    </div>
-                                </div>
-                            })
-                        }
-                    </div>
-                </div>
-                <div className={styles.content_right}></div>
+            <div className={styles.question_content}>
+
             </div>
         </div>
     )
 }
 const mapStateToProps = (state) => {
-    console.log(state.exam.detailData)
+   
     return {
-       detailData:state.exam.detailData,
+       
     }
   }
   const mapDispatchToProps = (dispatch) => {

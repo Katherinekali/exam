@@ -13,10 +13,3 @@ export function deleteQuestion(params) {
 export function getExamList(params) {
   return request.get('/exam/exam/',{params});
 }
-//跳详情
-// export function getDetail(params) {
-//   return request.get(`/exam/exam/${params}`);
-// }
-export function detailData(params) {
-  return request.get('/exam/exam/'+params);
-}

@@ -1,5 +1,4 @@
 import React,{useEffect} from 'react'
-import {message} from 'antd';
 import {connect} from "dva";
 import AddUser from "../../../components/addUser"
 import AddIdentity from "../../../components/addIdentity"
@@ -16,14 +15,6 @@ function addUser(props) {
         props.getView()
         props.AllUser()
     },[])
-    useEffect(()=>{
-        if(props.msg===1){
-            message.success("成功")
-        }else if(props.msg===0){
-            message.error("失败")
-        }
-        props.change()
-    },[props.msg])
     return (
         <div>
             <h2>添加用户</h2>
@@ -64,11 +55,6 @@ let mapDispatchToProps = dispatch => {
         AllUser(){
             dispatch({
                 type:"userInfo/getAllUser"
-            })
-        },
-        change(){
-            dispatch({
-                type:"userInfo/change"
             })
         }
     }

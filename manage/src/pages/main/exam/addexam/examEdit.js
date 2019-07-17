@@ -1,11 +1,12 @@
-import React, {useState } from 'react'
+import React, { useEffect,useState } from 'react'
 import {connect} from "dva"
 import style from "../addExam.scss"
 import { Drawer, Button,Modal } from 'antd';
 function examEdit (props) {
     let examInfor=JSON.parse(sessionStorage.getItem("createExam"))
-    let [exam]=useState(examInfor)
+    let [exam,setExam]=useState(examInfor)
     let [visible,setvisible]=useState(false)
+    let [childrenDrawer,setchildrenDrawer]=useState(false)
     let showDrawer = () => {
         setvisible(true)
       };

@@ -1,4 +1,4 @@
-import {examType,subject,addExam,deleteQuestion,getExamList,detailData} from "../services/index"
+import {examType,subject,addExam,deleteQuestion,getExamList,getDetail} from "../services/index"
 export default {
   //命名空间：
   namespace: 'exam',
@@ -7,8 +7,7 @@ export default {
      examTypes:[],
      subjects:[],
      returnData:{},
-     examList:[],
-     detailData:[]
+     examList:[]
   },
   //异步方法：
   effects: {
@@ -61,14 +60,15 @@ export default {
       })  
     } 
   },
-  *getDetail({payload}, { call,put }) {  //跳详情：----无接口
-    let data=yield call(detailData,payload)
-    if(data.code===1){
-      yield put({
-        type:"detailData",
-        payload:data.data.questions
-      })  
-    } 
+  *getDetail({payload}, { call }) {  //跳详情：----无接口
+    let data=yield call(getDetail,payload)
+    console.log(data)
+    // if(data.code===1){
+    //   yield put({
+    //     type:"examListData",
+    //     payload:data
+    //   })  
+    // } 
   },                        
 },
   //同步方法：只能在这里修改state
@@ -82,14 +82,11 @@ export default {
     returnExam(state,action){
       return {...state,returnData:action.payload}
     },
-    // reset(state,action){
-    //   return {...state,returnData:{}}
-    // },
+    reset(state,action){
+      return {...state,returnData:{}}
+    },
     examListData(state,action){
       return {...state,examList:action.payload}
-    },
-    detailData(state,action){
-      return {...state,detailData:action.payload}
-    },
+    }
   },
 };
