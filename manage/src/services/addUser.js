@@ -15,7 +15,6 @@ export function getView() {
 export function getApi() {
     return request.get('/user/api_authority');
 }
-
 //添加用户信息：新用户-
 export function addUser(params) {
     return request.post('/user', params);
@@ -38,9 +37,9 @@ export function addViewEdit(params) {
 }
 //给身份设定api接口权限 传参{identity_id:"",api_authority_id:""}
 export function setApiEdit(params) {
-    return request.post('/user/setIdentityApi',{params});
+    return request.post('/user/setIdentityApi',params);
 }
 //给身份设定视图权限
 export function setViewEdit(params) {
-    return request.post('/user/setIdentityView',{params});
+    return request.post('/user/setIdentityView',params);
 }

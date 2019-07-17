@@ -45,7 +45,7 @@ export default {
           }
     },
     *addQuestion({ payload,edit,search}, { call, put }) {  // eslint-disable-line添加试题
-      console.log("-----",edit)
+      // console.log("-----",edit)
       if(edit==="修改"){
           payload.questions_id=search
           delete payload.user_id
