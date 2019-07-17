@@ -83,7 +83,7 @@ function ExamList (props) {
         },
         {
             title: '操作',
-            dataIndex:'exam_id',
+            dataIndex:'exam_exam_id',
             key:"oper",
             render: (text) => (<a href={`/#/main/exam/detail?id=${text}`}>详情</a>)
         },
@@ -134,14 +134,13 @@ function ExamList (props) {
                     </div>
                 </div>
                 <div>
-                    <Table columns={columns} dataSource={props.examList&&props.examList} pagination={false} rowKey="examList"/>       
+                    <Table columns={columns} dataSource={props.examList&&props.examList} pagination={false} rowKey="exam_exam_id"/>       
                 </div>         
             </div>
         </div>
     )
 }
 const mapStateToProps = (state) => {
-    console.log(state.exam.examList.exam)
     return {
         examType: state.exam.examTypes,
         subject: state.exam.subjects,
