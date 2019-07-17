@@ -14,6 +14,25 @@ function Room(props){
     const hideModal=()=>{
         setFlag(false)
     }
+
+    //获取初始教室数据
+    useEffect(()=>{
+        // setDataSource(props.roomData)
+    },[props.roomData])
+
+    //显示弹框信息
+    useEffect(()=>{
+        if(props.room_msg===1){
+            message.success("添加成功")  
+            props.addRoom()
+         }else if(props.room_msg===0){
+            message.error("添加失败") 
+         }else{
+             return
+         }
+    },[props.room_msg])
+    
+    //添加room信息
     const handleSubmit = () => {
         props.form.validateFields((err, values) => {
           if (!err) {

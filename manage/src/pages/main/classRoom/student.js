@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from "dva";
 import "antd/dist/antd.css";
-import { Form, Button, Table,Input,Select} from "antd";
+import { Form, Button, Table,Input,Select,message,} from "antd";
 const { Option } = Select;
 function StudentMange(props) {
     useEffect(()=>{
@@ -24,20 +24,21 @@ function StudentMange(props) {
     }
     useEffect(()=>{
         if(props.deleteState===1){
+            message.success('删除成功');
             props.record()
             props.getHasStudent()
             props.getHasNoStudent()
         }
     },[props.deleteState])
+    //点击重置：
     let reset=()=>{
-        // setInputVal("")
-        // setclassName("")
-        // setclassRoom("")
+        props.form.resetFields();
     }
     let  handleSubmit =() => {
         props.form.validateFields((err, values) => {
           if (!err) {
-            console.log('Received values of form: ', values);
+            // console.log('Received values of form: ', values);
+            console.log("获取到数据，但是没有接口查找",values)
           }
         });
       };
@@ -86,7 +87,7 @@ function StudentMange(props) {
             </div>
             <div style={{background:"#fff",marginTop:20}}>
                 <Table 
-                        dataSource={props.studentsHasRoom} 
+                        dataSource={props.students} 
                         rowKey="student_id"  
                         pagination={pagination}
                 >
@@ -112,9 +113,8 @@ const mapStateToProps = state => {
 	return {
         className:state.student.className,
         classRoom:state.student.classRoom,
-        studentsHasRoom:state.student.studentsHasRoom,
-        studentsHasNoRoom:state.student.studentsHasNoRoom,
         deleteState:state.student.deleteState,
+        students:state.student.students
 	}
 };
 const mapDispatchToProps = dispatch => {

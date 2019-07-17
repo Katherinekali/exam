@@ -6,10 +6,14 @@ export function addExam(params) {
 
 //删除试卷的某道题
 export function deleteQuestion(params) {
-  return request.delete('/exam/exam/'+params);
+  return request.delete(`/exam/exam/${params}`);
 }
 
-//查询所有的试卷
+//查询所有的试卷-------按条件查找
 export function getExamList(params) {
   return request.get('/exam/exam/',{params});
+}
+//跳详情
+export function detailData(params) {
+  return request.get('/exam/exam/'+params);
 }

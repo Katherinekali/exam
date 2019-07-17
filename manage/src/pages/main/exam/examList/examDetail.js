@@ -11,8 +11,22 @@ function examDetail (props) {
     return (
         <div>
             <h2>试卷详情</h2>
-            <div className={styles.question_content}>
-
+            <div className={styles.detail_content}>
+                <div className={styles.content_left}>
+                    <div>
+                        {
+                           props.detailData.map((item,index)=>{
+                                return <div key={index}>
+                                    <h4>{index+1}:{item.title}</h4>
+                                    <div>     
+                                        {/* <ReactMarkdown source={item.questions_stem}/> */}
+                                    </div>
+                                </div>
+                            })
+                        }
+                    </div>
+                </div>
+                {/* <div className={styles.content_right}></div> */}
             </div>
         </div>
     )

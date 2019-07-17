@@ -2,9 +2,13 @@ import React, { useEffect,useState } from 'react'
 import {connect} from "dva"
 import style from "../addExam.scss"
 import { Drawer, Button,Modal } from 'antd';
+import ReactMarkdown from "react-markdown";
+//添加新题的组件
+import NewQuestion from "../../../../components/addQuestion/addQuestionToexam"
 function examEdit (props) {
     let examInfor=JSON.parse(sessionStorage.getItem("createExam"))
     let [exam,setExam]=useState(examInfor)
+    let [questions,setQuestions]=useState(examInfor.questions)
     let [visible,setvisible]=useState(false)
     let [childrenDrawer,setchildrenDrawer]=useState(false)
     let showDrawer = () => {
@@ -24,39 +28,46 @@ function examEdit (props) {
           okText: '确定',
           cancelText: '取消',
           onOk() {
-            props.delete(id)
+            //从本地存储中删除：
+            let exam =JSON.parse(sessionStorage.getItem("createExam"))
+            let newQuestions=exam.questions.filter(item=>item.questions_id!==id)
+            setQuestions(newQuestions)
+            exam.questions=newQuestions
+            sessionStorage.setItem("createExam",JSON.stringify(exam))
           },
-         
         });
       }
     let goToExamList=()=>{
         props.history.push("/main/examlist")
     }
+    let changeVisible=(flag)=>{
+        setvisible(flag)
+        let examInfor=JSON.parse(sessionStorage.getItem("createExam"))
+        setQuestions(examInfor.questions)
+    }
+    // let changeQuestion=()=>{
+    //     console.log(1)
+    // }
     return (
         <div>
             <h2>创建试卷</h2>
             <div className={style.question_content}>
-                    <div>
+                    <>
                         <Button  onClick={showDrawer}>
                         添加新题
                         </Button>
                         <Drawer
                         title="所有题目"
-                        width={520}
+                        width={720}
                         fontSize={24}
                         closable={false}
                         onClose={onClose}
                         visible={visible}
                         >
-                        <div>
-                            {
-                                exam.questions.map((item,index)=>{
-                                    return <p key={index}>{index+1}：{item.title}</p>
-                                })
-                            } 
-                        </div>
+                        <NewQuestion change={changeVisible}>
+                        </NewQuestion>
                         </Drawer>
-                    </div>
+                    </>
                     <div style={{padding:40,textAlign:"center"}}>
                         <div>
                             <div>
@@ -64,14 +75,14 @@ function examEdit (props) {
                                 <p>考试时间：1小时30分钟 监考人：刘于 开始考试时间：2018.9.10 10:00 阅卷人：刘于</p>
                             </div>
                             {
-                                exam.questions.map((item,index)=>{
-                                    return <div className={style.list} key={item.questions_id}>
+                                questions.map((item,index)=>{
+                                    return <div className={style.list} key={index}>
                                                 <div className={style.title}>
                                                     <h4>{index+1}：{item.title}</h4>
                                                     <span style={{color:'blue'}} onClick={()=>{deleteQuestion(item.questions_id)}}>删除</span>
                                                 </div>
                                                 <div>
-                                                {item.questions_stem}
+                                                    <ReactMarkdown source={item.questions_stem}/>
                                                 </div>
                                             </div>
                                 })

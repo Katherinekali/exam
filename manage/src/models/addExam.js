@@ -1,4 +1,4 @@
-import {examType,subject,addExam,deleteQuestion,getExamList,getDetail} from "../services/index"
+import {examType,subject,addExam,deleteQuestion,getExamList,detailData} from "../services/index"
 export default {
   //命名空间：
   namespace: 'exam',
@@ -11,7 +11,7 @@ export default {
   },
   //异步方法：
   effects: {
-    *getExamType({}, { call, put }) {  
+    *getExamType({payload}, {call,put}) {  
           let data=yield call(examType) 
           if(data.code===1){
             yield put({
@@ -20,7 +20,7 @@ export default {
             })  
           }
     },
-    *getSubject({}, { call, put }) {  
+    *getSubject({payload}, {call,put}) {  
         let data=yield call(subject) 
         if(data.code===1){
           yield put({
@@ -29,7 +29,7 @@ export default {
           })  
         } 
     },
-    *createExam({payload}, { call, put }) {    //创建试卷----成功后返回创建试卷的题
+    *createExam({payload}, {call,put}) {    //创建试卷----成功后返回创建试卷的题
       let data=yield call(addExam,payload)
       sessionStorage.setItem("createExam",JSON.stringify(data.data))
       if(data.code===1){
@@ -39,7 +39,7 @@ export default {
         })  
       } 
   },
-  *deleteQuestion({payload}, { call }) {   //删除试题----没有接口
+  *deleteQuestion({payload}, {call,put}) {            //删除试题----没有接口
     let data=yield call(deleteQuestion,payload)
     console.log(data)
     // if(data.code===1){
@@ -49,10 +49,8 @@ export default {
     //   })  
     // } 
   }, 
-  *getExamList({payload}, { call, put }) {  //获取试题列表
+  *getExamList({payload}, { call, put }) {          //获取试题列表
     let data=yield call(getExamList,payload)
-    // console.log(data)
-    // sessionStorage.setItem("examList",JSON.stringify(data.exam))
     if(data.code===1){
       yield put({
         type:"examListData",
@@ -60,16 +58,15 @@ export default {
       })  
     } 
   },
-  *getDetail({payload}, { call }) {  //跳详情：----无接口
-    let data=yield call(getDetail,payload)
-    console.log(data)
-    // if(data.code===1){
-    //   yield put({
-    //     type:"examListData",
-    //     payload:data
-    //   })  
-    // } 
-  },                        
+  *getDetail({payload}, {call,put}) {      //跳详情：
+    let data=yield call(detailData,payload)
+    if(data.code===1){
+      yield put({
+        type:"detailData",
+        payload:data.data.questions
+      })  
+    } 
+  },                    
 },
   //同步方法：只能在这里修改state
   reducers: {
@@ -81,9 +78,6 @@ export default {
     },
     returnExam(state,action){
       return {...state,returnData:action.payload}
-    },
-    reset(state,action){
-      return {...state,returnData:{}}
     },
     examListData(state,action){
       return {...state,examList:action.payload}
