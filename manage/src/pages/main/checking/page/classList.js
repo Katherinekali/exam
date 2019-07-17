@@ -9,10 +9,6 @@ function ClassList(props){
         props.getAll()
     },[])
     const [dataSource,setDataSource]=useState([])//获取到列表数据
-    const handleDelete = key => {
-        //删除数据
-        // props.getAll({room_id:key})
-    };
     const changePage=(current)=>{
         setPage(current)
 
@@ -23,7 +19,7 @@ function ClassList(props){
     const paginationProps = {
         showSizeChanger: true,
         showQuickJumper: true,
-        pageSize:10,
+        pageSize:8,
         current: page,
         total: props.AllClassroom.length,
         onShowSizeChange: (current,pageSize) =>changePageSize(pageSize,current),
