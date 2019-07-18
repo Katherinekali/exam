@@ -22,3 +22,4 @@ export * from "./checkPaper/index.js"  //批卷借口
 
 export * from "./exam"
 export * from "./classRoom/student"
+export * from "./user"

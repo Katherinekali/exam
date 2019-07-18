@@ -1,8 +1,8 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { connect } from 'dva';
 import { Route, Link } from 'dva/router';
 import styles from "./main.css"
-import { Dropdown, Menu, Icon, Spin, Select, } from 'antd';
+import { Dropdown, Menu, Icon, Spin, Select,Avatar } from 'antd';
 import Grade from "./classRoom/grade"
 import Room from "./classRoom/room"
 import Student from "./classRoom/student"
@@ -21,6 +21,25 @@ import Page from './checking/page';
 const { SubMenu } = Menu;
 const { Option } = Select;
 function IndexPage(props) {
+  let [user,setUser]=useState("")
+  let [image,setImg]=useState("")
+  const load=(e)=>{
+    let form=new FormData()
+    form.append(e.target.files[0].name,e.target.files[0])
+    props.load(form)
+   
+  }
+  useEffect(()=>{
+    setUser(props.userInfo)
+  },[props.userInfo])
+  useEffect(()=>{
+    if(props.mes===1){
+      setImg(props.userInfo.avatar)
+      props.change()
+     
+    }
+  },[props.mes])
+
   const menu = (
     <Menu>
       <Menu.Item key="0">
@@ -49,17 +68,23 @@ function IndexPage(props) {
   return (
     <div className={styles.layout}>
       <div className={styles.header}>
-        <h1 className={styles.logo}><img src='https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551624718911&di=4a7004f8d71bd8da84d4eadf1b59e689&imgtype=0&src=http%3A%2F%2Fimg105.job1001.com%2Fupload%2Falbum%2F2014-10-15%2F1413365052_95IE3msH.jpg' alt="" /></h1>
+        <h1 className={styles.logo}><img src='https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551624718911&di=4a7004f8d71bd8da84d4eadf1b59e689&imgtype=0&src=http%3A%2F%2Fimg105.job1001.com%2Fupload%2Falbum%2F2014-10-15%2F1413365052_95IE3msH.jpg' /></h1>
         <Select defaultValue="中文" style={{ width: 90 }}>
           <Option value="中文" onClick={() => props.changeLocale('zh')}>中文</Option>
           <Option value="英文" onClick={() => props.changeLocale('en')}>English</Option>
         </Select>
         <div className={styles.logout}>
           <Dropdown overlay={menu}>
-            <span>
-              <b><img src="https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png" alt=""  /></b>
-              chenmanjie
+            <div>
+            <label for="file">
+              <span>
+                <b>
+                <img src={image?image:props.userInfo.avatar} alt="" style={{width:50,height:50,borderRadius:"50%"}}  /></b> 
+                {user&&user.user_name}
               </span>
+            </label>
+            <input type="file" id="file" name="" style={{display: "none"}} onChange={(e)=>{load(e)}}/>
+            </div>
           </Dropdown>
         </div>
       </div>
@@ -149,7 +174,7 @@ function IndexPage(props) {
             <Route path="/main/watchquestion" component={WatchQuestion} />
             <Route path="/main/questions/:id" component={Questions} />
             <Route path="/main/adduser" component={AddUser} />
-            <Route path="/mainowuser" component={ShowUser} />
+            <Route path="/main/showuser" component={ShowUser} />
             <Route path="/main/exam/edit" component={ExamEdit} />
             <Route path="/main/exam/detail" component={ExamDetail} />
 
@@ -164,7 +189,9 @@ function IndexPage(props) {
 const mapState = state => {
   return {
     ...state.checkTheItem,
-    global: state.loading.global
+    global: state.loading.global,
+    userInfo:state.login.userInfo,
+    mes:state.login.mes
   };
 };
 const mapDispatch = dispatch => {
@@ -173,6 +200,23 @@ const mapDispatch = dispatch => {
       dispatch({
         type: "global/updateLocale",
         payload
+      })
+    },
+    load:payload=>{
+      dispatch({
+        type:"login/load",
+        payload
+      })
+    },
+    change:payload=>{
+      dispatch({
+        type:"login/change",
+        
+      })
+    },
+    listen:payload=>{
+      dispatch({
+        type:"getUserInfo"
       })
     }
   }

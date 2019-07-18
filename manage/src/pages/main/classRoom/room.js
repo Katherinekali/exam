@@ -52,9 +52,10 @@ function Room(props){
         if(props.room_msg===1){
             message.success("添加成功")  
             props.addRoom()
-           
+            props.change()
          }else if(props.room_msg===0){
             message.error("添加失败") 
+            props.change()
          }else{
              return
          }
@@ -128,12 +129,17 @@ let mapDispatchToProps=dispatch=>{
             })
         },
         delData:(payload)=>{
-            
+            console.log(payload)
             dispatch({
                 type:"room/delRoom",
                 payload
             })
-
+        },
+        change:()=>{
+            dispatch({
+                type:"room/change",
+                
+            })
         }
     }
 

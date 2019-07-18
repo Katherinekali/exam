@@ -20,7 +20,7 @@ effects: {
     *getTestInfo({payload}, { call, put }) {
         console.log(payload,'11111')
         let data = yield call(getTestPaper,payload);
-        console.log(data,1222)
+        console.log(data,"getTestInfo")
         if (data.code === 1) {
             yield put({
                 type: "testData",
@@ -47,6 +47,10 @@ reducers: {
     allData(state, action) {
         return { ...state,AllClassroom:action.payload };
     },
+    testData(state, action){
+        return { ...state,TestPape:action.payload };
+
+    }
 
 }
 }

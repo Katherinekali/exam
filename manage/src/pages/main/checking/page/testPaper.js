@@ -100,7 +100,6 @@ function ClassMate(props){
     ];
     //获取初始教室数据
     useEffect(()=>{
-        console.log(props.TestPape)
         setDataSource(props.TestPape)
     },[props.TestPape])
     //搜索数据
@@ -161,13 +160,15 @@ function ClassMate(props){
 let mapStateToProps = state => {
     return {
         TestPape:state.checkPaper.TestPape,
-        AllClassroom:state.checkPaper.AllClassroom
+        AllClassroom:state.checkPaper.AllClassroom,
+        TestPape:state.checkPaper.TestPape,
     }
 }
 let mapDispatchToProps = dispatch => {
     return {
         //获取所有信息
         getTestInfo:(payload)=>{
+            console.log(payload,4444)
             dispatch({
                 type:"checkPaper/getTestInfo",
                 payload

@@ -1,4 +1,4 @@
-import {login,userInfor} from "../services/index"
+import {login,userInfor,getUserInfo,upLoad,updateUser} from "../services/index"
 import {setToken,getToken} from "../utils/index"
 import {routerRedux} from "dva/router"
 export default {
@@ -6,7 +6,9 @@ export default {
   namespace: 'login',
   //模块状态：
   state: {
-      isLogin:-1
+      isLogin:-1,
+      userInfo:{},
+      mes:-1
   },
   //订阅：
   subscriptions: {
@@ -14,6 +16,7 @@ export default {
       return history.listen(({ pathname }) => {
         // 1.判断去的页面是否是登陆页面-----如果不是登录页面
         if (pathname.indexOf('/login') === -1) {
+         
           //  判断是否有登陆态----------如果没有登陆的状态，则跳转到登录页面
           if (!getToken()){                     
             dispatch(routerRedux.replace({
@@ -28,6 +31,12 @@ export default {
             }))
           }
         }
+        if(getToken()){
+          dispatch({
+            type:"getUserInfo"
+          })
+        }
+        
       });
     },
   },
@@ -47,11 +56,62 @@ export default {
               payload:data.code
           })
     },
+    *getUserInfo(action,{call,put,select}){
+      let userInfo=yield select(state=>state.login.userInfo)
+      if(Object.keys(userInfo).length){
+        return 
+      }
+      let data=yield getUserInfo()
+      console.log(data,"=================")
+      yield put({
+        type:"updateUserInfo",
+        payload:data.data
+      })
+    },
+    *load({payload},{call,put,select}){
+      console.log(payload)
+      let data=yield upLoad(payload)
+      if(data.code===1){
+        let userInfo=yield select(state=>state.login.userInfo)
+        if(Object.keys(userInfo).length){
+          yield put({
+            type:"updateUser",
+            payload:{user_id:userInfo.user_id,avatar:data.data[0].path}
+          })
+        }
+      }
+    },
+    *updateUser({payload},{call,put}){
+      let data=yield updateUser(payload)
+      console.log(data)
+      let data1=yield getUserInfo()
+      console.log(data,"=================")
+      yield put({
+        type:"updateUserInfo",
+        payload:data1.data
+      })
+      yield put({
+        type:"MesInfo",
+        payload:data.code
+      })
+    }
   },
   //同步方法：只能在这里修改state
   reducers: {
     updataLogin(state, action) {
           return {...state,isLogin:action.payload}
     },
+    updateUserInfo(state,action){
+      return {...state,userInfo:action.payload}
+    },
+    MesInfo(state,action){
+      return {...state,mes:action.payload}
+
+    },
+    change(state,action){
+      return {...state,mes:-1}
+
+    }
+   
   },
 };
