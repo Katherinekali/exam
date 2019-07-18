@@ -18,7 +18,7 @@ function examDetail (props) {
                            props.detailData.map((item,index)=>{
                                 return <div key={index}>
                                     <h4>{index+1}:{item.title}</h4>
-                                    <div>     
+                                    <div style={{overflow:'auto',fontSize:10}}>     
                                         <ReactMarkdown source={item.questions_stem}/>
                                     </div>
                                 </div>

@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from "react"
 import { connect } from "dva";
 import styles from "./addQuextion.scss"
-import {Tag, Select, Button, Form,Table } from 'antd';
+import {Tag, Select, Button, Form,Table,message } from 'antd';
 const { Option } = Select;
 const { CheckableTag } = Tag;
 const { Column} = Table;
@@ -49,6 +49,8 @@ function AddNewQuestionToExam(props){
     let index=exam.questions.findIndex(v=>v.questions_id===item.questions_id)
     if(index===-1){
       exam.questions.push(item)
+    }else{
+      message.warning('此题已在试卷中，请勿重复添加');
     }
     sessionStorage.setItem("createExam",JSON.stringify(exam))
     props.change(false)
