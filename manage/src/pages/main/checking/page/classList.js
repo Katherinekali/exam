@@ -27,8 +27,8 @@ function ClassList(props){
 
     }
     const paginationProps = {
-        showSizeChanger: true,
         showQuickJumper: true,
+        showSizeChanger: true,
         pageSize:10,
         current: page,
         total: props.AllClassroom.length,
