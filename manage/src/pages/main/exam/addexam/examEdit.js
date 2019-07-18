@@ -1,7 +1,7 @@
-import React, { useEffect,useState } from 'react'
+import React, {useState,useEffect } from 'react'
 import {connect} from "dva"
-import style from "../addExam.scss"
-import { Drawer, Button,Modal } from 'antd';
+import styles from "../addExam.scss"
+import { Drawer, Button,Modal} from 'antd';
 import ReactMarkdown from "react-markdown";
 //添加新题的组件
 import NewQuestion from "../../../../components/addQuestion/addQuestionToexam"
@@ -37,9 +37,24 @@ function examEdit (props) {
           },
         });
       }
+    //更新试卷
     let goToExamList=()=>{
-        props.history.push("/main/examlist")
+        let exam =JSON.parse(sessionStorage.getItem("createExam"))
+        let ids=exam.questions.map(item=>{
+            return item.questions_id
+        })
+        let update={
+            exam_exam_id:exam.exam_exam_id,
+            ids:ids
+        }
+        props.upDate(update)
     }
+    useEffect(() => {
+       if(props.upstate===1){
+        props.history.push("/main/examlist")
+        props.reset()
+       }
+    }, [props.upstate])
     let changeVisible=(flag)=>{
         setvisible(flag)
         let examInfor=JSON.parse(sessionStorage.getItem("createExam"))
@@ -51,7 +66,7 @@ function examEdit (props) {
     return (
         <div>
             <h2>创建试卷</h2>
-            <div className={style.question_content}>
+            <div className={styles.question_content}>
                     <>
                         <Button  onClick={showDrawer}>
                         添加新题
@@ -76,13 +91,13 @@ function examEdit (props) {
                             </div>
                             {
                                 questions.map((item,index)=>{
-                                    return <div className={style.list} key={index}>
-                                                <div className={style.title}>
+                                    return <div className={styles.list} key={index}>
+                                                <div className={styles.title}>
                                                     <h4>{index+1}：{item.title}</h4>
                                                     <span style={{color:'blue'}} onClick={()=>{deleteQuestion(item.questions_id)}}>删除</span>
                                                 </div>
                                                 <div>
-                                                    <ReactMarkdown source={item.questions_stem}/>
+                                                    <ReactMarkdown source={item.questions_stem}  className={styles.question_list}/>
                                                 </div>
                                             </div>
                                 })
@@ -96,7 +111,7 @@ function examEdit (props) {
 }
 const mapStateToProps = (state) => {
     return {
-       
+       upstate:state.exam.upDate
     }
   }
   const mapDispatchToProps = (dispatch) => {
@@ -105,6 +120,17 @@ const mapStateToProps = (state) => {
             dispatch({
                 type:"exam/deleteQuestion",
                 payload,
+            })
+        },
+        upDate(payload){
+            dispatch({
+                type:"exam/upDateQuestion",
+                payload,
+            })
+        },
+        reset() {
+            dispatch({
+                type: "exam/reset"
             })
         }
     }

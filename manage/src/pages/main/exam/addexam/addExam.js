@@ -36,7 +36,7 @@ function AddExam(props) {
     };
     useEffect(()=>{
       if(props.returnData.code===1){
-        props.history.push("/main/exam/edit")
+        props.history.push("/main/examEdit")
       }
     },[props.returnData])  
   return (
