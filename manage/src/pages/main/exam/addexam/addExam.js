@@ -1,5 +1,6 @@
-import React,{useState,useEffect} from "react";
+import React,{useEffect} from "react";
 import { connect } from "dva";
+import { injectIntl } from 'react-intl';
 import locale from 'antd/lib/date-picker/locale/zh_CN';
 import {
   Form,
@@ -11,37 +12,42 @@ import {
 } from "antd";
 import styles from "../addExam.scss";
 function AddExam(props) {
-    const { Option } = Select;
-    const { getFieldDecorator } = props.form;
-    useEffect(()=>{
-      props.getExamType()
-      props.getSubject()
-    },[])
-    
-    let handleSubmit = e => {
-      e.preventDefault();
-      props.form.validateFieldsAndScroll((err, values) => {
-        if (!err) {
-          let data={
-          subject_id:values.subject_id,
-          exam_id:values.exam_id,
-          title:values.examName,
-          number:values.number*1,
-          start_time:values.start_time*1,
-          end_time:values.end_time*1,
-          }
-          props.createExam(data)
+  const { Option } = Select;
+  const { getFieldDecorator } = props.form;
+  useEffect(() => {
+    props.getExamType()
+    props.getSubject()
+  }, [])
+
+  let handleSubmit = e => {
+    e.preventDefault();
+    props.form.validateFieldsAndScroll((err, values) => {
+      if (!err) {
+        let data = {
+          subject_id: values.subject_id,
+          exam_id: values.exam_id,
+          title: values.examName,
+          number: values.number * 1,
+          start_time: values.start_time * 1,
+          end_time: values.end_time * 1,
         }
-      });
-    };
+      }
+      })
+    }
     useEffect(()=>{
       if(props.returnData.code===1){
         props.history.push("/main/examEdit")
       }
-    },[props.returnData])  
+    });
+  };
+  useEffect(() => {
+    if (props.returnData.code === 1) {
+      props.history.push("/main/exam/edit")
+    }
+  }, [props.returnData])
   return (
     <div>
-      <h2>添加考试</h2>
+      <h2>{props.intl.formatMessage({ id: 'exam.addexam' })}</h2>
       <div className={styles.question_content}>
         <Form  onSubmit={handleSubmit}>
             <div>
@@ -138,46 +144,46 @@ function AddExam(props) {
                     <Button type="primary" htmlType="submit">
                       创建试卷
                     </Button>
-                  </Form.Item>
-            </div>
+            </Form.Item>
+          </div>
         </Form>
       </div>
     </div>
   );
-}
+
 
 
 const mapStateToProps = (state) => {
   return {
-      examType: state.exam.examTypes,
-      subject: state.exam.subjects,
-      returnData:state.exam.returnData
+    examType: state.exam.examTypes,
+    subject: state.exam.subjects,
+    returnData: state.exam.returnData
   }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-      getExamType() {
-       
-          dispatch({
-              type: "exam/getExamType",
-          })
-      },
-      getSubject() {
-          dispatch({
-              type: "exam/getSubject",
-          })
-      },
-      createExam(payload){
-        dispatch({
-          type:"exam/createExam",
-          payload,
-        })
-      },
-      reset(){
-          dispatch({
-              type:"exam/reset"
-          })
-      }
+    getExamType() {
+
+      dispatch({
+        type: "exam/getExamType",
+      })
+    },
+    getSubject() {
+      dispatch({
+        type: "exam/getSubject",
+      })
+    },
+    createExam(payload) {
+      dispatch({
+        type: "exam/createExam",
+        payload,
+      })
+    },
+    reset() {
+      dispatch({
+        type: "exam/reset"
+      })
+    }
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)( Form.create()(AddExam));
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Form.create()(AddExam)));

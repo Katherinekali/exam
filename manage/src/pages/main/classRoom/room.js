@@ -1,13 +1,39 @@
 import React,{useState,useEffect} from "react"
-import { Modal, Button,Table,Input,message,Form} from 'antd';
+import { Modal, Button,Table,Input,message,Form,Popconfirm} from 'antd';
 import {connect} from "dva"
 import "../question/question.css"
-const { Column} = Table;
+
 function Room(props){
+    useEffect(()=>{
+        props.getRoom()
+    },[])
+    const [dataSource,setDataSource]=useState([])//获取到列表数据
+    const handleDelete = key => {
+        //删除数据
+        props.delData({room_id:key})
+    };
+    const columns = [
+        {
+          title: '教室号',
+          dataIndex: 'room_text',
+          key: 'roomNumber',
+        },
+        {
+          title: '操作',
+          dataIndex:'action',
+          key: 'action',
+          render: (text, record) =>
+          props.roomData.length >= 1 ? (
+            <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.room_id)}>
+              <span>删除</span>
+            </Popconfirm>
+          ) : null,
+        },
+      ];
     const [flag, setFlag] = useState(false);
-    // const [data,setData]=useState("")
     const { getFieldDecorator } =props.form;
-   
+
+    //设置弹框
     const addFn=()=>{
         setFlag(true)
     }
@@ -17,19 +43,22 @@ function Room(props){
 
     //获取初始教室数据
     useEffect(()=>{
-        // setDataSource(props.roomData)
+        setDataSource(props.roomData)
     },[props.roomData])
 
     //显示弹框信息
     useEffect(()=>{
+        console.log(props,"3445")
         if(props.room_msg===1){
             message.success("添加成功")  
             props.addRoom()
+           
          }else if(props.room_msg===0){
             message.error("添加失败") 
          }else{
              return
          }
+         props.getRoom()
     },[props.room_msg])
     
     //添加room信息
@@ -37,31 +66,13 @@ function Room(props){
         props.form.validateFields((err, values) => {
           if (!err) {
             // console.log('Received values of form: ', values);
-            // setFlag(false)
-            // props.addType({text:values.info,sort:(props.questionsType.length+1).toString()})
+            setFlag(false)
+            props.addRoom({room_text:values.info})
           }else{
-              message.error("error")
+            message.error("error")
           }
         });
-      };
-    useEffect(()=>{
-        props.getRoom()
-        console.log(props)
-        // if(props.message===1){
-        //    message.success("添加成功")  
-        //    props.addType()
-        // }else if(props.message===-1){
-        //   return 
-        // }
-    },[])
-    useEffect(()=>{
-        // if(props.message===1){
-        //    message.success("添加成功")  
-        //    props.addType()
-        // }else if(props.message===-1){
-        //   return 
-        // }
-    },[props.roomData])
+    };
     return (
         <div>
             <h2>教室管理</h2>
@@ -70,11 +81,8 @@ function Room(props){
                 添加教室
             </Button>
             <div className="questions_table" >
-               
             {
-               props.roomData&&<Table rowKey="questions_type_id" dataSource={props.roomData}  pagination={false}>
-               <Column title="类型ID" dataIndex="room_text"  />
-               <Column title="操作" dataIndex="删除"  />
+               dataSource&&<Table columns={columns} rowKey="room_id" dataSource={dataSource}  pagination={false}>
              </Table>
             }
             </div>
@@ -90,9 +98,9 @@ function Room(props){
             <Form className="login-form">
                 <Form.Item>
                 {getFieldDecorator('info', {
-                    rules: [{ required: true, message: 'Please input your questionsType!' }],
+                    rules: [{ required: true, message: '请输入教室信息!' }],
                 })(
-                    <Input placeholder="questionsType"/>
+                    <Input placeholder="请输入教室信息"/>
                 )}
                 </Form.Item>
             </Form>
@@ -118,6 +126,14 @@ let mapDispatchToProps=dispatch=>{
                 type:"room/addRoom",
                 payload
             })
+        },
+        delData:(payload)=>{
+            
+            dispatch({
+                type:"room/delRoom",
+                payload
+            })
+
         }
     }
 

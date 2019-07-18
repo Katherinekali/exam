@@ -1,27 +1,35 @@
+<<<<<<< HEAD
 import React, {useState,useEffect } from 'react'
 import {connect} from "dva"
 import styles from "../addExam.scss"
 import { Drawer, Button,Modal} from 'antd';
+=======
+import React, {useState } from 'react'
+import {connect} from "dva"
+import style from "../addExam.scss"
+import { Drawer, Button,Modal } from 'antd';
+import { injectIntl } from 'react-intl';
+>>>>>>> 4c7c44027bc7a340add58561b7c63f83fbc5d607
 import ReactMarkdown from "react-markdown";
 //添加新题的组件
 import NewQuestion from "../../../../components/addQuestion/addQuestionToexam"
 function examEdit (props) {
     let examInfor=JSON.parse(sessionStorage.getItem("createExam"))
-    let [exam,setExam]=useState(examInfor)
+    let [exam]=useState(examInfor)
     let [questions,setQuestions]=useState(examInfor.questions)
     let [visible,setvisible]=useState(false)
-    let [childrenDrawer,setchildrenDrawer]=useState(false)
+   
     let showDrawer = () => {
         setvisible(true)
-      };
+    };
     let onClose = () => {
         setvisible(false)
-      };
-    let deleteQuestion=(id)=>{
+    };
+    let deleteQuestion = (id) => {
         showDeleteConfirm(id)
     }
-    const { confirm } = Modal;      
-      function showDeleteConfirm(id) {
+    const { confirm } = Modal;
+    function showDeleteConfirm(id) {
         confirm({
           title: '确认提示',
           content: '是否要删除',
@@ -36,6 +44,7 @@ function examEdit (props) {
             sessionStorage.setItem("createExam",JSON.stringify(exam))
           },
         });
+<<<<<<< HEAD
       }
     //更新试卷
     let goToExamList=()=>{
@@ -48,6 +57,11 @@ function examEdit (props) {
             ids:ids
         }
         props.upDate(update)
+=======
+    }
+    let goToExamList = () => {
+        props.history.push("/main/examlist")
+>>>>>>> 4c7c44027bc7a340add58561b7c63f83fbc5d607
     }
     useEffect(() => {
        if(props.upstate===1){
@@ -65,13 +79,18 @@ function examEdit (props) {
     // }
     return (
         <div>
+<<<<<<< HEAD
             <h2>创建试卷</h2>
             <div className={styles.question_content}>
+=======
+            <h2>{props.intl.formatMessage({ id: 'exam.Create_test_paper' })}</h2>
+            <div className={style.question_content}>
+>>>>>>> 4c7c44027bc7a340add58561b7c63f83fbc5d607
                     <>
                         <Button  onClick={showDrawer}>
                         添加新题
                         </Button>
-                        <Drawer
+                    <Drawer
                         title="所有题目"
                         width={720}
                         fontSize={24}
@@ -111,14 +130,18 @@ function examEdit (props) {
 }
 const mapStateToProps = (state) => {
     return {
+<<<<<<< HEAD
        upstate:state.exam.upDate
+=======
+
+>>>>>>> 4c7c44027bc7a340add58561b7c63f83fbc5d607
     }
-  }
-  const mapDispatchToProps = (dispatch) => {
+}
+const mapDispatchToProps = (dispatch) => {
     return {
-        delete(payload){
+        delete(payload) {
             dispatch({
-                type:"exam/deleteQuestion",
+                type: "exam/deleteQuestion",
                 payload,
             })
         },
@@ -134,5 +157,5 @@ const mapStateToProps = (state) => {
             })
         }
     }
-  }
-export default connect (mapStateToProps, mapDispatchToProps)(examEdit)
+}
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(examEdit))

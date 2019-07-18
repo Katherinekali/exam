@@ -2,4 +2,14 @@
     width:100%;
     display:flex;
     flex-wrap:wrap;
+    >div{
+        form{
+            width: 100%;
+            margin: 0;
+            margin: 24px 0;
+        }
+    }
+}
+.ant-tabs.ant-tabs-card .ant-tabs-card{
+    padding:"0 15px";border:"1px solid blue";background:"#fff";line-height:"32px";color:"blue";fontize:"14px"
 }

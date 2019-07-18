@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect} from 'react';
 import "antd/dist/antd.css";
 import { Tabs, Table } from 'antd';
 import { connect } from "dva";
+import { injectIntl } from 'react-intl';
 const { TabPane } = Tabs;
 function showUser(props) {
     useEffect(() => {
@@ -111,7 +112,7 @@ function showUser(props) {
     return (
         //identity_text
         < div className="showUser_wrapper" >
-            <h2>用户展示</h2>
+            <h2> {props.intl.formatMessage({ id: 'user.showUser' })}</h2>
             <div className="card-container">
                 <Tabs type="card">
                     <TabPane tab="用户数据" key="1">
@@ -189,4 +190,4 @@ let mapDispatchToProps = dispatch => {
 
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(showUser)
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(showUser))
