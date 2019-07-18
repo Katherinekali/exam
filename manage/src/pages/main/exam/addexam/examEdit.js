@@ -1,26 +1,29 @@
 import React, {useState,useEffect } from 'react'
 import {connect} from "dva"
-import styles from "../addExam.scss"
 import { Drawer, Button,Modal} from 'antd';
+import style from "../addExam.scss"
+import styles from "../addExam.scss"
+
 import ReactMarkdown from "react-markdown";
 //添加新题的组件
 import NewQuestion from "../../../../components/addQuestion/addQuestionToexam"
 function examEdit (props) {
     let examInfor=JSON.parse(sessionStorage.getItem("createExam"))
-    let [exam,setExam]=useState(examInfor)
+    let [exam]=useState(examInfor)
     let [questions,setQuestions]=useState(examInfor.questions)
     let [visible,setvisible]=useState(false)
+   
     let showDrawer = () => {
         setvisible(true)
-      };
+    };
     let onClose = () => {
         setvisible(false)
-      };
-    let deleteQuestion=(id)=>{
+    };
+    let deleteQuestion = (id) => {
         showDeleteConfirm(id)
     }
-    const { confirm } = Modal;      
-      function showDeleteConfirm(id) {
+    const { confirm } = Modal;
+    function showDeleteConfirm(id) {
         confirm({
           title: '确认提示',
           content: '是否要删除',
@@ -65,12 +68,12 @@ function examEdit (props) {
     return (
         <div>
             <h2>创建试卷</h2>
-            <div className={styles.question_content}>
+            <div className={style.question_content}>
                     <>
                         <Button  onClick={showDrawer}>
                         添加新题
                         </Button>
-                        <Drawer
+                    <Drawer
                         title="所有题目"
                         width={720}
                         fontSize={24}
@@ -112,12 +115,12 @@ const mapStateToProps = (state) => {
     return {
        upstate:state.exam.upDate
     }
-  }
-  const mapDispatchToProps = (dispatch) => {
+}
+const mapDispatchToProps = (dispatch) => {
     return {
-        delete(payload){
+        delete(payload) {
             dispatch({
-                type:"exam/deleteQuestion",
+                type: "exam/deleteQuestion",
                 payload,
             })
         },
@@ -133,5 +136,5 @@ const mapStateToProps = (state) => {
             })
         }
     }
-  }
-export default connect (mapStateToProps, mapDispatchToProps)(examEdit)
+}
+export default connect(mapStateToProps, mapDispatchToProps)(examEdit)
