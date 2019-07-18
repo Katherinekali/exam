@@ -7,7 +7,8 @@ export default {
      examTypes:[],
      subjects:[],
      returnData:{},
-     examList:[]
+     examList:[],
+     detailData:[]
   },
   //异步方法：
   effects: {
@@ -81,6 +82,10 @@ export default {
     },
     examListData(state,action){
       return {...state,examList:action.payload}
-    }
+    },
+     detailData(state,action){
+      return {...state,detailData:action.payload}
+    },
+
   },
 };

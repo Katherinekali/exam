@@ -1,12 +1,13 @@
 import React,{useEffect,useState} from 'react'
 import {connect} from "dva"
 import styles from "../addExam.scss"
+import ReactMarkdown from "react-markdown";
 function examDetail (props) {
     let [detail,setDetail]=useState({})
     useEffect(()=>{
         let id=props.location.search.split("=")[1]
         // let examList=JSON.parse(sessionStorage.getItem("examList"))
-         
+        props.getDetail(id)
     },[])
     return (
         <div>
@@ -18,8 +19,8 @@ function examDetail (props) {
                            props.detailData.map((item,index)=>{
                                 return <div key={index}>
                                     <h4>{index+1}:{item.title}</h4>
-                                    <div>     
-                                        {/* <ReactMarkdown source={item.questions_stem}/> */}
+                                    <div style={{overflow:'auto',fontSize:10}}>     
+                                        <ReactMarkdown source={item.questions_stem}/>
                                     </div>
                                 </div>
                             })
@@ -32,9 +33,8 @@ function examDetail (props) {
     )
 }
 const mapStateToProps = (state) => {
-   
     return {
-       
+        detailData:state.exam.detailData,
     }
   }
   const mapDispatchToProps = (dispatch) => {
