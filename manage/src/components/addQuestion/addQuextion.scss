@@ -1,0 +1,13 @@
+.selected{
+    display: flex;
+    align-items: center;
+}
+.selected>div{
+    flex: 1;
+}
+.btn{
+    color: blue;
+}
+.btn span{
+    margin:0 5px;
+}
