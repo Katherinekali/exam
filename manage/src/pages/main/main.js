@@ -145,8 +145,8 @@ function IndexPage(props) {
             <Route path="/main/questions/:id" component={Questions} />
             <Route path="/main/adduser" component={AddUser} />
             <Route path="/main/showuser" component={ShowUser} />
-            <Route path="/main/exam/edit" component={ExamEdit} />
-            <Route path="/main/exam/detail" component={ExamDetail} />
+            <Route path="/main/examEdit" component={ExamEdit} />
+            <Route path="/main/examDetail" component={ExamDetail} />
           </div>
           {props.global ? <div className={styles.loading}><Spin /></div> : null}
         </div>

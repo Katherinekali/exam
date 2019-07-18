@@ -86,7 +86,7 @@ function ExamList (props) {
             title: '操作',
             dataIndex:'exam_exam_id',
             key:"oper",
-            render: (text) => (<a href={`/#/main/exam/detail?id=${text}`}>详情</a>)
+            render: (text) => (<a href={`/#/main/examDetail?id=${text}`}>详情</a>)
         },
       ];
     

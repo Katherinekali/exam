@@ -1,7 +1,7 @@
-import React, {useState } from 'react'
+import React, {useState,useEffect } from 'react'
 import {connect} from "dva"
 import styles from "../addExam.scss"
-import { Drawer, Button,Modal } from 'antd';
+import { Drawer, Button,Modal} from 'antd';
 import ReactMarkdown from "react-markdown";
 //添加新题的组件
 import NewQuestion from "../../../../components/addQuestion/addQuestionToexam"
@@ -36,11 +36,24 @@ function examEdit (props) {
           },
         });
       }
+    //更新试卷
     let goToExamList=()=>{
         let exam =JSON.parse(sessionStorage.getItem("createExam"))
-        console.log(exam)
-        props.history.push("/main/examlist")
+        let ids=exam.questions.map(item=>{
+            return item.questions_id
+        })
+        let update={
+            exam_exam_id:exam.exam_exam_id,
+            ids:ids
+        }
+        props.upDate(update)
     }
+    useEffect(() => {
+       if(props.upstate===1){
+        props.history.push("/main/examlist")
+        props.reset()
+       }
+    }, [props.upstate])
     let changeVisible=(flag)=>{
         setvisible(flag)
         let examInfor=JSON.parse(sessionStorage.getItem("createExam"))
@@ -97,7 +110,7 @@ function examEdit (props) {
 }
 const mapStateToProps = (state) => {
     return {
-       
+       upstate:state.exam.upDate
     }
   }
   const mapDispatchToProps = (dispatch) => {
@@ -106,6 +119,17 @@ const mapStateToProps = (state) => {
             dispatch({
                 type:"exam/deleteQuestion",
                 payload,
+            })
+        },
+        upDate(payload){
+            dispatch({
+                type:"exam/upDateQuestion",
+                payload,
+            })
+        },
+        reset() {
+            dispatch({
+                type: "exam/reset"
             })
         }
     }

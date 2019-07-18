@@ -17,3 +17,9 @@ export function getExamList(params) {
 export function detailData(params) {
   return request.get('/exam/exam/'+params);
 }
+
+//更新试卷：
+export function upDateQuestions(params) {
+  let data=JSON.stringify(params.ids.join(","))
+  return request.put(`/exam/exam/${params.exam_exam_id}`,{question_ids:data})
+}
