@@ -1,7 +1,8 @@
 import React,{useEffect,useState} from "react"
 import { connect } from "dva";
 import styles from "./addQuextion.scss"
-import {Tag, Select, Button, Form,Table,message } from 'antd';
+import ReactMarkdown from "react-markdown";
+import {Tag, Select, Button, Form,Table,message,Modal } from 'antd';
 const { Option } = Select;
 const { CheckableTag } = Tag;
 const { Column} = Table;
@@ -44,7 +45,8 @@ function AddNewQuestionToExam(props){
   let searchQuestion=()=>{
     handleSubmit()
   }
-  let changeQuestion=(item,type)=>{
+  //添加试题
+  let changeQuestion=(item)=>{
     let exam =JSON.parse(sessionStorage.getItem("createExam"))
     let index=exam.questions.findIndex(v=>v.questions_id===item.questions_id)
     if(index===-1){
@@ -55,6 +57,22 @@ function AddNewQuestionToExam(props){
     sessionStorage.setItem("createExam",JSON.stringify(exam))
     props.change(false)
   }
+  //试题详情弹框
+  let [list,setList]=useState({})
+  let getDialog=(item)=>{
+    showModal()
+    setList(item)
+  }
+  let [visible,setVisible]=useState(false)
+  let showModal = () => {
+    setVisible(true)
+  };
+  let handleOk = e => {
+    setVisible(false)
+  };
+  let handleCancel = e => {
+    setVisible(false)
+  };
   return (
   <div>
       <div>
@@ -129,13 +147,21 @@ function AddNewQuestionToExam(props){
               render={(text,item)=>(
                 <div className={styles.btn}>
                   {/* {props.children} */}
-                    <span className="add" onClick={()=>changeQuestion(item,"add")}>添加</span>
-                    <span className="detail" onClick={()=>changeQuestion(item,"detail")}>详情</span>
+                    <span className="add" onClick={()=>changeQuestion(item)}>添加</span>
+                    <span className="detail" onClick={()=>getDialog(item)}>详情</span>
                 </div>
               )}
           />
         </Table>                        
       </div>
+      <Modal
+          title={list.title}
+          visible={visible}
+          onOk={handleOk}
+          onCancel={handleCancel}
+        >
+           <ReactMarkdown source={list.questions_stem}  className={styles.question_list}/>
+        </Modal>
   </div>)
 }
 let mapStateToProps=state=>{

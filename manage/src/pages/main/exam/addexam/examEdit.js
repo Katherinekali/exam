@@ -1,6 +1,6 @@
 import React, {useState } from 'react'
 import {connect} from "dva"
-import style from "../addExam.scss"
+import styles from "../addExam.scss"
 import { Drawer, Button,Modal } from 'antd';
 import ReactMarkdown from "react-markdown";
 //添加新题的组件
@@ -37,6 +37,8 @@ function examEdit (props) {
         });
       }
     let goToExamList=()=>{
+        let exam =JSON.parse(sessionStorage.getItem("createExam"))
+        console.log(exam)
         props.history.push("/main/examlist")
     }
     let changeVisible=(flag)=>{
@@ -50,7 +52,7 @@ function examEdit (props) {
     return (
         <div>
             <h2>创建试卷</h2>
-            <div className={style.question_content}>
+            <div className={styles.question_content}>
                     <>
                         <Button  onClick={showDrawer}>
                         添加新题
@@ -75,13 +77,13 @@ function examEdit (props) {
                             </div>
                             {
                                 questions.map((item,index)=>{
-                                    return <div className={style.list} key={index}>
-                                                <div className={style.title}>
+                                    return <div className={styles.list} key={index}>
+                                                <div className={styles.title}>
                                                     <h4>{index+1}：{item.title}</h4>
                                                     <span style={{color:'blue'}} onClick={()=>{deleteQuestion(item.questions_id)}}>删除</span>
                                                 </div>
                                                 <div>
-                                                    <ReactMarkdown source={item.questions_stem}/>
+                                                    <ReactMarkdown source={item.questions_stem}  className={styles.question_list}/>
                                                 </div>
                                             </div>
                                 })
