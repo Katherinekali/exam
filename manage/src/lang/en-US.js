@@ -7,7 +7,7 @@ export default {
 
     'questions.Dry_system': 'DrySystem',
     'questions.question stem': 'QuestionStem',
-    'questions.title theme': 'TitleTheme',
+    'questions.title_theme': 'TitleTheme',
 
     'questions.classification': 'classification',
     'questions.lookQuestions': 'LookQuestions',

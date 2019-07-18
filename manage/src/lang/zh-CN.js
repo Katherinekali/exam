@@ -23,7 +23,7 @@ export default {
 
     'questions.Dry_system': '题目信息',
     'questions.question stem': '题目',
-    'questions.title theme': '题目主题',
+    'questions.title_theme': '题目主题',
 
     'router.questions': '试题管理',
     'router.questions.add': '添加试题',

@@ -95,7 +95,7 @@ function AddQuestion(props) {
                     <Form.Item>
                         <h3>{props.intl.formatMessage({ id: 'questions.Dry_system' })}</h3>
                         <div>
-                            <div><label title="题干">{props.intl.formatMessage({ id: 'questions.question stem' })}</label></div>
+                            <div><label title="题干">{props.intl.formatMessage({ id: 'questions.question_stem' })}</label></div>
                             <div>
                                 {getFieldDecorator('title', { initialValue: search ? detail && detail.title : "" })(
                                     <Input
@@ -108,7 +108,7 @@ function AddQuestion(props) {
                     </Form.Item>
                     <Form.Item>
                         <div>
-                            <div><label title="题干">{props.intl.formatMessage({ id: 'questions.title theme' })}</label></div>
+                            <div><label title="题干">{props.intl.formatMessage({ id: 'questions.title_theme' })}</label></div>
                             {getFieldDecorator('questions_stem', { initialValue: search ? detail && detail.questions_stem : "" })(
                                 <Editor></Editor>
                             )}
