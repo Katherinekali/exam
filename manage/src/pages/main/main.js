@@ -3,7 +3,6 @@ import { connect } from 'dva';
 import { Route, Link } from 'dva/router';
 import styles from "./main.css"
 import { Dropdown, Menu, Icon, Spin, Select, } from 'antd';
-import ClassList from "./checking/classList"
 import Grade from "./classRoom/grade"
 import Room from "./classRoom/room"
 import Student from "./classRoom/student"
@@ -18,6 +17,7 @@ import ShowUser from "./user/showUser"
 import ExamEdit from "./exam/addexam/examEdit"
 import ExamDetail from "./exam/examList/examDetail"
 import { injectIntl } from 'react-intl';
+import Page from './checking/page';
 const { SubMenu } = Menu;
 const { Option } = Select;
 function IndexPage(props) {
@@ -132,13 +132,13 @@ function IndexPage(props) {
                 </span>
               }
             >
-              <Menu.Item key="11"><Link to="/main/classlist">{props.intl.formatMessage({ id: 'router.examination.class' })}</Link></Menu.Item>
+              <Menu.Item key="11"><Link to="/main/page">待批班级</Link></Menu.Item>
             </SubMenu>
           </Menu>
         </div>
         <div className={styles.content}>
           <div className={styles.layout_main}>
-            <Route path="/main/classlist" component={ClassList} />
+            <Route path="/main/page" component={Page} />
             <Route path="/main/grade" component={Grade} />
             <Route path="/main/room" component={Room} />
             <Route path="/main/student" component={Student} />
@@ -149,9 +149,10 @@ function IndexPage(props) {
             <Route path="/main/watchquestion" component={WatchQuestion} />
             <Route path="/main/questions/:id" component={Questions} />
             <Route path="/main/adduser" component={AddUser} />
-            <Route path="/main/showuser" component={ShowUser} />
+            <Route path="/mainowuser" component={ShowUser} />
             <Route path="/main/exam/edit" component={ExamEdit} />
             <Route path="/main/exam/detail" component={ExamDetail} />
+
           </div>
           {props.global ? <div className={styles.loading}><Spin /></div> : null}
         </div>

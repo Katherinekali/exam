@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { connect } from "dva";
 import "antd/dist/antd.css";
 import { injectIntl } from 'react-intl';
-import { Form, Button, Table, Input, Select } from "antd";
+import { Form, Button, Table,Input,Select,message,} from "antd";
 const { Option } = Select;
 function StudentMange(props) {
     useEffect(() => {
@@ -23,23 +23,24 @@ function StudentMange(props) {
         showQuickJumper: true,
         showSizeChanger: true,
     }
-    useEffect(() => {
-        if (props.deleteState === 1) {
+    useEffect(()=>{
+        if(props.deleteState===1){
+            message.success('删除成功');
             props.record()
             props.getHasStudent()
             props.getHasNoStudent()
         }
-    }, [props.deleteState])
-    let reset = () => {
-        // setInputVal("")
-        // setclassName("")
-        // setclassRoom("")
+    },[props.deleteState])
+    //点击重置：
+    let reset=()=>{
+        props.form.resetFields();
     }
     let handleSubmit = () => {
         props.form.validateFields((err, values) => {
-            if (!err) {
-                console.log('Received values of form: ', values);
-            }
+          if (!err) {
+            // console.log('Received values of form: ', values);
+            console.log("获取到数据，但是没有接口查找",values)
+          }
         });
     };
     let search = () => {
@@ -85,11 +86,11 @@ function StudentMange(props) {
                     </Form.Item>
                 </Form>
             </div>
-            <div style={{ background: "#fff", marginTop: 20 }}>
-                <Table
-                    dataSource={props.studentsHasRoom}
-                    rowKey="student_id"
-                    pagination={pagination}
+            <div style={{background:"#fff",marginTop:20}}>
+                <Table 
+                        dataSource={props.students} 
+                        rowKey="student_id"  
+                        pagination={pagination}
                 >
                     <Column title="姓名" dataIndex="student_name" key="student_name" />
                     <Column title="学号" dataIndex="student_id" key="student_id" />
@@ -110,13 +111,12 @@ function StudentMange(props) {
     )
 }
 const mapStateToProps = state => {
-    return {
-        className: state.student.className,
-        classRoom: state.student.classRoom,
-        studentsHasRoom: state.student.studentsHasRoom,
-        studentsHasNoRoom: state.student.studentsHasNoRoom,
-        deleteState: state.student.deleteState,
-    }
+	return {
+        className:state.student.className,
+        classRoom:state.student.classRoom,
+        deleteState:state.student.deleteState,
+        students:state.student.students
+	}
 };
 const mapDispatchToProps = dispatch => {
     return {

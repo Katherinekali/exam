@@ -44,98 +44,100 @@ function AddExam(props) {
     <div>
       <h2>{props.intl.formatMessage({ id: 'exam.addexam' })}</h2>
       <div className={styles.question_content}>
-        <Form onSubmit={handleSubmit}>
-          <div>
-            <Form.Item label="试卷的名称">
-              {getFieldDecorator('examName', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请输入试卷名称',
-                  },
-                ],
-              })(<Input style={{ width: 300 }} />)}
-            </Form.Item>
-            <Form.Item label="选择考试类型">
-              {getFieldDecorator('exam_id', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请选择考试类型',
-                  },
-                ],
-              })(
-                <Select
-                  style={{ width: 200 }}
-                >
-                  {props.examType && props.examType.map(item => {
-                    return <Option value={item.exam_id} key={item.exam_id}>{item.exam_name}</Option>
-                  })}
-                </Select>
-              )}
-            </Form.Item>
-            <Form.Item label="选择课程">
-              {getFieldDecorator('subject_id', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请选择课程',
-                  },
-                ],
-              })(
-                <Select
-                  style={{ width: 200 }}
-                >
-                  {
-                    props.subject && props.subject.map(item => {
-                      return <Option value={item.subject_id} key={item.subject_id}>{item.subject_text}</Option>
-                    })
-                  }
-                </Select>
-              )}
-            </Form.Item>
-            <Form.Item label="设置题量">
-              {getFieldDecorator('number', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请设置题量',
-                  },
-                ],
-              })(
-                <InputNumber min={3} max={10} />
-              )}
-            </Form.Item>
-            <Form.Item label="选择日期">
-              <Form.Item
-                style={{ display: 'inline-block' }}
-              > {getFieldDecorator('start_time', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请输入开始时间',
-                  },
-                ],
-              })(
-                <DatePicker placeholder="开始时间" showTime format="YYYY-MM-DD HH:mm:ss" locale={locale} />)}
-              </Form.Item>
-              <span style={{ display: "inline-block", width: 30, "textAlign": "center" }}>-</span>
-              <Form.Item style={{ display: 'inline-block' }}>
-                {getFieldDecorator('end_time', {
-                  rules: [
-                    {
-                      required: true,
-                      message: '请输入开始时间',
-                    },
-                  ],
-                })(
-                  <DatePicker placeholder="结束时间" showTime format="YYYY-MM-DD HH:mm:ss" locale={locale} />)}
-              </Form.Item>
-            </Form.Item>
-            <Form.Item
-            >
-              <Button type="primary" htmlType="submit">
-                创建时间
+        <Form  onSubmit={handleSubmit}>
+            <div>
+              <Form.Item  label="试卷的名称">
+                  {getFieldDecorator('examName', {
+                    rules: [
+                      {
+                        required: true,
+                        message: '请输入试卷名称',
+                      },
+                    ],
+                  })(<Input style={{width:300}}/>)}
+                </Form.Item>
+                <Form.Item  label="选择考试类型">
+                  {getFieldDecorator('exam_id',{
+                    rules: [
+                      {
+                        required: true,
+                        message: '请选择考试类型',
+                      },
+                    ],
+                  })(
+                        <Select
+                            style={{ width: 200 }}
+                            placeholder={props.examType[0]&&props.examType[0].exam_name}
+                        >
+                         {props.examType.map(item=>{
+                             return  <Option value={item.exam_id} key={item.exam_id}>{item.exam_name}</Option>
+                           })}
+                        </Select>
+                    )}
+                </Form.Item>
+                <Form.Item  label="选择课程">
+                  {getFieldDecorator('subject_id',{
+                    rules: [
+                      {
+                        required: true,
+                        message: '请选择课程',
+                      },
+                    ],
+                  })(
+                        <Select
+                            style={{ width: 200 }}
+                            placeholder={props.subject[0]&&props.subject[0].subject_text}
+                        >
+                         {
+                           props.subject.map(item=>{
+                             return  <Option value={item.subject_id} key={item.subject_id}>{item.subject_text}</Option>
+                           })
+                         }
+                        </Select>
+                    )}
+                </Form.Item>
+                <Form.Item  label="设置题量">
+                  {getFieldDecorator('number',{ 
+                    rules: [
+                      {
+                        required: true,
+                        message: '请设置题量',
+                      },
+                    ],
+                  })(
+                    <InputNumber min={3} max={10} />
+                    )}
+                </Form.Item>
+                <Form.Item label="选择日期">
+                      <Form.Item
+                        style={{ display: 'inline-block'}}
+                      > {getFieldDecorator('start_time',{
+                        rules: [
+                          {
+                            required: true,
+                            message: '请输入开始时间',
+                          },
+                        ],
+                      })(
+                        <DatePicker placeholder="开始时间" showTime format="YYYY-MM-DD HH:mm:ss" locale={locale} />)}
+                      </Form.Item>
+                      <span style={{display:"inline-block",width:30,"textAlign":"center"}}>-</span>
+                    <Form.Item style={{ display: 'inline-block' }}>
+                    {getFieldDecorator('end_time',{
+                        rules: [
+                          {
+                            required: true,
+                            message: '请输入开始时间',
+                          },
+                        ],
+                      })(
+                      <DatePicker placeholder="结束时间" showTime format="YYYY-MM-DD HH:mm:ss" locale={locale} />)}
+                    </Form.Item>
+                </Form.Item>
+                <Form.Item
+                  >
+                    <Button type="primary" htmlType="submit">
+                      创建试卷
                     </Button>
             </Form.Item>
           </div>

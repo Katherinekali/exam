@@ -120,7 +120,7 @@ function AddQuestion(props) {
                             <Form.Item>
                                 <div><label title="请选择考试类型"> 请选择考试类型：</label></div>
                                 <div>
-                                    {getFieldDecorator('examType', { initialValue: search ? detail && detail.exam_name : (props.examType[0] && props.examType[0].exam_name) })(
+                                    {getFieldDecorator('examType', { initialValue: search ? detail && detail.exam_name : (props.examType[0] && props.examType[0].exam_name)})(
                                         <Select
                                             style={{ width: 200 }}
                                         >
