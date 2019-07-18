@@ -8,6 +8,7 @@ import AddIdentityView from "../../../components/addIdentityView"
 import AddIdentityPort from "../../../components/addIdentityPort"
 import styles from "./addUser.scss"
 import { injectIntl } from 'react-intl';
+
 function addUser(props) {
     useEffect(() => {
         props.getUserID()

@@ -14,23 +14,23 @@ export default {
   },
   //异步方法：
   effects: {
-    *getExamType({ payload }, { call, put }) {
-      let data = yield call(examType)
-      if (data.code === 1) {
-        yield put({
-          type: "examTypeData",
-          payload: data.data
-        })
-      }
+    *getExamType(a={}, { call, put }) {  
+          let data=yield call(examType) 
+          if(data.code===1){
+            yield put({
+              type:"examTypeData",
+              payload:data.data
+            })  
+          }
     },
-    *getSubject({ payload }, { call, put }) {
-      let data = yield call(subject)
-      if (data.code === 1) {
-        yield put({
-          type: "subjectData",
-          payload: data.data
-        })
-      }
+    *getSubject(a={}, { call, put }) {  
+        let data=yield call(subject) 
+        if(data.code===1){
+          yield put({
+            type:"subjectData",
+            payload:data.data
+          })  
+        } 
     },
     *createExam({ payload }, { call, put }) {    //创建试卷----成功后返回创建试卷的题
       let data = yield call(addExam, payload)

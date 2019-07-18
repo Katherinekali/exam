@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react'
+import React, {useState } from 'react'
 import {connect} from "dva"
 import style from "../addExam.scss"
 import { Drawer, Button,Modal } from 'antd';
@@ -8,10 +8,10 @@ import ReactMarkdown from "react-markdown";
 import NewQuestion from "../../../../components/addQuestion/addQuestionToexam"
 function examEdit (props) {
     let examInfor=JSON.parse(sessionStorage.getItem("createExam"))
-    let [exam,setExam]=useState(examInfor)
+    let [exam]=useState(examInfor)
     let [questions,setQuestions]=useState(examInfor.questions)
     let [visible,setvisible]=useState(false)
-    let [childrenDrawer,setchildrenDrawer]=useState(false)
+   
     let showDrawer = () => {
         setvisible(true)
     };

@@ -13,43 +13,46 @@ export default {
         viewAuthor:-1//视图权限
     },
     subscriptions: {
-      setup({  }) {  // eslint-disable-line
+      setup(a={  }) {  // eslint-disable-line
       },
     },
     effects: {
-        //获取用户id
-      *getUserId({  }, {put }) {  // eslint-disable-line
-        let data=yield  getIdentity()
-        yield put({
-            type:"getIdentity",
-            payload:data.data
-        })
-      },
-      *getApiPort({}, {put }){
-          let data=yield getApi()
-          yield put({
-            type:"authorition",
-            payload:data.data
-        })
-
-      },
-      *getView({}, {put}){
-        let data=yield getView()
-        yield put({
-          type:"viewAuthorition",
+    //获取用户id
+    *getUserId(a={  }, {put }) {  // eslint-disable-line
+      let data=yield  getIdentity()
+      yield put({
+          type:"getIdentity",
           payload:data.data
       })
-
-      },
-      *getAllUser({}, { put }){
-        let data=yield getUserIdentity()
-        console.log(data,"user")
+    },
+    //获取所有接口
+    *getApiPort(a={}, {put }){
+        let data=yield getApi()
         yield put({
           type:"getUser",
           payload:data.data
       })
 
     },
+    //获取所有视图
+    *getView(a={}, {put}){
+      let data=yield getView()
+      yield put({
+        type:"viewAuthorition",
+        payload:data.data
+    })
+
+    },
+    //获得所有用户信息
+    *getAllUser(a={}, { put }){
+      let data=yield getUserIdentity()
+      console.log(data,"user")
+      yield put({
+        type:"getUser",
+        payload:data.data
+    })
+    },
+    //添加用户信息
     *addUserInfo({ payload }, {put }){
       console.log(payload)
       let data=yield addUser(payload)

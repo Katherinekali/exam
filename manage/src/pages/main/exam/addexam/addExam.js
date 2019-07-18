@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React,{useEffect} from "react";
 import { connect } from "dva";
 import { injectIntl } from 'react-intl';
 import locale from 'antd/lib/date-picker/locale/zh_CN';

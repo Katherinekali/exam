@@ -1,34 +1,34 @@
-import React, { useState, useEffect } from "react"
-import { Modal, Table, Input, message, Form } from 'antd';
-import { connect } from "dva"
+import React,{useState,useEffect} from "react"
+import { Modal,Table,Input,message,Form} from 'antd';
+import {connect} from "dva"
 import "../../question/question.css"
 function ClassList(props) {
     const [page, setPage] = useState(1)
     useEffect(() => {
         props.getAll()
-    }, [])
-    const [dataSource, setDataSource] = useState([])//获取到列表数据
+    },[])
+    const [dataSource,setDataSource]=useState([])//获取到列表数据
 
     //点击批卷执行的动作
     const handle = key => {
         console.log(key)
         console.log(props)
-        let { history } = props;
+        let {history}=props;
         //注意的问题  跳转页面过去要使得页面刷新传过去的id和班级都存在
-        sessionStorage.setItem('paperInfo', JSON.stringify({ id: key.grade_id, grade: key.grade_name }));// 存入到sessionStorage中
-        history.push({ pathname: '/main/page/testPaper', state: { id: key.grade_id, grade: key.grade_name } })
+        sessionStorage.setItem('paperInfo',JSON.stringify({id:key.grade_id,grade:key.grade_name}));// 存入到sessionStorage中
+        history.push({pathname:'/main/page/testPaper',state:{id:key.grade_id,grade:key.grade_name}})
     };
     const changePage = (current) => {
         setPage(current)
 
     };
-    const changePageSize = () => {
+    const changePageSize=()=>{
 
     }
     const paginationProps = {
-        showSizeChanger: true,
         showQuickJumper: true,
-        pageSize: 10,
+        showSizeChanger: true,
+        pageSize:10,
         current: page,
         total: props.AllClassroom.length,
         onShowSizeChange: (current, pageSize) => changePageSize(pageSize, current),
@@ -37,9 +37,9 @@ function ClassList(props) {
 
     const columns = [
         {
-            title: '班级名',
-            dataIndex: 'grade_name',
-            key: 'grade',
+          title: '班级名',
+          dataIndex: 'grade_name',
+          key: 'grade',
         },
         {
             title: '课程名称',
@@ -62,13 +62,13 @@ function ClassList(props) {
             key: 'success',
         },
         {
-            title: '操作',
-            dataIndex: 'action',
-            key: 'action',
-            render: (text, record) =>
-                props.AllClassroom.length >= 1 ? (
-                    <span style={{ color: "blue" }} onClick={() => { handle(record) }}>批卷</span>
-                ) : null,
+          title: '操作',
+          dataIndex:'action',
+          key: 'action',
+          render: (text, record) =>
+          props.AllClassroom.length >= 1 ? (
+              <span style={{color:"blue"}} onClick={()=>{handle(record)}}>批卷</span>
+          ) : null,
         },
     ];
     const [flag, setFlag] = useState(false);
@@ -78,7 +78,7 @@ function ClassList(props) {
     // const addFn=()=>{
     //     setFlag(true)
     // }
-    const hideModal = () => {
+    const hideModal=()=>{
         setFlag(false)
     }
 
