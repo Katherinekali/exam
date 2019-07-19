@@ -2,6 +2,7 @@ import React, {useEffect } from 'react'
 import { connect } from "dva";
 import "antd/dist/antd.css";
 import { Form, Button, Table,Input,Select,message,} from "antd";
+import { injectIntl } from 'react-intl';
 const { Option } = Select;
 function StudentMange(props) {
     useEffect(()=>{
@@ -9,8 +10,8 @@ function StudentMange(props) {
         props.getClassRoom()
         props.getHasStudent()
         props.getHasNoStudent()
-    },[])
-    let deleteStudent=(id)=>{
+    }, [])
+    let deleteStudent = (id) => {
         props.deleteStudent(id)
     }
     //分页器：
@@ -46,7 +47,7 @@ function StudentMange(props) {
     const { Column} = Table;
 	return (
 		<div>
-			<h2>学生管理</h2>
+            <h2>{props.intl.formatMessage({ id: 'classroom.room' })}</h2>
 			<div>
             <Form layout="inline">
                     <Form.Item>
@@ -156,5 +157,5 @@ const mapDispatchToProps = dispatch => {
 		},
 	}
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(StudentMange))
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Form.create()(StudentMange)))
 

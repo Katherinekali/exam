@@ -1,8 +1,8 @@
 import React,{useState,useEffect} from "react"
 import { Modal, Button,Table,Input,message,Form,Popconfirm} from 'antd';
 import {connect} from "dva"
+import { injectIntl } from 'react-intl';
 import "../question/question.css"
-
 function Room(props){
     useEffect(()=>{
         props.getRoom()
@@ -72,7 +72,7 @@ function Room(props){
     };
     return (
         <div>
-            <h2>教室管理</h2>
+            <h2>{props.intl.formatMessage({ id: 'classroom.room' })}</h2>
             <div className="question_content">
             <Button type="primary" icon="plus" onClick={()=>{addFn()}}>
                 添加教室
@@ -134,4 +134,4 @@ let mapDispatchToProps=dispatch=>{
     }
 
 }
-export default connect(mapStateToProps,mapDispatchToProps)(Form.create()(Room))
+export default injectIntl(connect(mapStateToProps,mapDispatchToProps)(Form.create()(Room)))

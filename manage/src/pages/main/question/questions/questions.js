@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Tag } from 'antd';
 import styles from "./questions.scss"
 import ReactMarkdown from "react-markdown";
+import { injectIntl } from 'react-intl';
 import { connect } from "dva";
 function Question(props) {
     // let data = props.location.state ? props.location.state : JSON.parse(localStorage.getItem('data'));
@@ -12,7 +13,7 @@ function Question(props) {
     //console.log(props.list)
     return (
         <div className={styles.detailWrapper}>
-            <h2 className={styles.title}>试题详情</h2>
+            <h2 className={styles.title}>{props.intl.formatMessage({ id: 'questions.DetailQuestions' })}</h2>
             <div className={styles.ant_layout_detailBox}>
                 <div style={{
                     display: "flex"
