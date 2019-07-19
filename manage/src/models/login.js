@@ -8,7 +8,8 @@ export default {
   state: {
       isLogin:-1,
       userInfo:{},
-      mes:-1
+      mes:-1,
+      img:""
   },
   //订阅：
   subscriptions: {
@@ -72,17 +73,22 @@ export default {
       console.log(payload)
       let data=yield upLoad(payload)
       if(data.code===1){
-        let userInfo=yield select(state=>state.login.userInfo)
-        if(Object.keys(userInfo).length){
-          yield put({
-            type:"updateUser",
-            payload:{user_id:userInfo.user_id,avatar:data.data[0].path}
+           yield put({
+            type:"updateImg",
+            payload:data.data[0].path
           })
-        }
+
+        // let userInfo=yield select(state=>state.login.userInfo)
+        // if(Object.keys(userInfo).length){
+        //   yield put({
+        //     type:"updateUser",
+        //     payload:{user_id:userInfo.user_id,avatar:data.data[0].path}
+        //   })
+        // }
       }
     },
     *updateUser({payload},{call,put}){
-      console.log(payload)
+      console.log(payload,"11111")
 
       let data=yield updateUser(payload)
       console.log(data)
@@ -112,6 +118,10 @@ export default {
     },
     change(state,action){
       return {...state,mes:-1}
+    },
+    updateImg(state,action){
+      return {...state,img:action.payload}
+
     }
    
   },

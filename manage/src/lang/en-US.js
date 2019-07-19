@@ -6,7 +6,7 @@ export default {
     'personage.log_out': 'logOut',
 
     'questions.Dry_system': 'DrySystem',
-    'questions.question stem': 'QuestionStem',
+    'questions.question.stem': 'QuestionStem',
     'questions.title_theme': 'TitleTheme',
 
     'questions.classification': 'classification',

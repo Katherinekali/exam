@@ -25,7 +25,7 @@ function AddIdentityPort(props){
              <Select placeholder="请选择身份id" style={{ width: "60%" }} onChange={(e)=>{setIdentity(e)}}>
              {
                  props.identity&&props.identity.map((v,k)=>{
-                  return  <Option value={v.identity_id}>{v.identity_text}</Option>
+                  return  <Option key={k} value={v.identity_id}>{v.identity_text}</Option>
                  })
                }
             </Select>
@@ -34,7 +34,7 @@ function AddIdentityPort(props){
              <Select placeholder="请选择视图权限id" style={{ width: "60%" }} onChange={(e)=>{setApi(e)}}>
              {
                  props.viewAuthority&&props.viewAuthority.map((v,k)=>{
-                  return  <Option value={v.view_authority_id}>{v.view_authority_text}</Option>
+                  return  <Option key={k} value={v.view_authority_id}>{v.view_authority_text}</Option>
                  })
                }
             </Select>

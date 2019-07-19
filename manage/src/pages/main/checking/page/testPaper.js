@@ -148,7 +148,7 @@ function ClassMate(props){
             </div>
             <div className="questions_table" >
             {
-               dataSource&&<Table columns={columns} rowKey="grade" dataSource={dataSource}  pagination={paginationProps}>
+               dataSource&&<Table columns={columns} rowKey="grade_id" dataSource={dataSource}  pagination={paginationProps}>
              </Table>
             }
             </div>

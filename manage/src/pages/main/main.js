@@ -23,7 +23,7 @@ const { Option } = Select;
 function IndexPage(props) {
   let [user,setUser]=useState("")
   let [image,setImg]=useState("")
-  let [flag,setFlag]=useState("")
+  let [flag,setFlag]=useState(false)
   const load=(e)=>{
     let form=new FormData()
     form.append(e.target.files[0].name,e.target.files[0])
@@ -38,13 +38,18 @@ function IndexPage(props) {
       props.change()
     }
   },[props.mes])
+  //更新用户头像
+  useEffect(()=>{
+      setImg(props.img)
+  },[props.img])
   let showModal = () => {
     setFlag(true)
   };
   let handleOk = e => {
     props.form.validateFields((err, values) => {
       if (!err) {
-        props.update({'user_name':values.username}) 
+       
+        props.updata({'user_name':values.username,user_id:user.user_id,avatar:image}) 
       }
     });
     setFlag(false)
@@ -92,7 +97,7 @@ function IndexPage(props) {
           <Dropdown overlay={menu}>
           <span onClick={showModal}>
                 <b>
-                <img src={props.userInfo.avatar} alt="" style={{width:50,height:50,borderRadius:"50%"}}  /></b> 
+                <img src={user.avatar} alt="" style={{width:50,height:50,borderRadius:"50%"}}  /></b> 
                 {user&&user.user_name}
           </span>
           </Dropdown>
@@ -248,7 +253,8 @@ const mapState = state => {
     ...state.checkTheItem,
     global: state.loading.global,
     userInfo:state.login.userInfo,
-    mes:state.login.mes
+    mes:state.login.mes,
+    img:state.login.img
   };
 };
 const mapDispatch = dispatch => {
