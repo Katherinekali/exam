@@ -5,7 +5,6 @@ import { injectIntl } from 'react-intl';
 import { Select, Button, Modal, Form, Input, notification, Icon, Spin } from 'antd';
 import { connect } from "dva"
 const { Option } = Select;
-
 function AddQuestion(props) {
     let [visible, setvisible] = useState(false)
     let [search, setSearch] = useState(false)
@@ -120,7 +119,7 @@ function AddQuestion(props) {
                             <Form.Item>
                                 <div><label title="请选择考试类型"> 请选择考试类型：</label></div>
                                 <div>
-                                    {getFieldDecorator('examType', { initialValue: search ? detail && detail.exam_name : (props.examType[0] && props.examType[0].exam_name)})(
+                                    {getFieldDecorator('examType', { initialValue: search ? detail && detail.exam_name : (props.examType[0] && props.examType[0].exam_name) })(
                                         <Select
                                             style={{ width: 200 }}
                                         >

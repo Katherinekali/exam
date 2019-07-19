@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'dva';
 import { Route, Link } from 'dva/router';
 import styles from "./main.css"
@@ -21,6 +21,7 @@ import Page from './checking/page';
 const { SubMenu } = Menu;
 const { Option } = Select;
 function IndexPage(props) {
+  let [url, seturl] = useState('https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png')
   const menu = (
     <Menu>
       <Menu.Item key="0">
@@ -43,8 +44,16 @@ function IndexPage(props) {
     </Menu>
 
   );
+  let load = (e, res) => {
+    let formData = new FormData();
+    formData.append(e.target.files[0].name, e.target.files[0]);
+    // console.log('form...', formData, formData.get(e.target.files[0].name));
+    props.getUrl(formData)
+    props.setUser({ user_id: res.user_id, avatar: props.imgUrl })
+  }
   let handleClick = e => {
     // console.log('click ', e);
+
   };
   return (
     <div className={styles.layout}>
@@ -55,12 +64,13 @@ function IndexPage(props) {
           <Option value="英文" onClick={() => props.changeLocale('en')}>English</Option>
         </Select>
         <div className={styles.logout}>
-          <Dropdown overlay={menu}>
+          <label htmlFor="file" for="file">
             <span>
-              <a href="#"><img src="https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png" /></a>
-              chenmanjie
-              </span>
-          </Dropdown>
+                <img src={props.imgUrl ? props.imgUrl : url} style={{ width: 50, height: 50, zIndex: 9999 }} />
+              {props.userInfo.user_name}
+            </span>
+          </label>
+          <input type="file" id="file" name="" style={{ display: "none" }} onChange={(e) => load(e, props.userInfo)} />
         </div>
       </div>
       <div className={styles.layout_content}>
@@ -149,10 +159,9 @@ function IndexPage(props) {
             <Route path="/main/watchquestion" component={WatchQuestion} />
             <Route path="/main/questions/:id" component={Questions} />
             <Route path="/main/adduser" component={AddUser} />
-            <Route path="/mainowuser" component={ShowUser} />
+            <Route path="/main/showuser" component={ShowUser} />
             <Route path="/main/exam/edit" component={ExamEdit} />
             <Route path="/main/exam/detail" component={ExamDetail} />
-
           </div>
           {props.global ? <div className={styles.loading}><Spin /></div> : null}
         </div>
@@ -164,7 +173,8 @@ function IndexPage(props) {
 const mapState = state => {
   return {
     ...state.checkTheItem,
-    global: state.loading.global
+    global: state.loading.global,
+    ...state.login
   };
 };
 const mapDispatch = dispatch => {
@@ -172,6 +182,20 @@ const mapDispatch = dispatch => {
     changeLocale: payload => {
       dispatch({
         type: "global/updateLocale",
+        payload
+      })
+    },
+    setUser: payload => {
+      console.log(payload)
+      dispatch({
+        type: "login/getUserC",
+        payload
+      })
+    },
+    getUrl: payload => {
+      // console.log(payload)
+      dispatch({
+        type: "login/url",
         payload
       })
     }

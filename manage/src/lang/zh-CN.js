@@ -22,7 +22,7 @@ export default {
     'classroom.student': '学生管理',
 
     'questions.Dry_system': '题目信息',
-    'questions.question stem': '题目',
+    'questions.question_stem': '题目',
     'questions.title_theme': '题目主题',
 
     'router.questions': '试题管理',

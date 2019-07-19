@@ -11,9 +11,6 @@ function StudentMange(props) {
         props.getHasStudent()
         props.getHasNoStudent()
     }, [])
-    let [inputVal, setInputVal] = useState("")
-    let [classRoom, setclassRoom] = useState("")
-    let [className, setclassName] = useState("")
     let deleteStudent = (id) => {
         props.deleteStudent(id)
     }
