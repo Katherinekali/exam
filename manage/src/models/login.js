@@ -82,6 +82,8 @@ export default {
       }
     },
     *updateUser({payload},{call,put}){
+      console.log(payload)
+
       let data=yield updateUser(payload)
       console.log(data)
       let data1=yield getUserInfo()
@@ -110,7 +112,6 @@ export default {
     },
     change(state,action){
       return {...state,mes:-1}
-
     }
    
   },

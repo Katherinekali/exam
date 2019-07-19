@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react';
 import { connect } from 'dva';
 import { Route, Link } from 'dva/router';
 import styles from "./main.css"
-import { Dropdown, Menu, Icon, Spin, Select,Avatar } from 'antd';
+import { Dropdown, Menu, Icon, Spin, Select,Form, Input,Modal} from 'antd';
 import Grade from "./classRoom/grade"
 import Room from "./classRoom/room"
 import Student from "./classRoom/student"
@@ -23,11 +23,11 @@ const { Option } = Select;
 function IndexPage(props) {
   let [user,setUser]=useState("")
   let [image,setImg]=useState("")
+  let [flag,setFlag]=useState("")
   const load=(e)=>{
     let form=new FormData()
     form.append(e.target.files[0].name,e.target.files[0])
     props.load(form)
-   
   }
   useEffect(()=>{
     setUser(props.userInfo)
@@ -36,9 +36,23 @@ function IndexPage(props) {
     if(props.mes===1){
       setImg(props.userInfo.avatar)
       props.change()
-     
     }
   },[props.mes])
+  let showModal = () => {
+    setFlag(true)
+  };
+  let handleOk = e => {
+    props.form.validateFields((err, values) => {
+      if (!err) {
+        props.update({'user_name':values.username}) 
+      }
+    });
+    setFlag(false)
+  };
+
+  let handleCancel = e => {
+    setFlag(false)
+  };
 
   const menu = (
     <Menu>
@@ -65,6 +79,7 @@ function IndexPage(props) {
   let handleClick = e => {
     // console.log('click ', e);
   };
+  let {getFieldDecorator}=props.form
   return (
     <div className={styles.layout}>
       <div className={styles.header}>
@@ -75,18 +90,60 @@ function IndexPage(props) {
         </Select>
         <div className={styles.logout}>
           <Dropdown overlay={menu}>
-            <div>
+          <span onClick={showModal}>
+                <b>
+                <img src={props.userInfo.avatar} alt="" style={{width:50,height:50,borderRadius:"50%"}}  /></b> 
+                {user&&user.user_name}
+          </span>
+          </Dropdown>
+        </div>
+        <Modal
+          title="更改用户信息"
+          visible={flag}
+          onOk={handleOk}
+          onCancel={handleCancel}
+        >
+           <div>
             <label for="file">
-              <span>
+              <span onClick={showModal}>
                 <b>
                 <img src={image?image:props.userInfo.avatar} alt="" style={{width:50,height:50,borderRadius:"50%"}}  /></b> 
-                {user&&user.user_name}
               </span>
             </label>
             <input type="file" id="file" name="" style={{display: "none"}} onChange={(e)=>{load(e)}}/>
             </div>
-          </Dropdown>
-        </div>
+            <Form  className="login-form" >
+                    <Form.Item>
+                        {getFieldDecorator('username', 
+                            { 
+                                validateTrigger:"onBlur",
+                                initialValue:user&&user.user_name,
+                                rules: [ { required: true, message: 'Please input your username!' },],         
+                            })(
+                            <Input
+                            prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                            placeholder="用户名"
+                            />,
+                        )}
+                    </Form.Item>
+                    {/* <Form.Item>
+                        {getFieldDecorator('password', 
+                            {   
+                                validateTrigger:"onBlur",
+                                rules: [
+                                        { required: true, message: 'Please input your password!' },
+                                        { pattern:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,16}$/, message: 'Please input your current password!' }
+                                        ],
+                            })(
+                            <Input
+                            prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                            type="password"
+                            placeholder="密码"
+                            />,
+                        )}
+                    </Form.Item> */}
+                    </Form>
+        </Modal>
       </div>
       <div className={styles.layout_content}>
         <div className={styles.slide}>
@@ -218,7 +275,13 @@ const mapDispatch = dispatch => {
       dispatch({
         type:"getUserInfo"
       })
-    }
+    },
+    updata:payload=>{
+      dispatch({
+        type:"login/updateUser",
+        payload
+      })
+    },
   }
 }
-export default injectIntl(connect(mapState, mapDispatch)(IndexPage));
+export default injectIntl(connect(mapState, mapDispatch)(Form.create()(IndexPage)));
