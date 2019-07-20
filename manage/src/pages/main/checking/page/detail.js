@@ -12,7 +12,7 @@ function Detail(props){
     useEffect(()=>{
             let data=JSON.parse(sessionStorage.getItem('studentInfo'))
             setInfo(data)
-            console.log(data)
+            console.log(data,11111111)
             props.getStudentInfo(data.id) 
     },[])
     return <div>

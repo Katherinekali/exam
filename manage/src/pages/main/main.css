@@ -90,3 +90,10 @@ input{
   background: rgba(0, 0, 0, .3);
   z-index:999 
 }
+.ant-row.ant-form-item{
+    width:80%;
+
+}
+#username{
+    width:80%;
+}

@@ -1,6 +1,7 @@
-import {login,userInfor,getUserInfo,upLoad,updateUser} from "../services/index"
+import {login,userInfor,getUserInfo,upLoad,updateUser,getUserAuthorition} from "../services/index"
 import {setToken,getToken} from "../utils/index"
 import {routerRedux} from "dva/router"
+import allAuthority from '../router/config';
 export default {
   //命名空间：
   namespace: 'login',
@@ -9,7 +10,9 @@ export default {
       isLogin:-1,
       userInfo:{},
       mes:-1,
-      img:""
+      img:"",
+      myView:[],
+      forbiddenView:[]
   },
   //订阅：
   subscriptions: {
@@ -58,16 +61,32 @@ export default {
           })
     },
     *getUserInfo(action,{call,put,select}){
+
+      //1 获取用户信息
+
       let userInfo=yield select(state=>state.login.userInfo)
       if(Object.keys(userInfo).length){
         return 
       }
       let data=yield getUserInfo()
-      console.log(data,"=================")
+
+      //2 更新用户信息
+
       yield put({
         type:"updateUserInfo",
         payload:data.data
       })
+
+      //3 获取用户权限信息
+
+      let athorition=yield getUserAuthorition()
+      console.log(athorition,"athorition.......")
+      yield put({
+        type:"updateViewAuthority",
+        payload:athorition.data
+      })
+      
+
     },
     *load({payload},{call,put,select}){
       console.log(payload)
@@ -122,7 +141,28 @@ export default {
     updateImg(state,action){
       return {...state,img:action.payload}
 
-    }
+    },
+    updateViewAuthority(state, action){
+      // 筛选出我拥有的路由
+      let myView = [], forbiddenView = [];
+      allAuthority.routes.forEach(item=>{
+        let obj = {
+          name: item.name,
+          children: []
+        }
+        item.children.forEach(value=>{
+          if (action.payload.findIndex(item=>item.view_id === value.view_id) !== -1){
+            obj.children.push(value);
+          }else{
+            forbiddenView.push(value);
+          }
+        })
+
+        myView.push(obj)
+      })
+
+      return {...state, myView, forbiddenView}
    
-  },
+  }
+}
 };

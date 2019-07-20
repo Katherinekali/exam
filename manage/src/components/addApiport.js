@@ -38,7 +38,7 @@ function AddapiPort(props){
            )}
            </Form.Item>
            <Form.Item  style={{marginBottom:10}}>
-           {getFieldDecorator("Url", {
+           {getFieldDecorator("Name", {
                 rules: [{ required: true, message: '请输入api接口权限url!' }],
            })(
                <Input
@@ -48,7 +48,7 @@ function AddapiPort(props){
            )}
            </Form.Item>
            <Form.Item  style={{marginBottom:10}}>
-           {getFieldDecorator("Method", {
+           {getFieldDecorator("Name", {
                 rules: [{ required: true, message: '请输入api接口权限方法!' }],
            })(
                <Input

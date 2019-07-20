@@ -29,7 +29,7 @@ effects: {
         }
     },
     //获取学生试卷信息
-    *getStudentInfo({payload}, a={ }) {
+    *getStudentInfo({payload}, { call,put}) {
         console.log(payload)
         // let data = yield call(getStudentPaper,payload);
         // console.log(data,"etStudentInfo2")

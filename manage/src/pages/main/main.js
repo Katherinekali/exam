@@ -1,26 +1,13 @@
 import React,{useState,useEffect} from 'react';
 import { connect } from 'dva';
-import { Route, Link } from 'dva/router';
+import { Route, Link,Switch,Redirect} from 'dva/router';
 import styles from "./main.css"
 import { Dropdown, Menu, Icon, Spin, Select,Form, Input,Modal} from 'antd';
-import Grade from "./classRoom/grade"
-import Room from "./classRoom/room"
-import Student from "./classRoom/student"
-import AddExam from "./exam/addexam/addExam"
-import ExamList from "./exam/examList/eaxmList"
-import AddQuestion from "./question/addQuestion"
-import QuestionType from "./question/questionsType"
-import WatchQuestion from "./question/checkTheitem"
-import Questions from "./question/questions/questions"
-import AddUser from "./user/addUser"
-import ShowUser from "./user/showUser"
-import ExamEdit from "./exam/addexam/examEdit"
-import ExamDetail from "./exam/examList/examDetail"
 import { injectIntl } from 'react-intl';
-import Page from './checking/page';
 const { SubMenu } = Menu;
 const { Option } = Select;
 function IndexPage(props) {
+  console.log(props)
   let [user,setUser]=useState("")
   let [image,setImg]=useState("")
   let [flag,setFlag]=useState(false)
@@ -29,32 +16,40 @@ function IndexPage(props) {
     form.append(e.target.files[0].name,e.target.files[0])
     props.load(form)
   }
+  //实时改变用户信息
   useEffect(()=>{
     setUser(props.userInfo)
   },[props.userInfo])
+
+  //实时改变用户头像
   useEffect(()=>{
     if(props.mes===1){
       setImg(props.userInfo.avatar)
       props.change()
     }
   },[props.mes])
+
   //更新用户头像
   useEffect(()=>{
       setImg(props.img)
   },[props.img])
+
+  //弹框隐藏
   let showModal = () => {
     setFlag(true)
   };
+
+  //在确定时发送行为更新用户信息
   let handleOk = e => {
     props.form.validateFields((err, values) => {
       if (!err) {
-       
         props.updata({'user_name':values.username,user_id:user.user_id,avatar:image}) 
       }
     });
     setFlag(false)
   };
 
+  //点击取消弹窗消失
   let handleCancel = e => {
     setFlag(false)
   };
@@ -85,6 +80,11 @@ function IndexPage(props) {
     // console.log('click ', e);
   };
   let {getFieldDecorator}=props.form
+  console.log(props.myView)
+  // 在获取我的路由之前啥也不渲染
+  if (!props.myView.length){
+    return null;
+  }
   return (
     <div className={styles.layout}>
       <div className={styles.header}>
@@ -102,52 +102,59 @@ function IndexPage(props) {
           </span>
           </Dropdown>
         </div>
+
+        {/**更改用户信息弹框部分 */}
+
         <Modal
           title="更改用户信息"
           visible={flag}
           onOk={handleOk}
           onCancel={handleCancel}
+          cancelText="取消"
+          okText="确定"
         >
-           <div>
-            <label for="file">
-              <span onClick={showModal}>
-                <b>
-                <img src={image?image:props.userInfo.avatar} alt="" style={{width:50,height:50,borderRadius:"50%"}}  /></b> 
-              </span>
-            </label>
-            <input type="file" id="file" name="" style={{display: "none"}} onChange={(e)=>{load(e)}}/>
-            </div>
-            <Form  className="login-form" >
-                    <Form.Item>
-                        {getFieldDecorator('username', 
-                            { 
-                                validateTrigger:"onBlur",
-                                initialValue:user&&user.user_name,
-                                rules: [ { required: true, message: 'Please input your username!' },],         
-                            })(
-                            <Input
-                            prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                            placeholder="用户名"
-                            />,
-                        )}
-                    </Form.Item>
-                    {/* <Form.Item>
-                        {getFieldDecorator('password', 
-                            {   
-                                validateTrigger:"onBlur",
-                                rules: [
-                                        { required: true, message: 'Please input your password!' },
-                                        { pattern:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,16}$/, message: 'Please input your current password!' }
-                                        ],
-                            })(
-                            <Input
-                            prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                            type="password"
-                            placeholder="密码"
-                            />,
-                        )}
-                    </Form.Item> */}
-                    </Form>
+          <div>
+          <label for="file" style={{marginLeft:200}}>
+            <span onClick={showModal}>
+              <b>
+              <img src={image?image:props.userInfo.avatar} alt="" style={{width:50,height:50,borderRadius:"50%"}}   /></b> 
+            </span>
+          </label>
+          <input type="file" id="file" name="" style={{display: "none"}} onChange={(e)=>{load(e)}}/>
+          </div>
+          <Form  className="login-form" layout="inline" style={{textAlign:"right"}}>
+              <Form.Item label="用户名" >
+                  {getFieldDecorator('username', 
+                      { 
+                          validateTrigger:"onBlur",
+                          initialValue:user&&user.user_name,
+                          rules: [ { required: true, message: 'Please input your username!' },],         
+                      })(
+                      <Input
+                      prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                      placeholder="用户名"
+                      style={{width:300,display:"inline"}}
+                      />,
+                  )}
+              </Form.Item>
+              <Form.Item label="密 码" >
+                  {getFieldDecorator('password', 
+                      {   
+                          validateTrigger:"onBlur",
+                          initialValue:"Chenmanjie123!",
+                          rules: [
+                                  { required: true, message: 'Please input your password!' },
+                                  { pattern:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,16}$/, message: 'Please input your current password!' }
+                                  ],
+                      })(
+                      <Input
+                      prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                      type="password"
+                      placeholder="密码"
+                      />,
+                  )}
+              </Form.Item>
+          </Form>
         </Modal>
       </div>
       <div className={styles.layout_content}>
@@ -160,7 +167,7 @@ function IndexPage(props) {
             mode="inline"
             theme="dark"
           >
-            <SubMenu
+            {/* <SubMenu
               key="sub1"
               title={
                 <span>
@@ -220,12 +227,52 @@ function IndexPage(props) {
               }
             >
               <Menu.Item key="11"><Link to="/main/page">待批班级</Link></Menu.Item>
-            </SubMenu>
+            </SubMenu> */}
+             {
+      props.myView.map(item=>{
+        return <SubMenu
+          key={item.name}
+          title={
+            <span>
+              <Icon type="mail" />
+              <span>{props.intl.formatMessage({id: item.name})}</span>
+            </span>
+          }
+        >{
+          item.children.map(value=>{
+            return <Menu.Item key={value.name}>
+              <Link to={value.path}>{props.intl.formatMessage({id: value.name})}</Link>
+            </Menu.Item>
+          })
+        }</SubMenu>
+      })
+    }
           </Menu>
         </div>
         <div className={styles.content}>
           <div className={styles.layout_main}>
-            <Route path="/main/page" component={Page} />
+            <Switch>
+                <Redirect from="/main" exact to="/main/addQuestions"/>
+                {/* 配置用户拥有的路由 */}
+                {
+                  props.myView.map(item=>{
+                    return item.children.map(value=>{
+                      return <Route key={value.name} path={value.path} component={value.component}></Route>
+                    })
+                  })
+                }
+
+                {/* 配置用户禁止访问的路由 */}
+                {
+                  props.forbiddenView.map(item=>{
+                    return <Redirect key={item.path} from={item.path} to="/403"></Redirect>
+                  })
+                }
+
+                {/* 配置不存在的路由 */}
+                <Redirect to="/404"></Redirect>
+            </Switch>
+            {/* <Route path="/main/page" component={Page} />
             <Route path="/main/grade" component={Grade} />
             <Route path="/main/room" component={Room} />
             <Route path="/main/student" component={Student} />
@@ -237,10 +284,9 @@ function IndexPage(props) {
             <Route path="/main/questions/:id" component={Questions} />
             <Route path="/main/adduser" component={AddUser} />
             <Route path="/main/showuser" component={ShowUser} />
-            <Route path="/main/exam/edit" component={ExamEdit} />
-            <Route path="/main/exam/detail" component={ExamDetail} />
-
-          </div>
+            <Route path="/main/edit" component={ExamEdit} />
+            <Route path="/main/detail" component={ExamDetail} /> */}
+            </div>
           {props.global ? <div className={styles.loading}><Spin /></div> : null}
         </div>
 
@@ -249,12 +295,15 @@ function IndexPage(props) {
   );
 }
 const mapState = state => {
+  console.log(state)
   return {
     ...state.checkTheItem,
     global: state.loading.global,
     userInfo:state.login.userInfo,
     mes:state.login.mes,
-    img:state.login.img
+    img:state.login.img,
+    myView:state.login.myView,
+    forbiddenView:state.login.forbiddenView,
   };
 };
 const mapDispatch = dispatch => {

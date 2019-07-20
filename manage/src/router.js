@@ -39,11 +39,17 @@ let RouterView = connect(mapStateToProps)((props) => {
   return (
     <IntlProvider locale={props.locale} messages={localMap[props.locale]}>
       <Router history={props.history}>
-        <Switch>
-          <Route path="/main" component={Main} />
-          <Route path="/login" component={Login} />
-          <Redirect from="/" to="/login"></Redirect>
-        </Switch>
+      <Switch>
+           
+            <Route path="/main"  component={Main} />
+            <Route path="/login" component={Login} />
+            <Route path="/403" render={props=>{
+              return <p>你无权访问当前页面</p>
+            }}></Route>
+            <Route path="/404" render={props=>{
+              return <p>当前页面不存在</p>
+            }}></Route>
+          </Switch>
       </Router>
     </IntlProvider>
   );

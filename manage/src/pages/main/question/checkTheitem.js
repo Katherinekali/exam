@@ -51,6 +51,7 @@ function CheckTheitem(props) {
     updateInd(ind)
     Upchecked(!checked)
     const nextSelectedTags = checked ? [tag] : selectedTags.filter(t => t !== tag);
+    console.log(nextSelectedTags,"============nextSelectedTags")
     //console.log('You are interested in: ', nextSelectedTags);
     UpselextedTags(nextSelectedTags)
     upId(tag)
@@ -76,8 +77,7 @@ function CheckTheitem(props) {
               <CheckableTag
                 className={styles.ant_tag}
                 key={tag.subject_id}
-
-                checked={index === ind}
+                checked={index === ind&&selectedTags[0]!==tag.subject_id}
                 onChange={() => handleChange(tag.subject_id, index)}
               >
                 {tag.subject_text}
@@ -117,7 +117,7 @@ function CheckTheitem(props) {
                 <Col span={8}>
                   <Button type="primary" htmlType="submit" icon="search" style={{ boxSizing: "border-box" }}>
                     查询
-                    </Button>
+                  </Button>
                 </Col>
               </Form.Item>
             </Row>

@@ -51,14 +51,14 @@ function Room(props){
         console.log(props,"3445")
         if(props.room_msg===1){
             message.success("添加成功")  
+            //添加成功后  应该设置为空
             props.addRoom()
-            props.change()
          }else if(props.room_msg===0){
             message.error("添加失败") 
-            props.change()
          }else{
              return
          }
+         props.change()
          props.getRoom()
     },[props.room_msg])
     
@@ -69,6 +69,9 @@ function Room(props){
             // console.log('Received values of form: ', values);
             setFlag(false)
             props.addRoom({room_text:values.info})
+            //重置
+            props.form.resetFields();
+            
           }else{
             message.error("error")
           }
