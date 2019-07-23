@@ -77,7 +77,7 @@ export default {
             return { ...state, students:state.students.concat(action.payload) }
         },
         record(state,action){
-            return {...state,deleteState: action.payload}
+            return {...state,deleteState:-1,students:[]}
         }  
     }
 }

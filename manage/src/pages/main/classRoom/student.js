@@ -22,10 +22,10 @@ function StudentMange(props) {
     useEffect(()=>{
         if(props.deleteState===1){
             message.success('删除成功');
-            props.record()
-            props.getHasStudent()
-            props.getHasNoStudent()
+            props.record()   
         }
+        props.getHasStudent()
+        props.getHasNoStudent()
     },[props.deleteState])
     //点击重置：
     let reset=()=>{
@@ -151,7 +151,6 @@ const mapDispatchToProps = dispatch => {
 		record: () => {
 			dispatch({
                 type: "student/record",
-                payload:-1,
 			})
 		},
 	}
