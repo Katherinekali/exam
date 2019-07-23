@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styles from "./question.scss"
 import Editor from 'for-editor'
+import { injectIntl } from 'react-intl';
 import { Select, Button, Modal, Form, Input, notification, Icon, Spin } from 'antd';
 import { connect } from "dva"
 const { Option } = Select;
@@ -89,12 +90,12 @@ function AddQuestion(props) {
         <div>
 
             <Form onSubmit={handleSubmit}>
-                <h2> {search ? "修改试题" : "添加试题"}</h2>
+                <h2> {search ? props.intl.formatMessage({ id: 'questions.update_questions' }) : props.intl.formatMessage({ id: 'questions.add_questions' })}</h2>
                 <div className={styles.question_content}>
                     <Form.Item>
-                        <h3>题干信息</h3>
+                        <h3>{props.intl.formatMessage({ id: 'questions.Dry_system' })}</h3>
                         <div>
-                            <div><label title="题干"> 题干</label></div>
+                            <div><label title="题干"> {props.intl.formatMessage({ id: 'questions.question_stem' })}</label></div>
                             <div>
                                 {getFieldDecorator('title', { initialValue: search ? detail && detail.title : "" })(
                                     <Input
@@ -107,7 +108,7 @@ function AddQuestion(props) {
                     </Form.Item>
                     <Form.Item>
                         <div>
-                            <div><label title="题干"> 题目主题</label></div>
+                            <div><label title="题干"> {props.intl.formatMessage({ id: 'questions.title_theme' })}</label></div>
                             {getFieldDecorator('questions_stem', { initialValue: search ? detail && detail.questions_stem : "" })(
                                 <Editor></Editor>
                             )}
@@ -119,7 +120,7 @@ function AddQuestion(props) {
                             <Form.Item>
                                 <div><label title="请选择考试类型"> 请选择考试类型：</label></div>
                                 <div>
-                                    {getFieldDecorator('examType', { initialValue: search ? detail && detail.exam_name : (props.examType[0] && props.examType[0].exam_name)})(
+                                    {getFieldDecorator('examType', { initialValue: search ? detail && detail.exam_name : (props.examType[0] && props.examType[0].exam_name) })(
                                         <Select
                                             style={{ width: 200 }}
                                         >
@@ -260,4 +261,4 @@ const mapDispatchToProps = (dispatch) => {
         }
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(AddQuestion))
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Form.create()(AddQuestion)))
