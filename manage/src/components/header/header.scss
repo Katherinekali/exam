@@ -1,0 +1,73 @@
+.header{
+    width: 100%;
+    height: 64px; 
+    display: flex;
+    align-items: center;
+    padding: 0 50px;
+    justify-content: space-between;
+    position: absolute;
+    top:0;
+    left:0;
+    background: #fff;
+}
+.logo{
+    width: 120px;
+    height: 28.2px;
+}
+.logo img{
+    width: 100%;
+}
+.action{
+    display: flex;
+    align-items: center;
+}
+.localeProvider{
+
+}
+.settings{
+   height: 64px;
+   margin-left: 30px;
+}
+.avatar{
+    border:1px solid skyblue;
+    width: 50px;
+    height:50px;
+    display: inline-block;
+    border-radius: 50%;
+    margin-right: 10px;
+    overflow: hidden;
+}
+.avatar img{
+    width: 100%;
+}
+.settings span{
+    display: inline-block;
+    padding: 10px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+}
+.settings :hover{
+    background: #eee;
+}
+.ipt{
+    outline: none;
+    border:0!important;
+    width: 90px;
+    margin-top:10px;
+}
+.chooseImg{
+    display:block;
+    width: 100px;
+    height:100px;
+    border-radius: 50%;
+    overflow: hidden;
+    border:0;
+    // position: absolute;
+    // top:-20px;
+    // left:0;
+}
+.chooseImg img{
+    width: 100%;
+    height: 100%;
+}

@@ -2,7 +2,6 @@ import React,{useState,useEffect} from "react";
 import { connect } from "dva";
 import {  Form, Select,Button, Radio,Table,} from "antd"; 
 import styles from "../addExam.scss"
-import { injectIntl } from 'react-intl';
 import moment from 'moment'; 
 moment.locale('zh-cn');
 function ExamList (props) {
@@ -94,7 +93,7 @@ function ExamList (props) {
    
     return (
         <div>
-            <h2>{props.intl.formatMessage({ id: 'exam.examList' })}</h2>
+            <h2>试卷列表</h2>
             <div className={styles.question_content}>
                 <Form layout="inline">
                     <Form.Item  label="考试类型">
@@ -170,4 +169,4 @@ const mapDispatchToProps = (dispatch) => {
         },
     }
 }
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Form.create()(ExamList)))
+export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(ExamList))

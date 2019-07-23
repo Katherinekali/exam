@@ -1,4 +1,4 @@
-import { User, UserIdentit, UserIdentityApiAuthorityRelation, UserApiAuthority, UserViewAuthority, UserIdentityViewAuthorityRelation } from "../services/index";
+import { User, UserIdentit, UserIdentityApiAuthorityRelation, UserApiAuthority, UserViewAuthority, UserIdentityViewAuthorityRelation } from "../../services/index";
 export default {
     //命名空间
     namespace: "showUser",

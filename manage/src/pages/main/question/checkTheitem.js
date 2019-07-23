@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "dva";
 import styles from "./checkTitem.scss";
-import { injectIntl } from 'react-intl';
 import { Row, Col, Tag, Select, Button, Form } from 'antd';
 const { Option } = Select;
 const { CheckableTag } = Tag;
@@ -58,7 +57,7 @@ function CheckTheitem(props) {
   const { getFieldDecorator } = props.form;
   return (
     <div className={styles.checkTheitemBox}>
-      <h2 className={styles.title}>{props.intl.formatMessage({ id: 'questions.lookQuestions' })}</h2>
+      <h2 className={styles.title}>查看试题</h2>
       <div className={styles.anyLayoutContent}>
         <div className={styles.ant_row}>
           <label style={{ display: "inline-block" }}>
@@ -216,7 +215,7 @@ const mapDispatch = dispatch => {
     }
   };
 };
-export default injectIntl(connect(
+export default connect(
   mapState,
   mapDispatch
-)(Form.create()(CheckTheitem)))
+)(Form.create()(CheckTheitem));

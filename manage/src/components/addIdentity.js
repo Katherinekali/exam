@@ -3,7 +3,6 @@ import { Form, Input,Tag,Button} from 'antd';
 import { connect } from "dva";
 import styles from "./userinfo.scss"
 function AddIdentity(props){
-  console.log(props)
   useEffect(() => {
     if(props.AddidentityMes===1){
       // message.success("添加成功")

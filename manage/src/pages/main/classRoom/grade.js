@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from "dva";
 import "antd/dist/antd.css";
-import { injectIntl } from 'react-intl';
 import { Form, Button, Table, Divider, Modal, Input } from "antd";
 function grade(props) {
 	let [flag, setFlag] = useState(false)
@@ -45,13 +44,13 @@ function grade(props) {
 	const { getFieldDecorator } = props.form;
 	return (
 		<div>
-			<h2>{props.intl.formatMessage({ id: 'classroom.grade' })}</h2>
+			<h2>班级管理</h2>
 			<div>
 				<Button type="primary" icon="plus" onClick={() => { addFn() }} style={{ margin: 20 }}>
 					添加班级
           </Button>
 				<div className="questions_table">
-					<Table columns={columns} dataSource={props.getgrade} size="middle">
+					<Table columns={columns} dataSource={props.getgrade} size="middle" rowKey="grade_name">
 					</Table>
 				</div>
 			</div>
@@ -77,7 +76,7 @@ function grade(props) {
 
 				</Form>
 			</Modal>
-		</div >
+		</div>
 	)
 }
 const mapStateToProps = state => {
@@ -96,7 +95,6 @@ const mapDispatchToProps = dispatch => {
 		// },
 		//已分配教室的班级
 		getassignedgrade: () => {
-			console.log(222)
 			dispatch({
 				type: "grade/assignedroom",
 			})
@@ -123,4 +121,4 @@ const mapDispatchToProps = dispatch => {
 		// }
 	}
 }
-export default injectIntl( connect(mapStateToProps, mapDispatchToProps)(Form.create()(grade)))
+export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(grade))

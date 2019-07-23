@@ -1,4 +1,4 @@
-import {getQuestionsType, addQuestionsType} from "../services/index"
+import {getQuestionsType, addQuestionsType} from "../../services/index"
 export default {
     namespace:'test',
     state: {

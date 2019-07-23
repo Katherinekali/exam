@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styles from "./question.scss"
 import Editor from 'for-editor'
-import { injectIntl } from 'react-intl';
 import { Select, Button, Modal, Form, Input, notification, Icon, Spin } from 'antd';
 import { connect } from "dva"
 const { Option } = Select;
@@ -47,20 +46,18 @@ function AddQuestion(props) {
     let handleSubmit = () => {
         props.form.validateFields((err, values) => {
             if (!err) {
-                let user_id = JSON.parse(localStorage.getItem("userInfor")).data.user_id
+                // console.log(props.userInfor) 以前用本地存储做的
+                // let user_id = JSON.parse(localStorage.getItem("userInfor")).data.user_id
                 let obj = {
                     questions_type_id: values.questionType,
                     questions_stem: values.questions_stem,
                     subject_id: values.subject,
                     exam_id: values.examType,
-                    user_id: user_id,
+                    user_id: props.userInfor.user_id,
                     questions_answer: values.answer,
                     title: values.title
                 }
-                // setInfor(obj)
                 props.addQuestion(obj, edit, search)
-
-
             }
         });
     }
@@ -88,14 +85,13 @@ function AddQuestion(props) {
     let { getFieldDecorator } = props.form
     return (
         <div>
-
             <Form onSubmit={handleSubmit}>
-                <h2> {search ? props.intl.formatMessage({ id: 'questions.update_questions' }) : props.intl.formatMessage({ id: 'questions.add_questions' })}</h2>
+                <h2> {search ? "修改试题" : "添加试题"}</h2>
                 <div className={styles.question_content}>
                     <Form.Item>
-                        <h3>{props.intl.formatMessage({ id: 'questions.Dry_system' })}</h3>
+                        <h3>题干信息</h3>
                         <div>
-                            <div><label title="题干"> {props.intl.formatMessage({ id: 'questions.question_stem' })}</label></div>
+                            <div><label title="题干"> 题干</label></div>
                             <div>
                                 {getFieldDecorator('title', { initialValue: search ? detail && detail.title : "" })(
                                     <Input
@@ -108,9 +104,9 @@ function AddQuestion(props) {
                     </Form.Item>
                     <Form.Item>
                         <div>
-                            <div><label title="题干"> {props.intl.formatMessage({ id: 'questions.title_theme' })}</label></div>
+                            <div><label title="题干"> 题目主题</label></div>
                             {getFieldDecorator('questions_stem', { initialValue: search ? detail && detail.questions_stem : "" })(
-                                <Editor></Editor>
+                                <Editor style={{height:200}}></Editor>
                             )}
 
                         </div>
@@ -120,7 +116,7 @@ function AddQuestion(props) {
                             <Form.Item>
                                 <div><label title="请选择考试类型"> 请选择考试类型：</label></div>
                                 <div>
-                                    {getFieldDecorator('examType', { initialValue: search ? detail && detail.exam_name : (props.examType[0] && props.examType[0].exam_name) })(
+                                    {getFieldDecorator('examType', { initialValue: search ? detail && detail.exam_name : (props.examType[0] && props.examType[0].exam_name)})(
                                         <Select
                                             style={{ width: 200 }}
                                         >
@@ -174,7 +170,7 @@ function AddQuestion(props) {
                     <h3>答案信息</h3>
                     <div>
                         {getFieldDecorator('answer', { initialValue: search ? detail && detail.questions_answer : "" })(
-                            <Editor></Editor>
+                            <Editor style={{height:200}}></Editor>
                         )}
                     </div>
                     <div>
@@ -210,7 +206,7 @@ const mapStateToProps = (state) => {
         addState: state.question.addState,
         addTime: state.question.addTime,
         detail: state.question.detail,
-        // addTime: state.question.addTime,
+        userInfor:state.login.userInfo.data,
         ...state.checkTheItem
     }
 }
@@ -261,4 +257,4 @@ const mapDispatchToProps = (dispatch) => {
         }
     }
 }
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Form.create()(AddQuestion)))
+export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(AddQuestion))

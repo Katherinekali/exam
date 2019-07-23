@@ -9,7 +9,6 @@ function AddIdentityPort(props){
     const handleSubmit = () => {
         props.form.validateFields((err, values) => {
           if (!err) {
-            console.log('Received values of form: ', values);
             props.setViewPort({identity_id:identity,view_authority_id:api})
           }
         });

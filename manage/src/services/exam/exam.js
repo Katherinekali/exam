@@ -1,4 +1,4 @@
-import request from '../utils/request';
+import request from '../../utils/request';
 //创建试卷
 export function addExam(params) {
   return request.post('/exam/exam',params);

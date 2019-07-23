@@ -1,8 +1,8 @@
 import React,{useState,useEffect} from "react"
 import { Modal, Button,Table,Input,message,Form,Popconfirm} from 'antd';
 import {connect} from "dva"
-import { injectIntl } from 'react-intl';
 import "../question/question.css"
+
 function Room(props){
     useEffect(()=>{
         props.getRoom()
@@ -32,7 +32,6 @@ function Room(props){
       ];
     const [flag, setFlag] = useState(false);
     const { getFieldDecorator } =props.form;
-
     //设置弹框
     const addFn=()=>{
         setFlag(true)
@@ -40,12 +39,10 @@ function Room(props){
     const hideModal=()=>{
         setFlag(false)
     }
-
     //获取初始教室数据
     useEffect(()=>{
         setDataSource(props.roomData)
     },[props.roomData])
-
     //显示弹框信息
     useEffect(()=>{
         if(props.room_msg===1){
@@ -72,7 +69,7 @@ function Room(props){
     };
     return (
         <div>
-            <h2>{props.intl.formatMessage({ id: 'classroom.room' })}</h2>
+            <h2>教室管理</h2>
             <div className="question_content">
             <Button type="primary" icon="plus" onClick={()=>{addFn()}}>
                 添加教室
@@ -134,4 +131,4 @@ let mapDispatchToProps=dispatch=>{
     }
 
 }
-export default injectIntl(connect(mapStateToProps,mapDispatchToProps)(Form.create()(Room)))
+export default connect(mapStateToProps,mapDispatchToProps)(Form.create()(Room))

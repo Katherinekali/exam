@@ -1,4 +1,4 @@
-import request from "../utils/request";
+import request from "../../utils/request";
 //所有课程
 export function Alllessons(){
   return request.get("/exam/subject")

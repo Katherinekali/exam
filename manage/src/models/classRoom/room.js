@@ -1,5 +1,5 @@
 //教室管理
-import {getRoom,AddRoom,DelRoom} from "../services/index"
+import {getRoom,AddRoom,DelRoom} from "../../services/index"
 export default {
     namespace: 'room',
     state: {
@@ -36,8 +36,7 @@ export default {
        
       },
       *delRoom({ payload }, { call, put }) {  // eslint-disable-line
-        let data=yield call(DelRoom,payload) 
-        console.log(data)
+        // let data=yield call(DelRoom,payload) 
         //把值返回去
         // yield put({
         //     type:"Room_Msg",

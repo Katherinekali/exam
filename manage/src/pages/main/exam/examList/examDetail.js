@@ -1,14 +1,13 @@
-import React, { useEffect } from 'react'
-import { connect } from "dva"
+import React,{useEffect} from 'react'
+import {connect} from "dva"
 import styles from "../addExam.scss"
 import ReactMarkdown from "react-markdown";
-import { injectIntl } from 'react-intl';
-function examDetail(props) {
+function examDetail (props) {
     // let [detail,setDetail]=useState({})
-    useEffect(() => {
-        let id = props.location.search.split("=")[1]
-        props.getDetail(id)
-    }, [])
+    useEffect(()=>{
+        let id=props.location.search.split("=")[1]
+         props.getDetail(id)
+    },[])
     return (
         <div>
             <h2>试卷详情</h2>
@@ -16,11 +15,11 @@ function examDetail(props) {
                 <div className={styles.content_left}>
                     <div>
                         {
-                            props.detailData.map((item, index) => {
+                           props.detailData.map((item,index)=>{
                                 return <div key={index}>
-                                    <h4>{index + 1}:{item.title}</h4>
-                                    <div>
-                                        <ReactMarkdown source={item.questions_stem} className={styles.question_list} />
+                                    <h4>{index+1}:{item.title}</h4>
+                                    <div>     
+                                        <ReactMarkdown source={item.questions_stem} className={styles.question_list}/>
                                     </div>
                                 </div>
                             })
@@ -34,10 +33,10 @@ function examDetail(props) {
 }
 const mapStateToProps = (state) => {
     return {
-        detailData: state.exam.detailData,
+       detailData:state.exam.detailData,
     }
-}
-const mapDispatchToProps = (dispatch) => {
+  }
+  const mapDispatchToProps = (dispatch) => {
     return {
         getDetail(payload) {
             dispatch({
@@ -45,7 +44,7 @@ const mapDispatchToProps = (dispatch) => {
                 payload,
             })
         },
-
+       
     }
-}
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(examDetail))
+  }
+export default connect(mapStateToProps, mapDispatchToProps)(examDetail)

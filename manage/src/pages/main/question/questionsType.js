@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { Modal, Button, Table, Input, message, Form } from 'antd';
 import { connect } from "dva"
-import { injectIntl } from 'react-intl';
 import "./questionsType.css"
 const { Column } = Table;
 function QuestionsType(props) {
@@ -37,7 +36,7 @@ function QuestionsType(props) {
     }, [props.message])
     return (
         <div>
-            <h2>{props.intl.formatMessage({ id: 'questions.classification' })}</h2>
+            <h2>试题分类</h2>
             <div style={{ background: "#fff" }}>
                 <Button type="primary" icon="plus" onClick={() => { addFn() }} style={{ margin: 20 }}>
                     添加类型
@@ -95,4 +94,4 @@ let mapDispatchToProps = dispatch => {
     }
 
 }
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Form.create()(QuestionsType)))
+export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(QuestionsType))

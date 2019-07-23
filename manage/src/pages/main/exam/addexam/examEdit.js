@@ -3,7 +3,7 @@ import {connect} from "dva"
 import { Drawer, Button,Modal} from 'antd';
 import style from "../addExam.scss"
 import styles from "../addExam.scss"
-import { injectIntl } from 'react-intl';
+
 import ReactMarkdown from "react-markdown";
 //添加新题的组件
 import NewQuestion from "../../../../components/addQuestion/addQuestionToexam"
@@ -112,6 +112,7 @@ function examEdit (props) {
     )
 }
 const mapStateToProps = (state) => {
+    console.log(state.exam)
     return {
        upstate:state.exam.upDate
     }

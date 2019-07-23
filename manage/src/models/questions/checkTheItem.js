@@ -1,4 +1,4 @@
-import { CheckAll, Alllessons, Allexamtype, QuestionsType, Conditionquery } from "../services/index";
+import { CheckAll, Alllessons, Allexamtype, QuestionsType, Conditionquery } from "../../services/index";
 export default {
   //命名空间
   namespace: "checkTheItem",

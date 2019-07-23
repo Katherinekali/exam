@@ -1,0 +1,8 @@
+.top{
+    width: 100%;
+    height: 40px;
+    background: pink;
+}
+.top input{
+    width: 300px;
+}

@@ -1,4 +1,4 @@
-import {examType,subject,questionsType,addquestions,editquestions,getDetail} from "../services/index"
+import {examType,subject,questionsType,addquestions,editquestions,getDetail} from "../../services/index"
 export default {
   //命名空间：
   namespace: 'question',
@@ -13,7 +13,7 @@ export default {
   },
   //异步方法：
   effects: {
-    *examType({}, { call, put }) {  //  考试类型
+    *examType({payload=null}, { call, put }) {  //  考试类型
           let data=yield call(examType)  
           if(data.code===1){
             sessionStorage.setItem("examType",JSON.stringify(data.data))

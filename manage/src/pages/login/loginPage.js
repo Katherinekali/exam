@@ -2,7 +2,6 @@ import React ,{useEffect}from 'react'
 import "./loginPage.scss"
 import {Form, Icon, Input, Button, Checkbox,message } from 'antd';
 import {connect} from "dva"
-
 function Login (props){
 //注意：只有当第二个参数里的值发生改变的时候，才执行第一个参数里面的代码    
     useEffect(()=>{
@@ -25,7 +24,6 @@ function Login (props){
             props.login({'user_name':values.username,'user_pwd':values.password}) 
           }
         });
-
     }
     let {getFieldDecorator}=props.form
     return (
