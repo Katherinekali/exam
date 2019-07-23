@@ -7,11 +7,12 @@ const { Option } = Select;
 const { CheckableTag } = Tag;
 
 function CheckTheitem(props) {
-  let [selectedTags, UpselextedTags] = useState([])
-  let [checked, Upchecked] = useState(false)
-  let [checkeds, Upcheckeds] = useState(false)
-  let [id, upId] = useState("")
-  let [ind, updateInd] = useState(-1)
+  //点击全选，让所有标签都选中
+  let [checkall, setCheckAll] = useState(false)
+  //选中的课程类型
+  const [checkedCon, setCheckedCon] = useState('')
+  let [id] = useState("")
+ 
   useEffect(() => {
     props.getData();
     props.getAllLessons();//类型
@@ -19,6 +20,11 @@ function CheckTheitem(props) {
     props.getQuestionsType();//题目类型
     props.refer();//条件查询
   }, []);
+
+  let { allthelessons } = props
+  let tagsFromServer = ['All'];
+  //所有的课程类型
+  tagsFromServer = tagsFromServer.concat(allthelessons && allthelessons.map(item => item.subject_text))
   // 查询    获取select选中的值
   let handleSubmit = (e) => {
     e.preventDefault()
@@ -29,13 +35,7 @@ function CheckTheitem(props) {
       }
     });
   };
-  //All
-  let checkedAll = () => {
-    // console.log(123)
-    props.getData();
-    Upcheckeds(!checkeds)
-
-  }
+ 
   //详情传参
   let detail = (detail) => {
     props.detailInfo(detail)
@@ -47,15 +47,16 @@ function CheckTheitem(props) {
     })
   }
   //选中状态  subject_id
-  let handleChange = (tag, ind) => {
-    updateInd(ind)
-    Upchecked(!checked)
-    const nextSelectedTags = checked ? [tag] : selectedTags.filter(t => t !== tag);
-    console.log(nextSelectedTags,"============nextSelectedTags")
-    //console.log('You are interested in: ', nextSelectedTags);
-    UpselextedTags(nextSelectedTags)
-    upId(tag)
-  };
+  let handleChange = (tag, checked) => {
+    console.log(tag, checked)
+    if (tag === "All") {
+      setCheckAll(!checkall)
+      setCheckedCon('')
+    } else {
+      setCheckedCon(tag)
+      // setSubjectId(allthelessons && allthelessons.filter(item => item.subject_text === tag)[0].subject_id)
+    }
+  }
   // // 从Form高阶组件中拿到校验组件
   const { getFieldDecorator } = props.form;
   return (
@@ -66,21 +67,17 @@ function CheckTheitem(props) {
           <label style={{ display: "inline-block" }}>
             课程类型:
           </label>
-          <CheckableTag
-            onChange={checkedAll}
-            className={checkeds ? "ant_active" : ""}
-
-          >All</CheckableTag>
-          {props.allthelessons && props.allthelessons.map((tag, index) => {
-            // console.log(tag.subject_text)
+         
+          {tagsFromServer && tagsFromServer.map((tag, index) => {
             return (
               <CheckableTag
                 className={styles.ant_tag}
-                key={tag.subject_id}
-                checked={index === ind&&selectedTags[0]!==tag.subject_id}
-                onChange={() => handleChange(tag.subject_id, index)}
+                key={tag}
+                checked={checkedCon === tag}
+                className={checkall ? styles['ant-tag-checkable-checked'] : ''}
+                onChange={checked => handleChange(tag, checked)}
               >
-                {tag.subject_text}
+                {tag}
               </CheckableTag>
             )
           })}

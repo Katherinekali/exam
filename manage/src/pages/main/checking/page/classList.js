@@ -16,7 +16,7 @@ function ClassList(props) {
         let {history}=props;
         //注意的问题  跳转页面过去要使得页面刷新传过去的id和班级都存在
         sessionStorage.setItem('paperInfo',JSON.stringify({id:key.grade_id,grade:key.grade_name}));// 存入到sessionStorage中
-        history.push({pathname:'/main/page/testPaper',state:{id:key.grade_id,grade:key.grade_name}})
+        history.push({pathname:'/main/testPaper',state:{id:key.grade_id,grade:key.grade_name}})
     };
     const changePage = (current) => {
         setPage(current)

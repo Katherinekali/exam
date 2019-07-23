@@ -79,9 +79,9 @@ function Room(props){
     };
     return (
         <div>
-            <h2>教室管理</h2>
-            <div className="question_content">
-            <Button type="primary" icon="plus" onClick={()=>{addFn()}}>
+            <h2 >教室管理</h2>
+            <div className="question_content" style={{background:"#fff",borderRadius:"10px"}}>
+            <Button type="primary" icon="plus" onClick={()=>{addFn()}} style={{margin:"20px",width:158,height:40}}>
                 添加教室
             </Button>
             <div className="questions_table" >

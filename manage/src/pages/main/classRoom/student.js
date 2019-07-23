@@ -76,7 +76,7 @@ function StudentMange(props) {
                     <Form.Item>
                         <Button type="primary" style={{ width: 120 }} onClick={search}>
                             搜索
-                    </Button>
+                        </Button>
                         <Button type="primary" style={{ width: 120, marginLeft: 20 }} onClick={reset}>
                             重置
                     </Button>

@@ -44,6 +44,7 @@ function AddQuestion(props) {
             content: '恭喜你添加成功',
             okText: "我知道了"
         });
+       
     }
     let handleSubmit = () => {
         props.form.validateFields((err, values) => {
@@ -58,8 +59,8 @@ function AddQuestion(props) {
                     questions_answer: values.answer,
                     title: values.title
                 }
-                // setInfor(obj)
                 props.addQuestion(obj, edit, search)
+               
 
 
             }
@@ -79,6 +80,7 @@ function AddQuestion(props) {
     useEffect(() => {
         if (props.addState === 1) {
             success()
+            props.form.resetFields();
         } else if (props.addState === -1) {
             return
         } else {

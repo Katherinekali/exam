@@ -35,6 +35,7 @@ export default {
             }))
           }
         }
+        //如果登陆成功后再去获取用户信息
         if(getToken()){
           dispatch({
             type:"getUserInfo"
@@ -96,23 +97,11 @@ export default {
             type:"updateImg",
             payload:data.data[0].path
           })
-
-        // let userInfo=yield select(state=>state.login.userInfo)
-        // if(Object.keys(userInfo).length){
-        //   yield put({
-        //     type:"updateUser",
-        //     payload:{user_id:userInfo.user_id,avatar:data.data[0].path}
-        //   })
-        // }
       }
     },
     *updateUser({payload},{call,put}){
-      console.log(payload,"11111")
-
       let data=yield updateUser(payload)
-      console.log(data)
       let data1=yield getUserInfo()
-      console.log(data,"=================")
       yield put({
         type:"updateUserInfo",
         payload:data1.data
@@ -143,15 +132,23 @@ export default {
 
     },
     updateViewAuthority(state, action){
-      // 筛选出我拥有的路由
-      let myView = [], forbiddenView = [];
+      let myView = [],// 筛选出我拥有的路由
+      forbiddenView = []; //筛选出没有权限的路由
       allAuthority.routes.forEach(item=>{
+        //对所有路由进行遍历
+
+        //item不是路由   [试卷管理、用户管理、教室管理、批卷管理]只是渲染文字
+        //item.children才是真正的路由
+
+        
         let obj = {
           name: item.name,
           children: []
         }
         item.children.forEach(value=>{
+          //action.payload 是所有的用户权限信息  value配置路由信息里面的每一项
           if (action.payload.findIndex(item=>item.view_id === value.view_id) !== -1){
+            //如果存在就可以找到下标，如果不存在就返回-1
             obj.children.push(value);
           }else{
             forbiddenView.push(value);

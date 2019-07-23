@@ -1,36 +1,36 @@
 
-  :global  .question_content {
+  .question_content {
     flex: 1;
     background: #fff;
-    padding: 24px;
+    padding: 30px;
     margin:0 0 20px;
     border-radius: 10px;
   }
   
-  :global .questions_wrapper h2 {
+  .questions_wrapper h2 {
     padding: 10px 0;
     margin: 10px 0;
   }
   
-  :global .questions_table {
+  .questions_table {
     margin-top: 30px;
   }
   
-  :global .ant-modal-header {
+  .ant-modal-header {
     border-bottom: none;
   }
   
-  :global .ant-input {
-    border: none;
-    border-bottom: 1px solid #ccc;
+   .ant_input {
+    border: none !important;
+    border-bottom: 1px solid #ccc !important;
   }
   
-  :global .ant-modal-footer {
+  .ant-modal-footer {
     display: flex;
     border-top: none;
     justify-content: center;
   }
-  :global .ant-modal-title{
+ .ant-modal-title{
     text-align: center;
 
   }

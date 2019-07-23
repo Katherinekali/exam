@@ -1,19 +1,21 @@
-// import Main from '../pages/main/main';
-// import Login from "../pages/login/loginPage"
 import Page from '../pages/main/checking/page';
 import Grade from "../pages/main/classRoom/grade"
 import Room from "../pages/main/classRoom/room"
 import Student from "../pages/main/classRoom/student"
 import AddExam from "../pages/main/exam/addexam/addExam"
 import ExamList from "../pages/main/exam/examList/eaxmList"
-import AddQuestion from "../pages/main/question/addQuestion"
-import QuestionType from "../pages/main/question/questionsType"
-import WatchQuestion from "../pages/main//question/checkTheitem"
-// import Questions from "../pages/main/question/questions/questions"
+import AddQuestion from "../pages/main/question/addQuestions/addQuestion"
+import QuestionType from "../pages/main/question/questionsType/questionsType"
+import WatchQuestion from "../pages/main//question/CheckTheitem/checkTheitem"
+import Questions from "../pages/main/question/questions/questions"
 import AddUser from "../pages/main/user/addUser"
 import ShowUser from "../pages/main/user/showUser"
-// import ExamEdit from "../pages/main/exam/addexam/examEdit"
-// import ExamDetail from "../pages/main/exam/examList/examDetail"
+import ExamEdit from "../pages/main/exam/addexam/examEdit"
+import ExamDetail from "../pages/main/exam/examList/examDetail"
+import TestPaper from "../pages/main/checking/page/testPaper";
+import Detail from "../pages/main/checking/page/detail"
+import ClassList from "../pages/main/checking/page/classList";
+import Excel from "../pages/main/user/excel/index"
 export default {
     routes: [{
       name: 'router.questions',
@@ -33,6 +35,11 @@ export default {
         path: '/main/watchquestion',
         view_id: 'main-addQuestions',
         component: WatchQuestion
+      },{
+        name: "",
+        path: '/main/questions',
+        view_id: 'main-questionsDetail',
+        component: Questions
       }]
     },{
         name: 'router.user',
@@ -47,6 +54,11 @@ export default {
           path: '/main/showuser',
           view_id: 'main-showUser',
           component: ShowUser
+        },{
+          name: '',
+          path: '/main/excel',
+          view_id: 'main',
+          component: Excel
         }]
       },{
         name: 'router.exam',
@@ -61,7 +73,20 @@ export default {
           path: '/main/examlist',
           view_id: 'main-questionsDetail',
           component: ExamList
-        }]
+        },
+        {
+          name: '',
+          path: '/main/edit',
+          view_id: 'main-examEdit',
+          component: ExamEdit
+        },
+        {
+          name: '',
+          path: '/main/detail/:id',
+          view_id: 'main-examDetail',
+          component: ExamDetail
+        }
+      ]
       },{
         name: 'router.classroom',
         path: '',
@@ -88,8 +113,20 @@ export default {
           name: 'router.classroom.class',
           path: '/main/page',
           view_id: 'main-examPaperClassmate',
-          component: Page
-        }]
+          component: ClassList
+        },
+        {
+          name: '',
+          path: '/main/testPaper',
+          view_id: 'main-examPaperClassList',
+          component: TestPaper
+        },{
+          name: '',
+          path: '/main/paperDetail/:id',
+          view_id: 'main-examPaperClassmate',
+          component: Detail
+        }
+       ]
       }]
   }
 

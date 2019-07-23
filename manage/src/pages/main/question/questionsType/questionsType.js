@@ -1,8 +1,12 @@
+/**
+ * 试题分类页面
+ * 主要功能：1.渲染试题类型 2.添加数据类型
+ */
 import React, { useState, useEffect } from "react"
 import { Modal, Button, Table, Input, message, Form } from 'antd';
 import { injectIntl } from 'react-intl';
 import { connect } from "dva";
-import "./questionsType.css";
+import styles from  "./questionsType.css";
 const { Column } = Table;
 
 function QuestionsType(props) {
@@ -25,7 +29,8 @@ function QuestionsType(props) {
         });
     };
     const paginationProps = {
-        pageSize: 10
+        pageSize: 10,
+
     }
     useEffect(() => {
         props.getType()
@@ -39,13 +44,13 @@ function QuestionsType(props) {
     return (
         <div>
             <h2>{props.intl.formatMessage({ id: 'questions.classification' })}</h2>
-            <div style={{ background: "#fff" }}>
-                <Button type="primary" icon="plus" onClick={() => { addFn() }} style={{ margin: 20 }}>
+            <div style={{ background: "#fff" }} className={styles.question_content}>
+                <Button type="primary" icon="plus" onClick={() => { addFn() }} style={{ margin:5,width:158,height:40,background:"blue" }}>
                     添加类型
-            </Button>
-                <div className="questions_table">
+                </Button>
+                <div className={styles.questions_table}>
                     {
-                        props.questionsType && <Table rowKey="questions_type_id" dataSource={props.questionsType} pagination={paginationProps}>
+                        props.questionsType && <Table rowKey="questions_type_id" dataSource={props.questionsType} pagination={false}>
                             <Column title="类型ID" dataIndex="questions_type_id" />
                             <Column title="类型名称" dataIndex="questions_type_text" />
                             <Column title="操作" dataIndex="" />
@@ -61,12 +66,12 @@ function QuestionsType(props) {
                 okText="确认"
                 cancelText="取消"
             >
-                <Form className="login-form">
+                <Form className={styles.login_form}>
                     <Form.Item>
                         {getFieldDecorator('info', {
                             rules: [{ required: true, message: 'Please input your questionsType!' }],
                         })(
-                            <Input placeholder="questionsType" />
+                            <Input placeholder="questionsType" className={styles.ant_input}/>
                         )}
                     </Form.Item>
                 </Form>

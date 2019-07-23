@@ -31,7 +31,7 @@ function ClassMate(props){
          let {history}=props;
         // //注意的问题  跳转页面过去要使得页面刷新传过去的id和班级都存在
         sessionStorage.setItem('studentInfo',JSON.stringify({id:key.exam_student_id,name:key.student_name}));// 存入到sessionStorage中
-        history.push({pathname:`/main/page/detail/${key.exam_student_id}`,state:{id:key.exam_student_id,name:key.student_name}})
+        history.push({pathname:`/main/paperDetail/${key.exam_student_id}`,state:{id:key.exam_student_id,name:key.student_name}})
     };
     const changePageSize = () => {
 
