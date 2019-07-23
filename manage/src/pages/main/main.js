@@ -43,7 +43,7 @@ function IndexPage(props) {
         {props.intl.formatMessage({ id: 'personage.log_out' })}
       </Menu.Item>
     </Menu>
-
+    
   );
   let load = (e, res) => {
     let formData = new FormData();
