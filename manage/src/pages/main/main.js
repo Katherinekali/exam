@@ -14,7 +14,8 @@ import WatchQuestion from "./question/checkTheitem"
 import Questions from "./question/questions/questions"
 import AddUser from "./user/addUser"
 import ShowUser from "./user/showUser"
-import Page from './checking/page';
+import Page from './checking/page'
+import Execl from "./execl/execl"
 import ExamEdit from "./exam/addexam/examEdit"
 import ExamDetail from "./exam/examList/examDetail"
 import { injectIntl } from 'react-intl';
@@ -147,6 +148,7 @@ function IndexPage(props) {
               }
             >
               <Menu.Item key="11"><Link to="/main/page">待批班级</Link></Menu.Item>
+              <Menu.Item key="12"><Link to="/main/execl">导入导出</Link></Menu.Item>
             </SubMenu>
           </Menu>
         </div>
@@ -166,6 +168,7 @@ function IndexPage(props) {
             <Route path="/main/showuser" component={ShowUser} />
             <Route path="/main/examEdit" component={ExamEdit} />
             <Route path="/main/examDetail" component={ExamDetail} />
+            <Route path="/main/execl" component={Execl} />
           </div>
           {props.global ? <div className={styles.loading}><Spin /></div> : null}
         </div>
