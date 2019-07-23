@@ -16,6 +16,8 @@ import Room from "../pages/main/classRoom/room"
 import Student from "../pages/main/classRoom/student"
 import Page from '../pages/main/checking/page';
 import Excel from "../pages/main/checking/excel"
+import TestPaper from "../pages/main/checking/page/testPaper";
+import Detail from "../pages/main/checking/page/detail"
 //配置；路由表：
 export default {
     routes:[
@@ -146,6 +148,17 @@ export default {
                     component:Excel,
                     view_id:"main-grade"
                 },
+                {
+                    name: '',
+                    path: '/main/testPaper',
+                    view_id: 'main-examPaperClassList',
+                    component: TestPaper
+                  },{
+                    name: '',
+                    path: '/main/paperDetail/:id',
+                    view_id: 'main-examPaperClassmate',
+                    component: Detail
+                  }
             ]
          },
     ]
